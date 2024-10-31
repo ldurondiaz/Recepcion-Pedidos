@@ -1,0 +1,44 @@
+#container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+:host {
+  --max-height: 50vh; /* Altura máxima del modal */
+  --height: auto; /* Altura automática según el contenido */
+}
+
+ion-content {
+  --max-height: 300vh; /* Altura máxima del contenido dentro del modal */
+  --overflow: hidden; /* Eliminar el scroll interno */
+}
+
+ion-buttons {
+  ion-button:hover {
+    --background: var(--ion-color-close);
+    --color: var(--ion-color-close-contrast);
+  }
+}
+
+ion-button {
+  --background: var(--ion-color-tertiary);
+  --color: var(--ion-color-tertiary-contrast);
+}
+
+ion-title {
+  font-size: 1.00rem;
+}
+
+.boton {
+  text-align: center;
+}
+
+ion-row {
+  padding: 3.00rem 0 2.00rem 0;
+  ion-col {
+    padding: 2.00rem 1.00rem 1.00rem 1.00rem;
+  }
+}

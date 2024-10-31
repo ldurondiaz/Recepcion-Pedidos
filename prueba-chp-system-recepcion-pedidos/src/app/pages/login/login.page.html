@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cheese Pizza Recepción de Pedidos Móviles
+      <label>({{titulo}})</label>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="container">
+    <form [formGroup]="credencialesForma" (ngSubmit)="onSubmit()">
+      <ion-grid fixed>
+        <ion-row class="logo">
+          <ion-col size-sm="12" size-md="4" size-lg="3" size-xl="3" size="12">
+            <img
+              src="assets/img/char-paleta-pizza.png"
+              alt="Cheese Pizza Logo"
+              style="height: auto; width: 200px; object-fit: contain"
+            />
+          </ion-col>
+          <ion-col size-sm="12" size-md="8" size-lg="9" size-xl="9" size="12">
+            <strong class="titulo"> Módulos de Recepción de Pedidos </strong>
+          </ion-col>
+          <!--/ion-row>
+        <ion-row-->
+          <ion-col size="12">
+            <strong class="subtitulo">{{titulo}}</strong>
+          </ion-col>
+          <!--/ion-row->
+        <ion-row-->
+          <ion-col size="12">
+            <strong>Ingresa con tu nombre de usuario y contraseña</strong>
+          </ion-col>
+          <!--/ion-row->
+        <ion-row-->
+          <ion-col size="12">
+            <ion-input
+              label="Nombre de Usuario"
+              label-placement="floating"
+              fill="outline"
+              formControlName="usuario"
+              maxlength="50"
+              errorText="Nombre de Usuario no válido"
+            ></ion-input>
+          </ion-col>
+          <!--/ion-row->
+        <ion-row-->
+          <ion-col size="12">
+            <ion-input value="123456"
+              label="Contraseña"
+              label-placement="floating"
+              fill="outline"
+              type="password"
+              formControlName="contrasenia"
+              maxlength="20"
+              errorText="Contraseña no válida"
+            ></ion-input>
+          </ion-col>
+          <!--/ion-row>
+        <ion-row-->
+          <ion-col size="12" class="boton">
+            <ion-button
+              type="submit"
+              [disabled]="!credencialesForma.valid"
+              expand="small"
+              >Ingresar</ion-button
+            >
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </div>
+</ion-content>

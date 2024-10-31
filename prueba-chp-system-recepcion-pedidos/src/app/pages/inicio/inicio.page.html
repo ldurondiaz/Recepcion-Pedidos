@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Cheese Pizza Recepción de Pedidos Móviles <label>(Inicio)</label></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if(showSpinner){
+    <div class="spinner-container">
+      <ion-spinner name="lines"></ion-spinner>
+    </div>
+  }
+  <div id="container">
+    <ion-grid fixed>
+      <ion-row class="logo">
+        <ion-col size-sm="12" size-md="4" size-lg="3" size-xl="3" size="12">
+          <img
+            src="assets/img/char-paleta-pizza.png"
+            alt="Cheese Pizza Logo"
+            style="height: auto; width: 200px; object-fit: contain"
+          />
+        </ion-col>
+        <ion-col size-sm="12" size-md="8" size-lg="9" size-xl="9" size="12">
+          <strong class="titulo"> Módulos de Recepción de Pedidos </strong>
+          <br /><br />
+          <!--strong class="subtitulo">{{ sucursal?.nombre || 'Cargando...' }}</!strong-->
+          <strong class="subtitulo">{{ sucursal?.nombre || '' }}</strong>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Cheese Pizza Recepción de Pedidos <label>(Menú Principal)</label></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Cheese Pizza Recepción de Pedidos (menu)</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div id="container">
+    <ion-grid fixed>
+      <ion-row class="logo">
+        <ion-col size-sm="12" size-md="4" size-lg="3" size-xl="3" size="12">
+          <img
+            src="assets/img/char-paleta-pizza.png"
+            alt="Cheese Pizza Logo"
+            style="height: auto; width: 200px; object-fit: contain"
+          />
+        </ion-col>
+        <ion-col size-sm="12" size-md="8" size-lg="9" size-xl="9" size="12">
+          <strong class="titulo"> Módulos de Recepción de Pedidos </strong>
+          <br /><br />
+          <!--strong class="subtitulo">{{ sucursal?.nombre || 'Cargando...' }}</!strong-->
+          <strong class="subtitulo">{{ sucursal?.nombre || '' }}</strong>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="botonPedidos" size="12">
+          <ion-button
+            [disabled]="botonPedidos"
+            (click)="irAPedidos()"
+          >Pedidos
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="botonConfiguracion" size-sm="12" size-md="6" size-lg="6" size-xl="6" size="12">
+          <ion-button
+            [disabled]="botonConfiguracion"
+            (click)="irAConfiguracion()"
+          >Configuración
+          </ion-button>
+        </ion-col>
+        <ion-col class="botonEmpleados" size-sm="12" size-md="6" size-lg="6" size-xl="6" size="12">
+            <ion-button id="open-modal"
+            [disabled]="botonEmpleados"
+            (click)="irAEmpleados()"
+            >Empleados
+            </ion-button>
+            <ion-modal #modal trigger="open-modal" [presentingElement]="presentingElement">
+              <ng-template>
+                <app-login></app-login>
+              </ng-template>
+            </ion-modal>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

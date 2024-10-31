@@ -1,0 +1,182 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Cheese Pizza Recepción de Pedidos Móviles
+      <label>(Empleados)</label>
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar class="toolbaragregar">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-icon name="add-outline" (click)="agregar()"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">empleados</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-grid>
+    <ion-row>
+      <!-- Primera tarjeta -->
+      <ion-col size-sm="12" size-md="6" size-lg="4" size-xl="3" size="12">
+        <ion-card class="custom-card">
+          <ion-img src="assets/img/usuario.png" class="card-image"></ion-img>
+          <ion-card-header>
+            <ion-card-title>Luis Gerardo</ion-card-title>
+            <ion-card-subtitle>Mostrador</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="activo">Activo:
+              <ion-img src="assets/img/activo-no.png" class="custom-image"></ion-img>
+            </div>
+            <label>Domicilio:</label><p>Calle Encino #123, Fracc. Arboledas</p>
+            <label>Tele´fono:</label><p>449 999 9999</p>
+            <label>Ingreso:</label><p>01/01/2021</p>
+          </ion-card-content>
+          <ion-footer>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="6" class="editar">
+                  <ion-icon name="pencil-outline" (click)="editar()"></ion-icon>
+                </ion-col>
+                <ion-col size="6" class="eliminar">
+                  <ion-icon name="trash-outline" (click)="eliminar()"></ion-icon>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-footer>
+        </ion-card>
+      </ion-col>
+      <!-- Segunda tarjeta -->
+      <ion-col size-sm="12" size-md="6" size-lg="4" size-xl="3" size="12">
+        <ion-card class="custom-card">
+          <ion-img src="assets/img/usuario.png" class="card-image"></ion-img>
+          <ion-card-header>
+            <ion-card-title>José Luis</ion-card-title>
+            <ion-card-subtitle>Cocina</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="activo">Activo:
+              <ion-img src="assets/img/activo-si.png" class="custom-image"></ion-img>
+            </div>
+            <label>Domicilio:</label><p>Calle Estrella #287, Fracc. Espacio</p>
+            <label>Tele´fono:</label><p>449 999 9999</p>
+            <label>Ingreso:</label><p>01/02/2021</p>
+          </ion-card-content>
+          <ion-footer>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="6" class="editar">
+                  <ion-icon name="pencil-outline" (click)="editar()"></ion-icon>
+                </ion-col>
+                <ion-col size="6" class="eliminar">
+                  <ion-icon name="trash-outline" (click)="eliminar()"></ion-icon>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-footer>
+        </ion-card>
+      </ion-col>
+      <!-- Tercera tarjeta -->
+      <ion-col size-sm="12" size-md="6" size-lg="4" size-xl="3" size="12">
+        <ion-card class="custom-card">
+          <ion-img src="assets/img/usuario.png" class="card-image"></ion-img>
+          <ion-card-header>
+            <ion-card-title>José Luis Mondra</ion-card-title>
+            <ion-card-subtitle>Cocina</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="activo">Activo:
+              <ion-img src="assets/img/activo-si.png" class="custom-image"></ion-img>
+            </div>
+            <label>Domicilio:</label><p>Calle Orión #429, Fracc. Espacio</p>
+            <label>Tele´fono:</label><p>449 999 9999</p>
+            <label>Ingreso:</label><p>01/03/2021</p>
+          </ion-card-content>
+          <ion-footer>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="6" class="editar">
+                  <ion-icon name="pencil-outline" (click)="editar()"></ion-icon>
+                </ion-col>
+                <ion-col size="6" class="eliminar">
+                  <ion-icon name="trash-outline" (click)="eliminar()"></ion-icon>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-footer>
+        </ion-card>
+      </ion-col>
+      <!-- Cuarta tarjeta -->
+      <ion-col size-sm="12" size-md="6" size-lg="4" size-xl="3" size="12">
+        <ion-card class="custom-card">
+          <ion-img src="assets/img/usuario.png" class="card-image"></ion-img>
+          <ion-card-header>
+            <ion-card-title>Gerardo</ion-card-title>
+            <ion-card-subtitle>Repartidor</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="activo">
+              <ion-toggle [checked]="true" class="custom-toggle">Activo</ion-toggle>
+            </div>
+            <label>Domicilio:</label><p>Calle Pino #107, Fracc. Arboledas</p>
+            <label>Tele´fono:</label><p>449 999 9999</p>
+            <label>Ingreso:</label><p>01/04/2021</p>
+          </ion-card-content>
+          <ion-footer>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="6" class="editar">
+                  <ion-icon name="pencil-outline" (click)="editar()"></ion-icon>
+                </ion-col>
+                <ion-col size="6" class="eliminar">
+                  <ion-icon name="trash-outline" (click)="eliminar()"></ion-icon>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-footer>
+        </ion-card>
+      </ion-col>
+      <!-- Quinta tarjeta -->
+      <ion-col size-sm="12" size-md="6" size-lg="4" size-xl="3" size="12">
+        <ion-card class="custom-card">
+          <ion-img src="assets/img/usuario.png" class="card-image"></ion-img>
+          <ion-card-header>
+            <ion-card-title>Luis</ion-card-title>
+            <ion-card-subtitle>Repartidor</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="activo">
+              <ion-toggle [checked]="true" class="custom-toggle">Activo</ion-toggle>
+            </div>
+            <label>Domicilio:</label><p>Calle Roble #536, Fracc. Arboledas</p>
+            <label>Tele´fono:</label><p>449 999 9999</p>
+            <label>Ingreso:</label><p>01/05/2021</p>
+          </ion-card-content>
+          <ion-footer>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="6" class="editar">
+                  <ion-icon name="pencil-outline" (click)="editar()"></ion-icon>
+                </ion-col>
+                <ion-col size="6" class="eliminar">
+                  <ion-icon name="trash-outline" (click)="eliminar()"></ion-icon>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-footer>
+        </ion-card>
+      </ion-col>
+      <!-- Puedes agregar más tarjetas aquí siguiendo el mismo patrón -->
+    </ion-row>
+  </ion-grid>
+</ion-content>

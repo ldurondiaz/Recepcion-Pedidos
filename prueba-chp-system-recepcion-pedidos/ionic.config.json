@@ -1,0 +1,7 @@
+{
+  "name": "prueba-chp-system-recepcion-pedidos",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

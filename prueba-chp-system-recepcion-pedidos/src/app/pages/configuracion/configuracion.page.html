@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cheese Pizza Recepción de Pedidos Móviles
+      <label>(Configuración)</label></ion-title
+    >
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="container">
+    <form [formGroup]="sucursalForma" (ngSubmit)="onSubmit()">
+      <ion-grid fixed>
+        <ion-row class="logo">
+          <ion-col size-sm="12" size-md="4" size-lg="3" size-xl="3" size="12">
+            <img
+              src="assets/img/char-paleta-pizza.png"
+              alt="Cheese Pizza Logo"
+              style="height: auto; width: 200px; object-fit: contain"
+            />
+          </ion-col>
+          <ion-col size-sm="12" size-md="8" size-lg="9" size-xl="9" size="12">
+            <strong class="titulo"> Módulos de Recepción de Pedidos </strong>
+          </ion-col>
+          <ion-col size="12">
+            <strong class="subtitulo">Configuración</strong>
+          </ion-col>
+          <ion-col size="12">
+            <strong>Selecciona la sucursal</strong>
+          </ion-col>
+          <ion-col size="12">
+            <ion-select label="Sucursal" label-placement="floating" fill="outline" formControlName="sucursal" placeholder="Sucursal"
+            [(ngModel)]="selectedValue" (ionChange)="onSelectChange($event)">
+              @for (sucursal of sucursales; track $index) {
+                <ion-select-option [value]="sucursal.clave">{{sucursal.nombreSucursal}}</ion-select-option>
+              }
+            </ion-select>
+          </ion-col>
+          <ion-col size="12" class="boton">
+            <ion-button
+              type="submit"
+              [disabled]="!sucursalForma.valid"
+              expand="small"
+              >Ingresar</ion-button
+            >
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </div>
+</ion-content>
+
