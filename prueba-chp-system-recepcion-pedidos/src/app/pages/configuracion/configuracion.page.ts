@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { ConfiguracionService } from '../../services/configuracion.service';
-import { SharedModule } from '../../shared/shared.module'
+//import { SharedModule } from '../../shared/shared.module'
 import { SucursalNube } from '../../model/sucursalNube';
 import { Sucursal } from '../../model/sucursal';
 import { Mensajes } from '../../utils/mensajes';
@@ -15,7 +15,7 @@ import { Mensajes } from '../../utils/mensajes';
   templateUrl: './configuracion.page.html',
   styleUrls: ['./configuracion.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, ReactiveFormsModule, SharedModule]
+  imports: [IonicModule, CommonModule, ReactiveFormsModule/*, SharedModule*/]
 })
 export class ConfiguracionPage implements OnInit {
 

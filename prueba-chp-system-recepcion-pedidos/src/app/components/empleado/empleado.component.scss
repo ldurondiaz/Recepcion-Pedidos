@@ -1,0 +1,33 @@
+:host {
+  //--max-height: 80vh; /* Altura máxima del modal */
+  --height: auto; /* Altura automática según el contenido */
+}
+
+ion-content {
+  --padding-bottom: 25rem; /* Ajuste para reducir el espacio */
+}
+
+ion-buttons {
+  ion-button:hover {
+    --background: var(--ion-color-close);
+    --color: var(--ion-color-close-contrast);
+  }
+}
+
+ion-button {
+  --background: var(--ion-color-tertiary);
+  --color: var(--ion-color-tertiary-contrast);
+  margin-bottom: 2rem !important;
+}
+
+ion-col {
+  padding: 1.00rem 1.00rem 1.00rem 1.00rem;
+}
+
+ion-title {
+  font-size: 1.00rem;
+}
+
+.boton {
+  text-align: center;
+}

@@ -5,17 +5,19 @@
 export const environment = {
   production: false,
 
-  //Constantes servicio y endpoints
+  //Constantes
   baseUrlLocal: 'http://localhost',
   puertoLocal: 3000,
-  configuracion: '/configuracion',
-  usuario: '/usuario',
 
   baseUrl: 'http://ec2-54-153-58-93.us-west-1.compute.amazonaws.com',
   puertoCatalogos: 3001,
   sucursales: '/sucursales',
 
-
+  //Endpoints
+  configuracion: '/configuracion',
+  usuario: '/usuario',
+  empleados: '/empleados',
+  empleadoTipos: '/empleado-tipos',
 
   //Páginas
   paginaRaiz: '/',
@@ -24,7 +26,11 @@ export const environment = {
   paginaPedidos: '/pedidos',
   paginaConfiguracion: '/configuracion',
   paginaEmpleados: '/empleados',
-  paginaLogin: '/login'
+  paginaLogin: '/login',
+
+  //Constantes para la base de datos
+  si_bd: 'S',
+  no_bd: 'N',
 };
 
 /*

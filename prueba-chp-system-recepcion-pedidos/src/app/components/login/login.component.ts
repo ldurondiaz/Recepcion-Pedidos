@@ -7,7 +7,7 @@ import { addIcons } from 'ionicons';
 import { closeOutline } from 'ionicons/icons';
 import { environment } from '../../../environments/environment';
 import { Administrador } from '../../model/administrador';
-import { SharedModule } from '../../shared/shared.module'
+//import { SharedModule } from '../../shared/shared.module'
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular/standalone';
 import { ConfiguracionService } from '../../services/configuracion.service';
@@ -20,9 +20,9 @@ import { Mensajes } from '../../utils/mensajes';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, ReactiveFormsModule, SharedModule]
+  imports: [IonicModule, CommonModule, ReactiveFormsModule/*, SharedModule*/]
 })
-export class LoginComponent  implements OnInit {
+export class LoginComponent implements OnInit {
 
   administrador: Administrador;
   titulo: string = '';
@@ -32,8 +32,7 @@ export class LoginComponent  implements OnInit {
 
   constructor(private modalController: ModalController, private fb: FormBuilder,
     private alertController: AlertController, private configuracionSvc: ConfiguracionService,
-    private router: Router
-  ) {
+    private router: Router) {
     addIcons({ closeOutline });
     this.administrador = Administrador.getInstance();
     this.credencialesForma = this.fb.group({
@@ -42,17 +41,12 @@ export class LoginComponent  implements OnInit {
     });
   }
 
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit() {
     this.titulo = this.administrador.getTitulo();
   }
 
   dismiss() {
     this.modalController.dismiss();
-  }
-
-  ingresar() {
-    console.log('ingresar');
   }
 
   irA() {
@@ -67,6 +61,7 @@ export class LoginComponent  implements OnInit {
       case 'Empleados':
         this.dismiss();
         this.router.navigateByUrl(environment.paginaEmpleados);
+        //this.navCtrl.navigateForward(environment.paginaEmpleados);
         break;
     }
   }

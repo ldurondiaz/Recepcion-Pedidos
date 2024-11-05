@@ -1,0 +1,83 @@
+  <ion-header slot="fixed">
+    <ion-toolbar>
+      <ion-title>Cheese Pizza Recepción de Pedidos Móviles
+        <label>({{titulo}})</label>
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="dismiss()">
+          <ion-icon name="close-outline" size="large"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <form [formGroup]="empleadoForma" (ngSubmit)="onSubmit()">
+      <ion-grid>
+        <ion-row>
+          Clave Sucursal: {{sucursal.clave}}
+          <ion-col size="12">
+            <ion-input
+              label="Nombre"
+              label-placement="floating"
+              fill="outline"
+              formControlName="nombre"
+              maxlength="50"
+              errorText="Nombre no válido"
+            ></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input
+              label="Domicilio"
+              label-placement="floating"
+              fill="outline"
+              formControlName="domicilio"
+              maxlength="50"
+              errorText="Domicilio no válido"
+            ></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input
+              label="Teléfono"
+              label-placement="floating"
+              fill="outline"
+              formControlName="telefono"
+              maxlength="10"
+              errorText="Teléfono no válido"
+            ></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input label="Fecha" label-placement="floating" fill="outline"
+                placeholder="dd/mm/aaaa" formControlName="fechaIngreso" type="date"></ion-input>
+          </ion-col>
+          <ion-col size="12">
+            <ion-select label="tipo" label-placement="floating" fill="outline" formControlName="tipo" placeholder="tipo"
+            (ionChange)="getEmpleadoTipo($event)">
+              @for (tipo of empleadoTipos; track $index) {
+                <ion-select-option [value]="tipo.id">{{tipo.tipo}}</ion-select-option>
+              }
+            </ion-select>
+          </ion-col>
+          <ion-col size="12">
+            <ion-toggle [checked]="estaActivo" (ionChange)="onActivo($event)">Activo</ion-toggle>
+          </ion-col>
+          <ion-col size="12">
+            <ion-input type="password"
+              label="Nip"
+              label-placement="floating"
+              fill="outline"
+              formControlName="nip"
+              maxlength="3"
+              errorText="Nip no válido"
+            ></ion-input>
+          </ion-col>
+          <ion-col size="12" class="boton">
+            <ion-button
+              type="submit"
+              [disabled]="!empleadoForma.valid"
+              expand="small"
+              >Ingresar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+</ion-content>
