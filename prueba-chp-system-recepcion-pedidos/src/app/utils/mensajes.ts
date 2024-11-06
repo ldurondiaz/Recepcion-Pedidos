@@ -1,6 +1,7 @@
 import { FormGroup } from '@angular/forms';
 import { AlertController } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 
 export class Mensajes {
 
@@ -40,8 +41,8 @@ export class Mensajes {
     await alert.present();
   }
 
-  static async datosCorrectos(alertController: AlertController, header: string, message: string,
-    forma: FormGroup, router: Router, pagina: string) {
+  static async datosCorrectos(alertController: AlertController, header: string,
+    message: string, forma: FormGroup, router: Router, pagina: string) {
       const aviso = await alertController.create({
         header: header,
         message: message,
@@ -57,4 +58,24 @@ export class Mensajes {
       aviso.onclick
       await aviso.present();
   }
+
+  static async datosCorrectosModal(alertController: AlertController, header: string,
+    message: string, forma: FormGroup, modalController: ModalController, router: Router, pagina: string) {
+      const aviso = await alertController.create({
+        header: header,
+        message: message,
+        buttons: [{
+          text: 'Aceptar',
+          handler: () => {
+            forma.reset();
+            modalController.dismiss();
+            router.navigateByUrl(pagina);
+          }
+        }],
+      });
+      aviso.backdropDismiss = false;
+      aviso.onclick
+      await aviso.present();
+  }
 }
+

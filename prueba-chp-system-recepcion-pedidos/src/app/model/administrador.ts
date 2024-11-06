@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Sucursal } from './sucursal';
+import { Empleado } from './empleado';
 
 @Injectable()
 export class Administrador {
@@ -7,6 +8,7 @@ export class Administrador {
 
   private titulo!: string;
   private sucursal!: Sucursal;
+  private empleado!: Empleado;
 
   private constructor() {
   }
@@ -32,6 +34,14 @@ export class Administrador {
 
   public setSucursal(sucursal: Sucursal) {
     this.sucursal = sucursal;
+  }
+
+  public getEmpleado(): Empleado {
+    return this.empleado;
+  }
+
+  public setEmpleado(empleado: Empleado) {
+    this.empleado = empleado;
   }
 
 }

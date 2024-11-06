@@ -18,6 +18,7 @@ export const environment = {
   usuario: '/usuario',
   empleados: '/empleados',
   empleadoTipos: '/empleado-tipos',
+  empleado: '/empleado',
 
   //Páginas
   paginaRaiz: '/',

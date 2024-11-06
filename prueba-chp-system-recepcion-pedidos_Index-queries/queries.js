@@ -86,7 +86,9 @@ const leeListaEmpleados = (request, response) => {
         + 'fecha_ingreso as fechaIngreso, empleadotipo_id as empleadoTipoId, '
         + '(SELECT tipo FROM catalogos.empleadotipo WHERE empleadotipo_id=id) as tipo, '
         + 'activo, nip, baja '
-        + 'FROM empleado.empleado;',
+        + 'FROM empleado.empleado '
+        + 'WHERE baja = \'N\' '
+        + 'ORDER BY nombre',
         (error, results) => {
             if (error) {
                 throw error;
@@ -99,7 +101,10 @@ const leeListaEmpleados = (request, response) => {
 const leeEmpleado = (request, response) => {
     const id = request.params.id;
     pool.query(
-        'SELECT id, descripcion FROM preesppropro.salsa WHERE id=$1 ORDER BY descripcion',
+        'SELECT id, clave_sucursal as claveSucursal, nombre, domicilio, telefono, fecha_ingreso as fechaIngreso, '
+        + 'empleadotipo_id as empleadoTipoId, activo, nip, baja '
+        + 'FROM empleado.empleado '
+        + 'WHERE id = $1;',
         [id],
         (error, results) => {
             if (error) {
@@ -111,16 +116,20 @@ const leeEmpleado = (request, response) => {
 }
 
 const insertaEmpleado = (req, res) => {
-    const { id, descripcion } = req.body;
+    const { id, claveSucursal, nombre, domicilio, telefono, fechaingreso,
+        empleadoTipoId, activo, nip, baja} = req.body;
     pool.query(
-        'INSERT INTO preesppropro.salsa(id, descripcion) ' 
-        +'VALUES ($1, $2) RETURNING *',
-        [id,descripcion],
+        'INSERT INTO empleado.empleado( '
+        + 'id, clave_sucursal, nombre, domicilio, telefono, fecha_ingreso, '
+        + 'empleadotipo_id, activo, nip, baja) '
+        + 'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;',
+        [id, claveSucursal, nombre, domicilio, telefono, fechaingreso,
+        empleadoTipoId, activo, nip, baja],
         (error, results) => {
             if (error) {
                 throw error;
             }
-            textoRespuesta = '{"respuesta": "Se insertó nueva salsa: ' + results.rows[0].id + '"}';
+            textoRespuesta = '{"respuesta": "Se insertó un empleado de nuevo ingreso: ' + results.rows[0].id + '"}';
             res.status(201).json(JSON.parse(textoRespuesta));
         }
     );

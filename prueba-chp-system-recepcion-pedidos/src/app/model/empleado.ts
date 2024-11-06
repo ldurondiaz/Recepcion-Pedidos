@@ -5,7 +5,7 @@ export class Empleado {
   domicilio!: string;
   telefono!: string;
   fechaingreso!: string;
-  empleadoTipoId!: string;
+  empleadotipoid!: string;
   tipo!: string;
   activo!: string;
   nip!: string;

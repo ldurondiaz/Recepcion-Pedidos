@@ -8,6 +8,7 @@ import { EmpleadosService } from '../../services/empleados.service';
 //import { SharedModule } from '../../shared/shared.module'
 import { Administrador } from '../../model/administrador';
 import { Empleado } from '../..//model/empleado';
+import { Strings } from '../../utils/strings';
 
 @Component({
   selector: 'app-empleados',
@@ -34,6 +35,9 @@ export class EmpleadosPage implements OnInit {
     this.empleadoSvc.leeListaEmpleados().subscribe({
       next: (response: any) => {
         this.empleados = response;
+        for (let index = 0; index < this.empleados.length; index++) {
+          this.empleados[index].fechaingreso = Strings.dateformatAAAAMMDDToDDMMAAAA(this.empleados[index].fechaingreso);
+        }
         if (this.empleados) {
           console.log('lista de empleados ->', this.empleados);
         }
@@ -56,11 +60,13 @@ export class EmpleadosPage implements OnInit {
   editar(empleado: Empleado) {
     console.log('Editar', empleado);
     this.administrador.setTitulo('Editar Empleado');
+    this.administrador.setEmpleado(empleado);
   }
 
   eliminar(empleado: Empleado) {
     console.log('Eliminar', empleado);
     this.administrador.setTitulo('Eliminar Empleado');
+    this.administrador.setEmpleado(empleado);
   }
 
 }
