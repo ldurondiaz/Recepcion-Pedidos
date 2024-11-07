@@ -80,6 +80,19 @@ const insertaConfiguracionSucursal = (request, response) => {
     );
 }
 
+const leeListaEmpleadoTipos = (request, response) => {
+    pool.query('SELECT id, tipo '
+        + 'FROM catalogos.empleadotipo '
+        + 'ORDER BY tipo;',
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            response.status(200).json(results.rows);
+        }
+    );
+}
+
 const leeListaEmpleados = (request, response) => {
     pool.query(
         'SELECT id, clave_sucursal as claveSucursal, nombre, domicilio, telefono, '
@@ -117,14 +130,14 @@ const leeEmpleado = (request, response) => {
 
 const insertaEmpleado = (req, res) => {
     const { id, claveSucursal, nombre, domicilio, telefono, fechaingreso,
-        empleadoTipoId, activo, nip, baja} = req.body;
+        empleadotipoid, activo, nip, baja} = req.body;
     pool.query(
         'INSERT INTO empleado.empleado( '
         + 'id, clave_sucursal, nombre, domicilio, telefono, fecha_ingreso, '
         + 'empleadotipo_id, activo, nip, baja) '
         + 'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;',
         [id, claveSucursal, nombre, domicilio, telefono, fechaingreso,
-        empleadoTipoId, activo, nip, baja],
+        empleadotipoid, activo, nip, baja],
         (error, results) => {
             if (error) {
                 throw error;
@@ -136,11 +149,15 @@ const insertaEmpleado = (req, res) => {
 }
 
 const actualizaEmpleado = (req, res) => {
-    const id = req.params.id;
-    const { descripcion } = req.body;
+    const { id, claveSucursal, nombre, domicilio, telefono, fechaingreso,
+        empleadotipoid, activo, nip} = req.body;
     pool.query(
-        'UPDATE preesppropro.salsa SET descripcion=$1 WHERE id=$2 RETURNING *',
-        [descripcion,id],
+        'UPDATE empleado.empleado '
+        + 'SET clave_sucursal = $2, nombre = $3, domicilio = $4, telefono = $5, '
+        + 'fecha_ingreso = $6, empleadotipo_id = $7, activo = $8, nip = $9 '
+        + 'WHERE id = $1 RETURNING *;',
+        [id, claveSucursal, nombre, domicilio, telefono, fechaingreso,
+        empleadotipoid, activo, nip],
         (error, results) => {
             if (error) {
                 throw error;
@@ -154,27 +171,15 @@ const actualizaEmpleado = (req, res) => {
 const eliminaEmpleado = (req, res) => {
     const id = req.params.id;
     pool.query(
-        'DELETE FROM preesppropro.salsa WHERE id=$1 ',
+        'DELETE FROM empleado.empleado '
+        + 'WHERE id = $1;',
         [id],
         (error, results) => {
             if (error) {
                 throw error;
             }
-            textoRespuesta = '{"respuesta": "Se eliminó ' + results.rowCount + ' salsa: ' + id + '"}';
+            textoRespuesta = '{"respuesta": "Se eliminó ' + results.rowCount + ' empleado: ' + id + '"}';
             res.status(201).json(JSON.parse(textoRespuesta));
-        }
-    );
-}
-
-const leeListaEmpleadoTipos = (request, response) => {
-    pool.query('SELECT id, tipo '
-        + 'FROM catalogos.empleadotipo '
-        + 'ORDER BY tipo;',
-        (error, results) => {
-            if (error) {
-                throw error;
-            }
-            response.status(200).json(results.rows);
         }
     );
 }
@@ -183,12 +188,10 @@ module.exports = {
     leeConfiguracionSucursal,
     leeConfiguracionUsuario,
     insertaConfiguracionSucursal,
-
+    leeListaEmpleadoTipos,
     leeListaEmpleados,
     leeEmpleado,
     insertaEmpleado,
     actualizaEmpleado,
     eliminaEmpleado,
-
-    leeListaEmpleadoTipos
 }

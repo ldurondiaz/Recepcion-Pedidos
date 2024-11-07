@@ -22,13 +22,13 @@ app.get('/configuracion', db.leeConfiguracionSucursal);
 app.get('/usuario/:usuario/:contrasenia', db.leeConfiguracionUsuario);
 app.post('/configuracion', db.insertaConfiguracionSucursal);
 
+app.get('/empleado-tipos', db.leeListaEmpleadoTipos);
+
 app.get('/empleados', db.leeListaEmpleados);
 app.get('/empleado/:id', db.leeEmpleado);
 app.post('/empleado', db.insertaEmpleado);
-app.put('/empleado/:id', db.actualizaEmpleado);
+app.put('/empleado', db.actualizaEmpleado);
 app.delete('/empleado/:id', db.eliminaEmpleado);
-
-app.get('/empleado-tipos', db.leeListaEmpleadoTipos);
 
 app.listen(port, () => {
     console.log('API Cheese Pizza Móvil corriendo en el puerto', port);

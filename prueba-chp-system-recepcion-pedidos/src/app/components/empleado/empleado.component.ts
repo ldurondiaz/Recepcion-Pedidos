@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule, AlertController } from '@ionic/angular';
-import { ModalController } from '@ionic/angular';
+import { IonicModule, ModalController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Administrador } from '../../model/administrador';
@@ -28,10 +27,13 @@ export class EmpleadoComponent implements OnInit {
   administrador: Administrador;
   titulo: string = '';
   sucursal!: Sucursal;
+  idEmpleado: string = '';
   empleadoTipos!: EmpleadoTipo[];
   empleadoTipoId: string = '';
   estaActivo: boolean = true;
   empleadoForma!: FormGroup;
+  mostrarEmpleadoForma: boolean = true;
+  empleadoTipoTipo: string = '';
 
   empleado!: Empleado;
   nombre: string = '';
@@ -58,42 +60,12 @@ export class EmpleadoComponent implements OnInit {
     });
   }
 
-  getEmpleado() {
-    console.log('this.administrador.getEmpleado().id--->', this.administrador.getEmpleado().id);
-    this.empleadosSvc.leeEmpleado(this.administrador.getEmpleado().id).subscribe({
-      next: (response: any) => {
-        this.empleado = response;
-        if (this.empleado) {
-          console.log('empleado--->', this.empleado);
-          this.nombre = this.empleado.nombre;
-          this.domicilio = this.empleado.domicilio;
-          this.telefono = this.empleado.telefono;
-          this.fechaIngreso = Strings.dateformatAAAAMMDDToAAAA_MM_DD(this.administrador.getEmpleado().fechaingreso);
-          this.tipoIdSeleccionado = this.empleado.empleadotipoid;
-          this.estaActivoSeleccionado = this.empleado.activo;
-          this.estaActivo = this.estaActivoSeleccionado === environment.si_bd ? true : false;
-          this.nip = EncriptarDesencriptar.decrypt(this.empleado.nip);
-        }
-        else {
-          console.log('Incorrecto, no se cargaron los datos del empleado');
-        }
-      },
-      error: (error: any) => {
-        console.log('Ocurrió un error al cargar los datos del empleado:');
-        console.log(error);
-      }
-    });
-  }
-
   ngOnInit() {
     this.titulo = this.administrador.getTitulo();
     console.log('this.titulo->', this.titulo);
-    if (this.titulo === 'Editar Empleado') {
-      this.getEmpleado();
-    }
     this.sucursal = this.administrador.getSucursal();
     console.log('this.sucursal->', this.sucursal);
-    this.empleadosSvc.leeListaEmpleadosTipo().subscribe({
+    this.empleadosSvc.leerListaEmpleadosTipo().subscribe({
       next: (response: any) => {
         this.empleadoTipos = response;
         if (this.empleadoTipos) {
@@ -108,6 +80,11 @@ export class EmpleadoComponent implements OnInit {
         console.log(error);
       }
     });
+    switch (this.titulo) {
+      case environment.agregarEmpleado : this.mostrarEmpleadoForma = true; break;
+      case environment.editarEmpleado  : this.mostrarEmpleadoForma = true; this.getEmpleado(); break;
+      case environment.eliminarEmpleado: this.mostrarEmpleadoForma = false; this.getEmpleado(); break;
+    }
   }
 
   getEmpleadoTipo(empleadoTipoId_param: any) {
@@ -123,37 +100,134 @@ export class EmpleadoComponent implements OnInit {
     this.modalController.dismiss();
   }
 
-  onSubmit() {
-    console.log('enviar');
-    if (this.empleadoForma.valid) {
-      let empleado: Empleado = new Empleado;
-      empleado.id = Utils.generaId();
-      empleado.claveSucursal = this.sucursal.clave;
-      empleado.nombre = this.empleadoForma.value.nombre;
-      empleado.domicilio = this.empleadoForma.value.domicilio;
-      empleado.telefono = this.empleadoForma.value.telefono;
-      empleado.fechaingreso = Strings.deleteCharacter(this.empleadoForma.value.fechaIngreso);
-      empleado.empleadotipoid = this.empleadoTipoId;
-      empleado.activo = this.estaActivo === true ? environment.si_bd : environment.no_bd;
-      empleado.nip = EncriptarDesencriptar.encrypt(this.empleadoForma.value.nip);
-      empleado.baja = environment.no_bd;
-      console.log('Empleado Alta:', empleado);
-      this.empleadosSvc.insertaEmpleado(empleado).subscribe({
-        next: (response: any) => {
-          console.log('El empleado se insertó de forma exitosa')
-          if (response) {
-            Mensajes.datosCorrectosModal(this.alertController, 'Datos registrados', 'Se han registrado los datos del empleado',
-              this.empleadoForma, this.modalController, this.router, environment.paginaEmpleados);
+  getEmpleado() {
+    this.idEmpleado = this.administrador.getEmpleado().id;
+    this.empleadosSvc.leerEmpleado(this.idEmpleado).subscribe({
+      next: (response: any) => {
+        this.empleado = response;
+        if (this.empleado) {
+          console.log('empleado--->', this.empleado);
+          this.nombre = this.empleado.nombre;
+          this.domicilio = this.empleado.domicilio;
+          this.telefono = this.empleado.telefono;
+          this.fechaIngreso =
+          (this.mostrarEmpleadoForma === true)
+          ? Strings.dateformatAAAAMMDDToAAAA_MM_DD(this.administrador.getEmpleado().fechaingreso)
+          : this.administrador.getEmpleado().fechaingreso;
+          this.tipoIdSeleccionado = this.empleado.empleadotipoid;
+          console.log('<<<', this.empleado.empleadotipoid, '>>>');
+          for (let index = 0; index < this.empleadoTipos.length; index++) {
+            if (this.empleadoTipos[index].id === this.empleado.empleadotipoid) {
+              this.empleadoTipoTipo = this.empleadoTipos[index].tipo;
+              break;
+            }
           }
-          else {
-            console.log('Incorrecto, no se insertó los datos del empleado');
-          }
-        },
-        error: (error: any) => {
-          console.log('Ocurrió un error al insertar los datos del empleado:');
-          console.log(error);
+          this.estaActivoSeleccionado = this.empleado.activo;
+          this.estaActivo = this.estaActivoSeleccionado === environment.si_bd ? true : false;
+          this.nip = EncriptarDesencriptar.decrypt(this.empleado.nip);
         }
-      });
+        else {
+          console.log('Incorrecto, no se cargaron los datos del empleado');
+        }
+      },
+      error: (error: any) => {
+        console.log('Ocurrió un error al cargar los datos del empleado:');
+        console.log(error);
+      }
+    });
+  }
+
+  insertarEmpleado() {
+    let empleado: Empleado = new Empleado;
+    empleado.id = Utils.generaId();
+    empleado.claveSucursal = this.sucursal.clave;
+    empleado.nombre = this.empleadoForma.value.nombre;
+    empleado.domicilio = this.empleadoForma.value.domicilio;
+    empleado.telefono = this.empleadoForma.value.telefono;
+    empleado.fechaingreso = Strings.deleteCharacter(this.empleadoForma.value.fechaIngreso);
+    empleado.empleadotipoid = this.empleadoTipoId;
+    empleado.activo = this.estaActivo === true ? environment.si_bd : environment.no_bd;
+    empleado.nip = EncriptarDesencriptar.encrypt(this.empleadoForma.value.nip);
+    empleado.baja = environment.no_bd;
+    this.empleadosSvc.insertarEmpleado(empleado).subscribe({
+      next: (response: any) => {
+        console.log('El empleado se insertó de forma exitosa')
+        if (response) {
+          Mensajes.datosCorrectosModal(this.alertController, 'Datos registrados', 'Se han registrado los datos del empleado',
+            this.empleadoForma, this.modalController, this.router, environment.paginaEmpleados);
+        }
+        else {
+          console.log('Incorrecto, no se insertó los datos del empleado');
+        }
+      },
+      error: (error: any) => {
+        console.log('Ocurrió un error al insertar los datos del empleado:');
+        console.log(error);
+      }
+    });
+  }
+
+  editarEmpleado() {
+    let empleado: Empleado = new Empleado;
+    empleado.id = this.idEmpleado
+    empleado.claveSucursal = this.sucursal.clave;
+    empleado.nombre = this.empleadoForma.value.nombre;
+    empleado.domicilio = this.empleadoForma.value.domicilio;
+    empleado.telefono = this.empleadoForma.value.telefono;
+    empleado.fechaingreso = Strings.deleteCharacter(this.empleadoForma.value.fechaIngreso);
+    empleado.empleadotipoid = this.tipoIdSeleccionado;
+    empleado.activo = this.estaActivo === true ? environment.si_bd : environment.no_bd;
+    empleado.nip = EncriptarDesencriptar.encrypt(this.empleadoForma.value.nip);
+    console.log('Empleado Edita:', empleado);
+    this.empleadosSvc.actualizarEmpleado(empleado).subscribe({
+      next: (response: any) => {
+        console.log('Empleado editado de forma exitosa');
+        if (response) {
+          Mensajes.datosCorrectosModal(this.alertController, 'Datos editados', 'Se han editado los datos del empleado',
+            this.empleadoForma, this.modalController, this.router, environment.paginaEmpleados);
+        }
+        else {
+          console.log('Incorrecto, no se editaron los datos del empleado');
+        }
+      },
+      error: (error: any) => {
+        console.log('Error en la edición del empleado');
+        console.log(error);
+      },
+    });
+  }
+
+  eliminarEmpleado() {
+    console.log('this.idEmpleado------------------->', this.idEmpleado)
+    this.empleadosSvc.eliminarEmpleado(this.idEmpleado).subscribe({
+      next:(res:any)=>{
+        console.log('Empleado eliminado de forma exitosa')
+        console.log(res);
+      },
+      error:(error:any)=>{
+        console.log('Error en eliminar al empleaado')
+        console.log(error)
+      }
+    });
+  }
+
+  async confirmarEliminarEmpleado() {
+    const aceptar:boolean = await Mensajes.datosEliminarModal(this.alertController,
+      'Datos para eliminar', 'Desea eliminar los datos del empleado?');
+      if (aceptar) {
+        this.eliminarEmpleado();
+        this.modalController.dismiss();
+        this.router.navigateByUrl(environment.paginaEmpleados);
+      }
+  }
+
+  onSubmit() {
+    if (this.empleadoForma.valid) {
+      switch (this.titulo) {
+        case environment.agregarEmpleado: this.insertarEmpleado(); break;
+        case environment.editarEmpleado: this.editarEmpleado(); break;
+        case environment.eliminarEmpleado: this.eliminarEmpleado(); break;
+      }
     } else {
       Mensajes.datosError(this.alertController, 'Datos incompletos',
         'Debe de capturar todos los datos del empleado', this.empleadoForma);

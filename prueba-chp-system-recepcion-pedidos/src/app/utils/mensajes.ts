@@ -77,5 +77,29 @@ export class Mensajes {
       aviso.onclick
       await aviso.present();
   }
+
+  static async datosEliminarModal(alertController: AlertController, titulo: string,
+        mensaje: string): Promise<boolean> {
+    return new Promise(async (resolve) => {
+      const alert = await alertController.create({
+        header: titulo,
+        message: mensaje,
+        buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => resolve(false)
+        },
+        {
+          text: 'Aceptar',
+          handler: () => resolve(true)
+        }
+        ]
+      });
+      alert.backdropDismiss = false;
+      alert.onclick;
+      await alert.present();
+    });
+  }
 }
 

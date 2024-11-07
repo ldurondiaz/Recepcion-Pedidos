@@ -9,6 +9,7 @@ import { EmpleadosService } from '../../services/empleados.service';
 import { Administrador } from '../../model/administrador';
 import { Empleado } from '../..//model/empleado';
 import { Strings } from '../../utils/strings';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-empleados',
@@ -32,14 +33,18 @@ export class EmpleadosPage implements OnInit {
 
   ngOnInit() {
     this.presentingElement = document.querySelector('.ion-page');
-    this.empleadoSvc.leeListaEmpleados().subscribe({
+    this.leeListaEmpleados();
+  }
+
+  leeListaEmpleados() {
+    this.empleadoSvc.leerListaEmpleados().subscribe({
       next: (response: any) => {
         this.empleados = response;
-        for (let index = 0; index < this.empleados.length; index++) {
-          this.empleados[index].fechaingreso = Strings.dateformatAAAAMMDDToDDMMAAAA(this.empleados[index].fechaingreso);
-        }
         if (this.empleados) {
           console.log('lista de empleados ->', this.empleados);
+          for (let index = 0; index < this.empleados.length; index++) {
+            this.empleados[index].fechaingreso = Strings.dateformatAAAAMMDDToDDMMAAAA(this.empleados[index].fechaingreso);
+          }
         }
         else {
           console.log('Incorrecto, no se cargaron los datos de los empleados');
@@ -54,18 +59,18 @@ export class EmpleadosPage implements OnInit {
 
   agregar() {
     console.log('Agregar');
-    this.administrador.setTitulo('Agregar Empleado');
+    this.administrador.setTitulo(environment.agregarEmpleado);
   }
 
   editar(empleado: Empleado) {
     console.log('Editar', empleado);
-    this.administrador.setTitulo('Editar Empleado');
+    this.administrador.setTitulo(environment.editarEmpleado);
     this.administrador.setEmpleado(empleado);
   }
 
   eliminar(empleado: Empleado) {
     console.log('Eliminar', empleado);
-    this.administrador.setTitulo('Eliminar Empleado');
+    this.administrador.setTitulo(environment.eliminarEmpleado);
     this.administrador.setEmpleado(empleado);
   }
 

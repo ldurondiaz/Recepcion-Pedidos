@@ -30,6 +30,9 @@ export const environment = {
   paginaLogin: '/login',
 
   //Constantes para la base de datos
+  agregarEmpleado: 'Agregar Empleado',
+  editarEmpleado: 'Editar Empleado',
+  eliminarEmpleado: 'Eliminar Empleado',
   si_bd: 'S',
   no_bd: 'N',
 };

@@ -11,6 +11,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
+    @if(mostrarEmpleadoForma){
     <form [formGroup]="empleadoForma" (ngSubmit)="onSubmit()">
       <ion-grid>
         <ion-row>
@@ -90,4 +91,19 @@
         </ion-row>
       </ion-grid>
     </form>
+    }
+    @if(!mostrarEmpleadoForma){
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="12">Nombre: <strong>{{nombre}}</strong></ion-col>
+          <ion-col size="12">Domicilio: <strong>{{domicilio}}</strong></ion-col>
+          <ion-col size="12">Teléfono: <strong>{{telefono}}</strong></ion-col>
+          <ion-col size="12">Fecha ingreso: <strong>{{fechaIngreso}}</strong></ion-col>
+          <ion-col size="12">Tipo: <strong>{{empleadoTipoTipo}}</strong></ion-col>
+          <ion-col size="12">Activo: <strong>{{estaActivo === true ? 'Si' : 'No'}}</strong></ion-col>
+          <ion-col size="12"><ion-button (click)="confirmarEliminarEmpleado()" color="danger">Eliminar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    }
 </ion-content>

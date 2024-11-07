@@ -10,20 +10,30 @@ export class EmpleadosService {
 
   constructor(private http: HttpClient) { }
 
-  leeListaEmpleados() {
-    return this.http.get(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleados);
-  }
-
-  leeListaEmpleadosTipo() {
+  leerListaEmpleadosTipo() {
     return this.http.get(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleadoTipos);
   }
 
-  insertaEmpleado(empleado: Empleado) {
+  leerListaEmpleados() {
+    return this.http.get(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleados);
+  }
+
+  leerEmpleado(id: string) {
+    return this.http.get(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleado + '/' + id);
+  }
+
+  insertarEmpleado(empleado: Empleado) {
     return this.http.post(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleado, empleado);
   }
 
-  leeEmpleado(id: string) {
-    return this.http.get(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleado + '/' + id);
+  actualizarEmpleado(empleado: Empleado) {
+    console.log('estoy en el servicio');
+    return this.http.put(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleado, empleado);
   }
+
+  eliminarEmpleado(id: string) {
+    return this.http.delete(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleado + '/' + id);
+  }
+
 
 }
