@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ModalController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { addOutline, pencilOutline, trashOutline, pin, arrowForwardCircle, business } from 'ionicons/icons';
 import { EmpleadoComponent } from '../../components/empleado/empleado.component';
@@ -9,14 +9,15 @@ import { EmpleadosService } from '../../services/empleados.service';
 import { Administrador } from '../../model/administrador';
 import { Empleado } from '../..//model/empleado';
 import { Strings } from '../../utils/strings';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
+import { RelojComponent } from '../../components/reloj/reloj.component';
 
 @Component({
   selector: 'app-empleados',
   templateUrl: './empleados.page.html',
   styleUrls: ['./empleados.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, EmpleadoComponent/*, SharedModule,*/
+  imports: [IonicModule, CommonModule, EmpleadoComponent, RelojComponent/*, SharedModule,*/
   ]
 })
 export class EmpleadosPage implements OnInit {
@@ -26,7 +27,7 @@ export class EmpleadosPage implements OnInit {
   titulo: string = '';
   empleados!: Empleado[];
 
-  constructor(private empleadoSvc: EmpleadosService) {
+  constructor(private empleadoSvc: EmpleadosService, private modalController: ModalController) {
     addIcons({ addOutline, pencilOutline, trashOutline, pin, arrowForwardCircle, business });
     this.administrador = Administrador.getInstance();
   }
@@ -57,21 +58,52 @@ export class EmpleadosPage implements OnInit {
     });
   }
 
-  agregar() {
+  async agregar() {
     console.log('Agregar');
     this.administrador.setTitulo(environment.agregarEmpleado);
+
+    // MODAL Actualiza la lista de empleados en la página.
+    const modal = await this.modalController.create({
+      component: EmpleadoComponent,
+      presentingElement: this.presentingElement,
+    });
+    modal.onDidDismiss().then(() => {
+      this.leeListaEmpleados();
+    });
+    await modal.present();
+    // MODAL FIN
   }
 
-  editar(empleado: Empleado) {
+  async editar(empleado: Empleado) {
     console.log('Editar', empleado);
     this.administrador.setTitulo(environment.editarEmpleado);
     this.administrador.setEmpleado(empleado);
+    // MODAL Actualiza la lista de empleados en la página.
+    const modal = await this.modalController.create({
+      component: EmpleadoComponent,
+      presentingElement: this.presentingElement,
+    });
+    modal.onDidDismiss().then(() => {
+      this.leeListaEmpleados();
+    });
+    await modal.present();
+    // MODAL FIN
   }
 
-  eliminar(empleado: Empleado) {
+  async eliminar(empleado: Empleado) {
     console.log('Eliminar', empleado);
     this.administrador.setTitulo(environment.eliminarEmpleado);
     this.administrador.setEmpleado(empleado);
+    // MODAL Actualiza la lista de empleados en la página.
+    const modal = await this.modalController.create({
+      component: EmpleadoComponent,
+      presentingElement: this.presentingElement,
+    });
+    modal.onDidDismiss().then(() => {
+      this.leeListaEmpleados();
+    });
+    await modal.present();
+    // MODAL FIN
   }
 
 }

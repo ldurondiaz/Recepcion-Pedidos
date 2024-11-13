@@ -60,15 +60,15 @@ export class LoginPage implements OnInit {
           if (existe) {
             console.log('Correcto, entonces, ir a la página configuración');
             switch (this.titulo) {
-              case 'Pedidos':
+              case environment.moduloRecepcion:
                 console.log('navegar a: ', this.titulo);
-                this.router.navigateByUrl(environment.paginaPedidos);
+                this.router.navigateByUrl(environment.paginaRecepcion);
                 break;
-              case 'Configuracion':
+              case environment.moduloConfiguracion:
                 console.log('navegar a: ', this.titulo);
                 this.router.navigateByUrl(environment.paginaConfiguracion);
                 break;
-              case 'Empleados':
+              case environment.moduloEmpleados:
                 console.log('navegar a: ', this.titulo);
                 this.router.navigateByUrl(environment.paginaEmpleados);
                 break;

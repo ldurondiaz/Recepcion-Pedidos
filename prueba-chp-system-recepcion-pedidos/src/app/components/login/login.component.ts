@@ -52,13 +52,13 @@ export class LoginComponent implements OnInit {
   irA() {
     console.log('navegar a: ', this.titulo);
     switch (this.titulo) {
-      case 'Pedidos':
-        this.router.navigateByUrl(environment.paginaPedidos);
+      case environment.moduloRecepcion:
+        this.router.navigateByUrl(environment.paginaRecepcion);
         break;
-      case 'Configuracion':
+      case environment.moduloConfiguracion:
         this.router.navigateByUrl(environment.paginaConfiguracion);
         break;
-      case 'Empleados':
+      case environment.moduloEmpleados:
         this.dismiss();
         this.router.navigateByUrl(environment.paginaEmpleados);
         //this.navCtrl.navigateForward(environment.paginaEmpleados);

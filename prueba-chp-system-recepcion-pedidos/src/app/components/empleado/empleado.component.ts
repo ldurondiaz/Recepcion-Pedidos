@@ -8,8 +8,8 @@ import { Sucursal } from '../../model/sucursal';
 import { EmpleadosService } from '../../services/empleados.service';
 import { EmpleadoTipo } from '../../model/empleadotipo';
 import { Empleado } from '../../model/empleado';
-import { Utils } from '../../utils/utils';
-import { environment } from 'src/environments/environment';
+import { Uuid } from '../../utils/uuid';
+import { environment } from '../../../environments/environment';
 import { Mensajes } from '../../utils/mensajes';
 import { Strings } from '../../utils/strings';
 import { EncriptarDesencriptar } from '../../utils/encriptarDesencriptar';
@@ -68,12 +68,9 @@ export class EmpleadoComponent implements OnInit {
     this.empleadosSvc.leerListaEmpleadosTipo().subscribe({
       next: (response: any) => {
         this.empleadoTipos = response;
-        if (this.empleadoTipos) {
-          console.log('empleado tipos--->', this.empleadoTipos);
-        }
-        else {
-          console.log('Incorrecto, no se cargaron los datos de empleado tipos');
-        }
+        console.log(this.empleadoTipos
+          ? 'empleado tipos--->' + this.empleadoTipos
+          : 'Incorrecto, no se cargaron los datos de empleado tipos');
       },
       error: (error: any) => {
         console.log('Ocurrió un error al cargar los datos de empleado tipos:');
@@ -139,7 +136,7 @@ export class EmpleadoComponent implements OnInit {
 
   insertarEmpleado() {
     let empleado: Empleado = new Empleado;
-    empleado.id = Utils.generaId();
+    empleado.id = Uuid.generaId();
     empleado.claveSucursal = this.sucursal.clave;
     empleado.nombre = this.empleadoForma.value.nombre;
     empleado.domicilio = this.empleadoForma.value.domicilio;
@@ -155,6 +152,9 @@ export class EmpleadoComponent implements OnInit {
         if (response) {
           Mensajes.datosCorrectosModal(this.alertController, 'Datos registrados', 'Se han registrado los datos del empleado',
             this.empleadoForma, this.modalController, this.router, environment.paginaEmpleados);
+            // MODAL
+            this.modalController.dismiss();
+            // MODAL FIN
         }
         else {
           console.log('Incorrecto, no se insertó los datos del empleado');
@@ -183,6 +183,9 @@ export class EmpleadoComponent implements OnInit {
       next: (response: any) => {
         console.log('Empleado editado de forma exitosa');
         if (response) {
+          // MODAL
+          this.modalController.dismiss();
+          // MODAL FIN
           Mensajes.datosCorrectosModal(this.alertController, 'Datos editados', 'Se han editado los datos del empleado',
             this.empleadoForma, this.modalController, this.router, environment.paginaEmpleados);
         }
@@ -197,28 +200,21 @@ export class EmpleadoComponent implements OnInit {
     });
   }
 
-  eliminarEmpleado() {
-    console.log('this.idEmpleado------------------->', this.idEmpleado)
+  async eliminarEmpleado() {
     this.empleadosSvc.eliminarEmpleado(this.idEmpleado).subscribe({
-      next:(res:any)=>{
+      next:(response:any)=>{
         console.log('Empleado eliminado de forma exitosa')
-        console.log(res);
+        console.log(response);
+        Mensajes.datosCorrectosModal(this.alertController, 'Datos eliminados', 'Se han eliminado los datos del empleado',
+          this.empleadoForma, this.modalController, this.router, environment.paginaEmpleados);
+        this.modalController.dismiss();
+        this.router.navigateByUrl(environment.paginaEmpleados);
       },
       error:(error:any)=>{
         console.log('Error en eliminar al empleaado')
         console.log(error)
       }
     });
-  }
-
-  async confirmarEliminarEmpleado() {
-    const aceptar:boolean = await Mensajes.datosEliminarModal(this.alertController,
-      'Datos para eliminar', 'Desea eliminar los datos del empleado?');
-      if (aceptar) {
-        this.eliminarEmpleado();
-        this.modalController.dismiss();
-        this.router.navigateByUrl(environment.paginaEmpleados);
-      }
   }
 
   onSubmit() {

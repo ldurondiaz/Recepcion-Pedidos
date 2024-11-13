@@ -128,9 +128,9 @@ const leeEmpleado = (request, response) => {
     );
 }
 
-const insertaEmpleado = (req, res) => {
+const insertaEmpleado = (request, response) => {
     const { id, claveSucursal, nombre, domicilio, telefono, fechaingreso,
-        empleadotipoid, activo, nip, baja} = req.body;
+        empleadotipoid, activo, nip, baja} = request.body;
     pool.query(
         'INSERT INTO empleado.empleado( '
         + 'id, clave_sucursal, nombre, domicilio, telefono, fecha_ingreso, '
@@ -143,14 +143,14 @@ const insertaEmpleado = (req, res) => {
                 throw error;
             }
             textoRespuesta = '{"respuesta": "Se insertó un empleado de nuevo ingreso: ' + results.rows[0].id + '"}';
-            res.status(201).json(JSON.parse(textoRespuesta));
+            response.status(201).json(JSON.parse(textoRespuesta));
         }
     );
 }
 
-const actualizaEmpleado = (req, res) => {
+const actualizaEmpleado = (request, response) => {
     const { id, claveSucursal, nombre, domicilio, telefono, fechaingreso,
-        empleadotipoid, activo, nip} = req.body;
+        empleadotipoid, activo, nip} = request.body;
     pool.query(
         'UPDATE empleado.empleado '
         + 'SET clave_sucursal = $2, nombre = $3, domicilio = $4, telefono = $5, '
@@ -163,13 +163,13 @@ const actualizaEmpleado = (req, res) => {
                 throw error;
             }
             textoRespuesta = '{"respuesta": "Se actualizó salsa: ' + results.rows[0].id + '"}';
-            res.status(201).json(JSON.parse(textoRespuesta));
+            response.status(201).json(JSON.parse(textoRespuesta));
         }
     );
 }
 
-const eliminaEmpleado = (req, res) => {
-    const id = req.params.id;
+const eliminaEmpleado = (request, response) => {
+    const id = request.params.id;
     pool.query(
         'DELETE FROM empleado.empleado '
         + 'WHERE id = $1;',
@@ -179,7 +179,7 @@ const eliminaEmpleado = (req, res) => {
                 throw error;
             }
             textoRespuesta = '{"respuesta": "Se eliminó ' + results.rowCount + ' empleado: ' + id + '"}';
-            res.status(201).json(JSON.parse(textoRespuesta));
+            response.status(201).json(JSON.parse(textoRespuesta));
         }
     );
 }
@@ -193,5 +193,5 @@ module.exports = {
     leeEmpleado,
     insertaEmpleado,
     actualizaEmpleado,
-    eliminaEmpleado,
+    eliminaEmpleado
 }

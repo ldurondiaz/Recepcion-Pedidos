@@ -9,13 +9,14 @@ import { ConfiguracionService } from '../../services/configuracion.service';
 import { SucursalNube } from '../../model/sucursalNube';
 import { Sucursal } from '../../model/sucursal';
 import { Mensajes } from '../../utils/mensajes';
+import { RelojComponent } from '../../components/reloj/reloj.component';
 
 @Component({
   selector: 'app-configuracion',
   templateUrl: './configuracion.page.html',
   styleUrls: ['./configuracion.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, ReactiveFormsModule/*, SharedModule*/]
+  imports: [IonicModule, CommonModule, ReactiveFormsModule, RelojComponent/*, SharedModule*/]
 })
 export class ConfiguracionPage implements OnInit {
 

@@ -16,7 +16,7 @@ export class ConfiguracionService {
   }
 
   leeConfiguracionListaSucursales() {
-    return this.http.get(environment.baseUrl + ':' + environment.puertoCatalogos + environment.sucursales);
+    return this.http.get(environment.baseUrlCatalogos + ':' + environment.puertoCatalogos + environment.sucursales);
   }
 
   leeConfiguracionUsuario(usuario: Usuario) {

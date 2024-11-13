@@ -83,8 +83,16 @@
   --ion-color-employee-shade: #d7d8da;
   --ion-color-employee-tint: #848588;
 
+/** clock **/
+  --ion-color-clock: #eee;
+/** spinner **/
+  --ion-color-background: rgba(240, 240, 240, 0.7);
+/** modal **/
   --ion-color-close: #880000;
   --ion-color-close-contrast: #ffffff;
+/** card **/
+  --ion-color-shadow: rgba(0, 0, 0, 0.2);
+  --ion-background-card: linear-gradient(90deg, #300, #600);
 
   --ion-color-stripe: #000000;
 
@@ -184,6 +192,12 @@
     --ion-color-employee-contrast-rgb: 255, 255, 255;
     --ion-color-employee-shade: #47484a;
     --ion-color-employee-tint: #a4a5a8;
+
+  /** spinner **/
+  --ion-color-background: rgba(100, 100, 100, 0.5);
+  /** card **/
+  --ion-color-shadow: rgba(150, 150, 150, 0.2);
+
 }
 
   /*

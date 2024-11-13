@@ -3,19 +3,18 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { SharedModule } from '../../shared/shared.module'
-import { ConfiguracionService } from '../../services/configuracion.service';
+//import { SharedModule } from '../../shared/shared.module'
 import { Sucursal } from '../../model/sucursal';
 import { Administrador } from '../../model/administrador';
-import { EncriptarDesencriptar } from '../../utils/encriptarDesencriptar';
 import { LoginComponent } from '../../components/login/login.component';
+import { RelojComponent } from '../../components/reloj/reloj.component';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.page.html',
   styleUrls: ['./menu.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, SharedModule, LoginComponent]
+  imports: [IonicModule, CommonModule, /*SharedModule,*/ LoginComponent, RelojComponent]
 })
 export class MenuPage implements OnInit {
 
@@ -29,22 +28,12 @@ export class MenuPage implements OnInit {
 
   sucursal?: Sucursal;
 
-  constructor(private configuracionSvc: ConfiguracionService, private router: Router) {
+  constructor(private readonly router: Router) {
     this.administrador = Administrador.getInstance();
   }
 
-// eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit() {
-
     this.presentingElement = document.querySelector('.botonEmpleados');
-
-    const text = '123456';
-    const encrypted = EncriptarDesencriptar.encrypt(text);
-    console.log('Texto Encriptado:', encrypted);
-
-    const decrypted = EncriptarDesencriptar.decrypt(encrypted);
-    console.log('Texto Desencriptado:', decrypted);
-
     this.sucursal = this.administrador.getSucursal();
     console.log('Sucursal (menu)--->', this.sucursal);
     if (this.sucursal) {
@@ -59,19 +48,19 @@ export class MenuPage implements OnInit {
   irAPedidos() {
     console.log('ir a pedidos');
     this.administrador.setTitulo('Pedidos');
-    this.router.navigateByUrl(environment.paginaLogin);
+    this.router.navigateByUrl(environment.paginaRecepcion);
   }
 
   async irAConfiguracion() {
     console.log('ir a configuración, pero primero va a login');
     this.administrador.setTitulo('Configuracion');
-    this.router.navigateByUrl(environment.paginaLogin);
+    //this.router.navigateByUrl(environment.paginaLogin);
   }
 
   irAEmpleados() {
     console.log('ir a empleados');
     this.administrador.setTitulo('Empleados');
-    //this.router.navigateByUrl(environment.paginaLogin);
+   // this.router.navigateByUrl(environment.paginaLogin);
   }
 
 }

@@ -1,3 +1,20 @@
 {
-  "typescript.preferences.autoImportFileExcludePatterns": ["@ionic/angular/common", "@ionic/angular"]
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "@ionic/angular/common",
+    "@ionic/angular"
+  ],
+  "cSpell.words": [
+    "administrador",
+    "boton",
+    "Cliente",
+    "Configuracion",
+    "configuración",
+    "Empleados",
+    "pagina",
+    "Pedidos",
+    "pero",
+    "recibidos",
+    "sucursal",
+    "Titulo"
+  ]
 }

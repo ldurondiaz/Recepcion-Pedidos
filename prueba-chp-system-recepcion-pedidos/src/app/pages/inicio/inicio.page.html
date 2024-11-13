@@ -1,10 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Cheese Pizza Recepción de Pedidos Móviles <label>(Inicio)</label></ion-title>
+    <ion-title>Cheese Pizza Recepción de Pedidos Móviles
+      <label>(Inicio)</label>
+      <app-reloj></app-reloj>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   @if(showSpinner){
     <div class="spinner-container">
       <ion-spinner name="lines"></ion-spinner>

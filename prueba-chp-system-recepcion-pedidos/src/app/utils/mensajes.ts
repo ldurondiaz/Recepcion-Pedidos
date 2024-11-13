@@ -49,7 +49,7 @@ export class Mensajes {
         buttons: [{
           text: 'Aceptar',
           handler: () => {
-            forma.reset();
+            //forma.reset();
             router.navigateByUrl(pagina);
           }
         }],
@@ -67,7 +67,7 @@ export class Mensajes {
         buttons: [{
           text: 'Aceptar',
           handler: () => {
-            forma.reset();
+            //forma.reset();
             modalController.dismiss();
             router.navigateByUrl(pagina);
           }

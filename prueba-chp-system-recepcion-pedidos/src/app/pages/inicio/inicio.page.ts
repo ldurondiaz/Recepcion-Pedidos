@@ -3,19 +3,20 @@ import { IonicModule } from '@ionic/angular';
 import { AlertController } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-import { SharedModule } from '../../shared/shared.module';
+//import { SharedModule } from '../../shared/shared.module';
 import { ConfiguracionService } from '../../services/configuracion.service';
 import { Sucursal } from '../../model/sucursal';
 import { Administrador } from '../../model/administrador';
 import { Conexion } from '../../utils/conexion';
 import { Mensajes } from '../../utils/mensajes';
+import { RelojComponent } from '../../components/reloj/reloj.component';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
   standalone: true,
-  imports: [IonicModule, SharedModule],
+  imports: [IonicModule,/* SharedModule,*/ RelojComponent],
 })
 export class InicioPage implements OnInit {
   showSpinner!: boolean;

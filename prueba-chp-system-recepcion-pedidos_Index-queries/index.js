@@ -17,13 +17,13 @@ app.get('/api/data', (req, res) => {
     res.json({ message: 'Hello from Node.js!' });
 });
 
-//Endpoints de usuario
-app.get('/configuracion', db.leeConfiguracionSucursal);
+//Endpoints Usuario
 app.get('/usuario/:usuario/:contrasenia', db.leeConfiguracionUsuario);
+//Endpoints Configuración
+app.get('/configuracion', db.leeConfiguracionSucursal);
 app.post('/configuracion', db.insertaConfiguracionSucursal);
-
+//Endpoints Empleados
 app.get('/empleado-tipos', db.leeListaEmpleadoTipos);
-
 app.get('/empleados', db.leeListaEmpleados);
 app.get('/empleado/:id', db.leeEmpleado);
 app.post('/empleado', db.insertaEmpleado);

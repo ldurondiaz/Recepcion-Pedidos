@@ -5,36 +5,44 @@
 export const environment = {
   production: false,
 
-  //Constantes
-  baseUrlLocal: 'http://localhost',
-  puertoLocal: 3000,
+  //Conexión Pedidos
+  baseUrlPedidos: 'http://ec2-54-144-58-67.compute-1.amazonaws.com',
+  puertoPedidos: 3000,
+  //Endpoints
+  pedidosNube: '/pedidos',
 
-  baseUrl: 'http://ec2-54-153-58-93.us-west-1.compute.amazonaws.com',
+  //Conexión Catálogos
+  baseUrlCatalogos: 'http://ec2-54-144-58-67.compute-1.amazonaws.com',
   puertoCatalogos: 3001,
+  //Endpoints
   sucursales: '/sucursales',
 
+  //Conexión Local
+  baseUrlLocal: 'http://localhost',
+  puertoLocal: 3000,
   //Endpoints
   configuracion: '/configuracion',
   usuario: '/usuario',
   empleados: '/empleados',
   empleadoTipos: '/empleado-tipos',
   empleado: '/empleado',
-
   //Páginas
   paginaRaiz: '/',
   paginaInicio: '/inicio',
   paginaMenu: '/menu',
-  paginaPedidos: '/pedidos',
+  paginaRecepcion: '/recepcion',
   paginaConfiguracion: '/configuracion',
   paginaEmpleados: '/empleados',
   paginaLogin: '/login',
-
-  //Constantes para la base de datos
+  //Constantes
   agregarEmpleado: 'Agregar Empleado',
   editarEmpleado: 'Editar Empleado',
   eliminarEmpleado: 'Eliminar Empleado',
   si_bd: 'S',
   no_bd: 'N',
+  moduloRecepcion: 'Recepcion',
+  moduloConfiguracion: 'Configuracion',
+  moduloEmpleados: 'Empleados'
 };
 
 /*
