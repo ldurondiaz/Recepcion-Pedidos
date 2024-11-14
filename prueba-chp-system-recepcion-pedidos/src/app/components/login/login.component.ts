@@ -52,8 +52,8 @@ export class LoginComponent implements OnInit {
   irA() {
     console.log('navegar a: ', this.titulo);
     switch (this.titulo) {
-      case environment.moduloRecepcion:
-        this.router.navigateByUrl(environment.paginaRecepcion);
+      case environment.moduloPedidos:
+        this.router.navigateByUrl(environment.paginaPedidos);
         break;
       case environment.moduloConfiguracion:
         this.router.navigateByUrl(environment.paginaConfiguracion);
@@ -61,13 +61,11 @@ export class LoginComponent implements OnInit {
       case environment.moduloEmpleados:
         this.dismiss();
         this.router.navigateByUrl(environment.paginaEmpleados);
-        //this.navCtrl.navigateForward(environment.paginaEmpleados);
         break;
     }
   }
 
   onSubmit() {
-    console.log('enviar');
     if (this.credencialesForma.valid) {
       this.usuario = this.credencialesForma.get('usuario')?.value;
       this.contrasenia = this.credencialesForma.get('contrasenia')?.value;

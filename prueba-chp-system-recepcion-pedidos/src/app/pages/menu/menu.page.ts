@@ -48,7 +48,7 @@ export class MenuPage implements OnInit {
   irAPedidos() {
     console.log('ir a pedidos');
     this.administrador.setTitulo('Pedidos');
-    this.router.navigateByUrl(environment.paginaRecepcion);
+    this.router.navigateByUrl(environment.paginaPedidos);
   }
 
   async irAConfiguracion() {

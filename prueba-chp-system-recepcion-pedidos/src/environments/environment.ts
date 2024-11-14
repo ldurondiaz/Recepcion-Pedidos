@@ -26,11 +26,12 @@ export const environment = {
   empleados: '/empleados',
   empleadoTipos: '/empleado-tipos',
   empleado: '/empleado',
+  pedido: '/pedido',
   //Páginas
   paginaRaiz: '/',
   paginaInicio: '/inicio',
   paginaMenu: '/menu',
-  paginaRecepcion: '/recepcion',
+  paginaPedidos: '/pedidos',
   paginaConfiguracion: '/configuracion',
   paginaEmpleados: '/empleados',
   paginaLogin: '/login',
@@ -40,7 +41,7 @@ export const environment = {
   eliminarEmpleado: 'Eliminar Empleado',
   si_bd: 'S',
   no_bd: 'N',
-  moduloRecepcion: 'Recepcion',
+  moduloPedidos: 'Pedidos',
   moduloConfiguracion: 'Configuracion',
   moduloEmpleados: 'Empleados'
 };

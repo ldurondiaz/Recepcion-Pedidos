@@ -1,0 +1,98 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Cheese Pizza Recepción de Pedidos Móviles
+      <label>(Pedidos)</label>
+    </ion-title>
+    <app-reloj></app-reloj>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">pedidos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="6" sizeXl="6">
+        <ion-accordion-group [value]="totalPedidosRecibidos > 0 ? 'pr' : ''">
+          <ion-accordion value="pr" toggleIconSlot="end">
+            <ion-item slot="header" >
+              <ion-chip>
+                <ion-label>Pedidos recibidos
+                  @if (totalPedidosRecibidos > 0) { ({{totalPedidosRecibidos}}) }
+                </ion-label>
+              </ion-chip>
+            </ion-item>
+            <div slot="content" class="cards">
+              @for (pedido of pedidos; track $index) {
+                <ion-card>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col class="text-col" sizeXs="12" sizeSm="12" sizeMd="3" sizeLg="3" sizeXl="3" class="text-col">
+                        <ion-text>#{{pedido.numeroPedido}}</ion-text>
+                      </ion-col>
+                      <ion-col class="content-col" sizeXs="12" sizeSm="12" sizeMd="9" sizeLg="9" sizeXl="9" class="content-col">
+                        <ion-card-header>
+                          <ion-card-subtitle>{{pedido.fechaHora}}</ion-card-subtitle>
+                          <ion-card-title>{{pedido.datosCliente}}</ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                          <ion-text>{{pedido.resumenPedido}}</ion-text>
+                          <div><strong>${{pedido.montoTotal}}</strong></div>
+                        </ion-card-content>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-card>
+              }
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-col>
+      <ion-col sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="6" sizeXl="6">
+        <ion-accordion-group>
+          <ion-accordion toggleIconSlot="end">
+            <ion-item slot="header" >
+              <ion-chip>
+                <ion-label>Pedidos capturados (en preparación)</ion-label>
+              </ion-chip>
+            </ion-item>
+            <div slot="content" class="cards">
+              Cargar los pedidos capturados
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-col>
+      <ion-col sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="6" sizeXl="6">
+        <ion-accordion-group>
+          <ion-accordion toggleIconSlot="end">
+            <ion-item slot="header" >
+              <ion-chip>
+                <ion-label>Pedidos enviados (entrega en domicilio)</ion-label>
+              </ion-chip>
+            </ion-item>
+            <div slot="content" class="cards">
+              Cargar los pedidos enviados
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-col>
+      <ion-col sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="6" sizeXl="6">
+        <ion-accordion-group>
+          <ion-accordion toggleIconSlot="end">
+            <ion-item slot="header" >
+              <ion-chip>
+                <ion-label>Pedidos listos (para pasar por ellos)</ion-label>
+              </ion-chip>
+            </ion-item>
+            <div slot="content" class="cards">
+              Cargar los pedidos listos
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

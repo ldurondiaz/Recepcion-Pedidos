@@ -1,6 +1,6 @@
 export class PedidoNube {
-  id!: string;
-  numeroPedido!: string;
+  idPedido!: string;
+  numeroPedido!: number;
   idCliente!: string;
   datosCliente!: string;
   idDomicilioCliente!: string;
@@ -8,7 +8,7 @@ export class PedidoNube {
   claveSucursal!: string;
   datosSucursal!: string;
   fechaHora!: string;
-  estatus!: number;
+  estatus!: string;
   modalidadEntrega!: string;
   montoTotal!: number;
   detallePedido!: string;
