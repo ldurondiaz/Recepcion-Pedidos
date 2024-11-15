@@ -28,6 +28,7 @@ export const environment = {
   empleado: '/empleado',
   pedido: '/pedido',
   pedidosEstatus: '/pedidos/estatus',
+  pedidos: '/pedidos',
   //Páginas
   paginaRaiz: '/',
   paginaInicio: '/inicio',

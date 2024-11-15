@@ -19,9 +19,11 @@ export class PedidosService {
   }
 
   actualizarPedidoNube(pedido: Pedido) {
-    console.log('pedido id:', pedido.idPedido);
-    console.log('pedido estatus:', pedido.estatus);
     return this.http.put(environment.baseUrlPedidos + ':' + environment.puertoPedidos + environment.pedidosEstatus, pedido);
+  }
+
+  leerListaPedidos(clave: string, estatus: string) {
+    return this.http.get(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.pedidos + '/sucursal/' + clave + '/' + estatus);
   }
 
 }

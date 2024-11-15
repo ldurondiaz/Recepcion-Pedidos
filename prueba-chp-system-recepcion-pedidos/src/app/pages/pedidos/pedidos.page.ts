@@ -8,6 +8,7 @@ import { Administrador } from '../../model/administrador';
 import { RelojComponent } from '../../components/reloj/reloj.component';
 import { environment } from 'src/environments/environment';
 import { Strings } from 'src/app/utils/strings';
+import { Procesamiento } from 'src/app/utils/procesamiento';
 
 @Component({
   selector: 'app-pedidos',
@@ -33,26 +34,19 @@ export class PedidosPage implements OnInit {
 
   ngOnInit() {
     this.sucursal = this.administrador.getSucursal();
-    console.log('this.sucursal->', this.sucursal);
+    this.pedidos = [];
     this.pedidosSvc.leerListaPedidosNube(this.sucursal.clave).subscribe({
       next: (response: any) => {
         this.pedidos = response;
-        console.log('this.pedidos->', this.pedidos);
         this.totalPedidos = this.pedidos.length;
         for (let index = 0; index < this.totalPedidos; index++) {
           this.pedidos[index].estatus = environment.estatusRecibePedido;
-          console.log('this.pedidos[index].estatus:', this.pedidos[index].estatus);
           this.pedidos[index].fechaRecibido = Strings.fechaHoraActualAAAAMMDDHHMMSSsss();
-          console.log('this.pedidos[index].fechaRecibido:', this.pedidos[index].fechaRecibido);
           this.pedidosSvc.insertarPedido(this.pedidos[index]).subscribe({
             next: (response: any) => {
-              console.log('this.pedidos[index]===>', this.pedidos[index]);
-              console.log('Pedido insertado de forma exitosa');
               console.log(response);
               this.pedidosSvc.actualizarPedidoNube(this.pedidos[index]).subscribe({
                 next: (response: any) => {
-                  console.log('this.pedidos[index]===>', this.pedidos[index]);
-                  console.log('Pedido actualizado de forma exitosa');
                   console.log(response);
                 },
                 error: (error: any) => {
@@ -67,10 +61,22 @@ export class PedidosPage implements OnInit {
             }
           });
         }
-        //this.totalPedidosRecibidos = 0;
-        this.totalPedidosRecibidos = this.totalPedidos;
-        //this.pedidosRecibidos = [];
-        this.pedidosRecibidos = this.pedidos;
+        /*Lee lista de pedidos locales*/
+        this.pedidosRecibidos = [];
+        this.pedidosSvc.leerListaPedidos(this.sucursal.clave, environment.estatusRecibePedido).subscribe({
+          next: (response: any) => {
+            this.pedidosRecibidos = response;
+            this.totalPedidosRecibidos = this.pedidosRecibidos.length;
+            for (let index = 0; index < this.totalPedidosRecibidos; index++) {
+              this.pedidosRecibidos[index].fechaHora = Procesamiento.fechaHora(this.pedidosRecibidos[index].fechaHora);
+              this.pedidosRecibidos[index].datosCliente = Procesamiento.datosCliente(this.pedidosRecibidos[index].datosCliente);
+            }
+          },
+          error: (error: any) => {
+            console.log('Ocurrió un error al cargar los datos de los pedidos locales:');
+            console.log(error);
+          }
+        });
       },
       error: (error: any) => {
         console.log('Ocurrió un error al cargar los datos de los pedidos:');
