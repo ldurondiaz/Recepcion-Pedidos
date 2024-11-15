@@ -38,14 +38,6 @@ const leeConfiguracionUsuario = (request, response) => {
     const usuario = request.params.usuario;
     const contrasenia = request.params.contrasenia;
     pool.query(
-/*        'SELECT '
-        + 'id, '
-        + 'usuario, '
-        + 'contrasenia '
-        + 'FROM '
-        + 'configuracion.usuario '
-        + 'WHERE usuario = $1 '
-        + 'AND contrasenia = $2;',*/
         'SELECT '
         + 'EXISTS ('
         + 'SELECT 1 '
@@ -194,7 +186,7 @@ const insertaPedido = (request, response) => {
         montoDescuento
     } = request.body;
     pool.query(
-        'INSERT INTO pedidos.pedido '
+        'INSERT INTO pedido.pedido '
         + '('
         + 'id_pedido, numero_pedido, id_cliente, datos_cliente, id_domicilio_cliente, '
         + 'datos_domicilio_cliente, clave_sucursal, datos_sucursal, fecha_hora, estatus, '
@@ -220,57 +212,10 @@ const insertaPedido = (request, response) => {
             if (error) {
                 throw error;
             }
-            console.log('id pedido:', results.rows[0].id_pedido);
-            console.log('número pedido:', results.rows[0].numero_pedido);
             textoRespuesta = '{"respuesta": "Se insertó un pedido nuevo: ' + results.rows[0].id_pedido + '"}';
             response.status(201).json(JSON.parse(textoRespuesta));
         }
     );
-/*    const {
-        idPedido, numeroPedido, idCliente, datosCliente, idDomicilioCliente, 
-        datosDomicilioCliente, claveSucursal, datosSucursal, fechaHora, estatus, 
-        modalidadEntrega, montoTotal, detallePedido, instruccionesEspeciales, promocionesAplicadas, 
-        tipoPago, cantidadProductos, resumenPedido, urlReciboPago, montoSubtotal, 
-        montoDescuento
-        //chat, fechaRecibido, fechaCapturado, idEmpleadoFechaCapturado, fechaEnviado, 
-        //idEmpleadoFechaEnviado, fechaListo, idEmpleadoFechaListo, fechaAtendido, idEmpleadoFechaAtendido
-        
-        } = request.body;
-        pool.query(
-            'INSERT INTO pedidos.pedido('
-            + 'id_pedido, numero_pedido, id_cliente, datos_cliente, id_domicilio_cliente, '
-            + 'datos_domicilio_cliente, clave_sucursal, datos_sucursal, fecha_hora, estatus, '
-            + 'modalidad_entrega, monto_total, detalle_pedido, instrucciones_especiales, promociones_aplicadas, '
-            + 'tipo_pago, cantidad_productos, resumen_pedido, url_recibo_pago, monto_subtotal, '
-            + 'monto_descuento) '
-            + 'VALUES ($1, $2, $3, $4, $5, '
-            + '$6, $7, $8, $9, $10, '
-            + '$11, $12, $13, $14, $15, '
-            + '$16, $17, $18, $19, $20, '
-            + '$21) RETURNING *;',
-            [
-            idPedido, numeroPedido, idCliente, datosCliente, idDomicilioCliente, 
-            datosDomicilioCliente, claveSucursal, datosSucursal, fechaHora, estatus, 
-            modalidadEntrega, montoTotal, detallePedido, instruccionesEspeciales, promocionesAplicadas, 
-            tipoPago, cantidadProductos, resumenPedido, urlReciboPago, montoSubtotal, 
-            montoDescuento
-            ],
-            (error, results) => {
-            if (error) {
-                throw error;
-            }
-            console.log('id pedido:', results.rows[0].id_pedido);
-            console.log('número pedido:', results.rows[0].numero_pedido);
-            textoRespuesta =
-            '{"respuesta": "Se insertó pedido: ' +
-            results.rows[0].id_pedido +
-            '",' +
-            '"numeroPedido":' +
-            results.rows[0].numero_pedido +
-            '}';
-            res.status(201).json(JSON.parse(textoRespuesta));
-        }
-    );*/
 }
 
 module.exports = {

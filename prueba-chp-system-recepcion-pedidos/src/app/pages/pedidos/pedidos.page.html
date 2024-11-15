@@ -15,8 +15,10 @@
   </ion-header>
   <ion-grid fixed>
     <ion-row>
-      <ion-col sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="6" sizeXl="6">
-        <ion-accordion-group [value]="totalPedidosRecibidos > 0 ? 'pr' : ''">
+      <ion-col sizeXs="12" sizeSm="12" sizeMd="6" sizeLg="6" sizeXl="6">
+        <ion-accordion-group
+        [value]="totalPedidosRecibidos > 0 ? 'pr' : ''"
+        [disabled]="totalPedidosRecibidos === 0">
           <ion-accordion value="pr" toggleIconSlot="end">
             <ion-item slot="header" >
               <ion-chip>
@@ -26,14 +28,14 @@
               </ion-chip>
             </ion-item>
             <div slot="content" class="cards">
-              @for (pedido of pedidos; track $index) {
+              @for (pedido of pedidosRecibidos; track $index) {
                 <ion-card>
                   <ion-grid>
                     <ion-row>
-                      <ion-col class="text-col" sizeXs="12" sizeSm="12" sizeMd="3" sizeLg="3" sizeXl="3" class="text-col">
+                      <ion-col class="text-col" sizeXs="12" sizeSm="3" sizeMd="3" sizeLg="3" sizeXl="3" class="text-col">
                         <ion-text>#{{pedido.numeroPedido}}</ion-text>
                       </ion-col>
-                      <ion-col class="content-col" sizeXs="12" sizeSm="12" sizeMd="9" sizeLg="9" sizeXl="9" class="content-col">
+                      <ion-col class="content-col" sizeXs="12" sizeSm="9" sizeMd="9" sizeLg="9" sizeXl="9" class="content-col">
                         <ion-card-header>
                           <ion-card-subtitle>{{pedido.fechaHora}}</ion-card-subtitle>
                           <ion-card-title>{{pedido.datosCliente}}</ion-card-title>
@@ -51,12 +53,16 @@
           </ion-accordion>
         </ion-accordion-group>
       </ion-col>
-      <ion-col sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="6" sizeXl="6">
-        <ion-accordion-group>
+      <ion-col sizeXs="12" sizeSm="12" sizeMd="6" sizeLg="6" sizeXl="6">
+        <ion-accordion-group
+        [value]="totalPedidosCapturados > 0 ? 'pc' : ''"
+        [disabled]="totalPedidosCapturados === 0">
           <ion-accordion toggleIconSlot="end">
             <ion-item slot="header" >
               <ion-chip>
-                <ion-label>Pedidos capturados (en preparación)</ion-label>
+                <ion-label>Pedidos capturados (en preparación)
+                  @if (totalPedidosCapturados > 0) { ({{totalPedidosCapturados}}) }
+                </ion-label>
               </ion-chip>
             </ion-item>
             <div slot="content" class="cards">
@@ -65,12 +71,16 @@
           </ion-accordion>
         </ion-accordion-group>
       </ion-col>
-      <ion-col sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="6" sizeXl="6">
-        <ion-accordion-group>
+      <ion-col sizeXs="12" sizeSm="12" sizeMd="6" sizeLg="6" sizeXl="6">
+        <ion-accordion-group
+        [value]="totalPedidosEnviados > 0 ? 'pe' : ''"
+        [disabled]="totalPedidosEnviados === 0">
           <ion-accordion toggleIconSlot="end">
             <ion-item slot="header" >
               <ion-chip>
-                <ion-label>Pedidos enviados (entrega en domicilio)</ion-label>
+                <ion-label>Pedidos enviados (entrega en domicilio)
+                  @if (totalPedidosEnviados > 0) { ({{totalPedidosEnviados}}) }
+                </ion-label>
               </ion-chip>
             </ion-item>
             <div slot="content" class="cards">
@@ -79,12 +89,16 @@
           </ion-accordion>
         </ion-accordion-group>
       </ion-col>
-      <ion-col sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="6" sizeXl="6">
-        <ion-accordion-group>
+      <ion-col sizeXs="12" sizeSm="12" sizeMd="6" sizeLg="6" sizeXl="6">
+        <ion-accordion-group
+        [value]="totalPedidosListos > 0 ? 'pl' : ''"
+        [disabled]="totalPedidosListos === 0">
           <ion-accordion toggleIconSlot="end">
             <ion-item slot="header" >
               <ion-chip>
-                <ion-label>Pedidos listos (para pasar por ellos)</ion-label>
+                <ion-label>Pedidos listos (para pasar por ellos)
+                  @if (totalPedidosListos > 0) { ({{totalPedidosListos}}) }
+                </ion-label>
               </ion-chip>
             </ion-item>
             <div slot="content" class="cards">

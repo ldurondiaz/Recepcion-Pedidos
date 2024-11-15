@@ -27,6 +27,7 @@ export const environment = {
   empleadoTipos: '/empleado-tipos',
   empleado: '/empleado',
   pedido: '/pedido',
+  pedidosEstatus: '/pedidos/estatus',
   //Páginas
   paginaRaiz: '/',
   paginaInicio: '/inicio',
@@ -43,7 +44,13 @@ export const environment = {
   no_bd: 'N',
   moduloPedidos: 'Pedidos',
   moduloConfiguracion: 'Configuracion',
-  moduloEmpleados: 'Empleados'
+  moduloEmpleados: 'Empleados',
+  estatusNubePedido: "NP",
+  estatusRecibePedido: "RP",
+  estatusCapturaPedido: "CP",
+  estatusEnviaPedido: "EP",
+  estatusListoPedido: "LP",
+  estatusAtendidoPedido:"AP"
 };
 
 /*
