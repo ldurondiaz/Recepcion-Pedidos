@@ -183,7 +183,7 @@ const insertaPedido = (request, response) => {
         datosDomicilioCliente, claveSucursal, datosSucursal, fechaHora, estatus,
         modalidadEntrega, montoTotal, detallePedido, instruccionesEspeciales, promocionesAplicadas,
         tipoPago, cantidadProductos, resumenPedido, urlReciboPago, montoSubtotal,
-        montoDescuento
+        montoDescuento, fechaRecibido
     } = request.body;
     pool.query(
         'INSERT INTO pedido.pedido '
@@ -192,7 +192,7 @@ const insertaPedido = (request, response) => {
         + 'datos_domicilio_cliente, clave_sucursal, datos_sucursal, fecha_hora, estatus, '
         + 'modalidad_entrega, monto_total, detalle_pedido, instrucciones_especiales, promociones_aplicadas, '
         + 'tipo_pago, cantidad_productos, resumen_pedido, url_recibo_pago, monto_subtotal, '
-        + 'monto_descuento'
+        + 'monto_descuento, fecha_recibido'
         + ') '
         + 'VALUES '
         + '('
@@ -200,13 +200,13 @@ const insertaPedido = (request, response) => {
         + '$6, $7, $8, $9, $10, '
         + '$11, $12, $13, $14, $15, '
         + '$16, $17, $18, $19, $20, '
-        + '$21'
+        + '$21, $22'
         + ') RETURNING *;',
         [idPedido, numeroPedido, idCliente, datosCliente, idDomicilioCliente,
             datosDomicilioCliente, claveSucursal, datosSucursal, fechaHora, estatus,
             modalidadEntrega, montoTotal, detallePedido, instruccionesEspeciales, promocionesAplicadas,
             tipoPago, cantidadProductos, resumenPedido, urlReciboPago, montoSubtotal,
-            montoDescuento
+            montoDescuento, fechaRecibido
         ],
         (error, results) => {
             if (error) {
@@ -221,6 +221,8 @@ const insertaPedido = (request, response) => {
 const leeListaPedidos  = (request, response) => {
     const claveSucursal = request.params.claveSucursal;
     const estatusPedido = request.params.estatus;
+    console.log('claveSucursal:', claveSucursal);
+    console.log('estatusPedido:', estatusPedido);
     pool.query(
         'SELECT id_pedido as "idPedido", numero_pedido as "numeroPedido", id_cliente as "idCliente", ' +
         'datos_cliente as "datosCliente", id_domicilio_cliente as "idDomicilioCliente", ' +

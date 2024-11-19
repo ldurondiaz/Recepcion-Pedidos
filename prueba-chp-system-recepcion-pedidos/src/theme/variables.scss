@@ -93,6 +93,11 @@
 /** card **/
   --ion-color-shadow: rgba(0, 0, 0, 0.2);
   --ion-background-card: linear-gradient(90deg, #300, #600);
+  --ion-background-card-hover: rgba(50, 0, 0, 1.0);
+/** pedido **/
+--ion-color-text-pedido: #000;
+  --ion-color-border-pedido: #888;
+  --ion-color-background-pedido: #ddd;
 
   --ion-color-stripe: #000000;
 
@@ -197,6 +202,11 @@
   --ion-color-background: rgba(100, 100, 100, 0.5);
   /** card **/
   --ion-color-shadow: rgba(150, 150, 150, 0.2);
+  --ion-background-card-hover: rgba(100, 0, 0, 1.0);
+  /** pedido **/
+  --ion-color-text-pedido: #000;
+  --ion-color-border-pedido: #ddd;
+  --ion-color-background-pedido: #888;
 
 }
 

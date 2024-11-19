@@ -27,29 +27,40 @@ export const environment = {
   empleadoTipos: '/empleado-tipos',
   empleado: '/empleado',
   pedido: '/pedido',
+  pedidosEstatus: '/pedidos/estatus',
+  pedidos: '/pedidos',
   //Páginas
   paginaRaiz: '/',
   paginaInicio: '/inicio',
   paginaMenu: '/menu',
   paginaPedidos: '/pedidos',
+  paginaPedidoDetalle: 'pedido-detalle',
   paginaConfiguracion: '/configuracion',
   paginaEmpleados: '/empleados',
   paginaLogin: '/login',
-  //Constantes
+  //Constantes movimientos empleados
   agregarEmpleado: 'Agregar Empleado',
   editarEmpleado: 'Editar Empleado',
   eliminarEmpleado: 'Eliminar Empleado',
+  //Constsntes baja empleado
   si_bd: 'S',
   no_bd: 'N',
+  //Constantes módulos
   moduloPedidos: 'Pedidos',
   moduloConfiguracion: 'Configuracion',
   moduloEmpleados: 'Empleados',
+  //Constantes estatus pedido
   estatusNubePedido: "NP",
   estatusRecibePedido: "RP",
   estatusCapturaPedido: "CP",
   estatusEnviaPedido: "EP",
   estatusListoPedido: "LP",
-  estatusAtendidoPedido:"AP"
+  estatusAtendidoPedido:"AP",
+  //Constantes tipo de pago
+  pagoEnLinea: 'PL',
+  //Constantes modalidad de entrega
+  entregaDomicilio: 'ED',
+  entregaSucursal: 'ES',
 };
 
 /*

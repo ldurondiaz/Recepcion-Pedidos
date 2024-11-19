@@ -42,6 +42,7 @@ ion-grid {
 }
 
 ion-card:hover {
+  background: var(--ion-background-card-hover);
   transform: scale(1.01);
   cursor: pointer;
 }

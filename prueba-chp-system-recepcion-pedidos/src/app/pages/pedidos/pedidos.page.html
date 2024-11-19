@@ -17,32 +17,32 @@
     <ion-row>
       <ion-col sizeXs="12" sizeSm="12" sizeMd="6" sizeLg="6" sizeXl="6">
         <ion-accordion-group
-        [value]="totalPedidosRecibidos > 0 ? 'pr' : ''"
-        [disabled]="totalPedidosRecibidos === 0">
+        [value]="pedidosRecibidos.length > 0 ? 'pr' : ''"
+        [disabled]="pedidosRecibidos.length === 0">
           <ion-accordion value="pr" toggleIconSlot="end">
             <ion-item slot="header" >
               <ion-chip>
                 <ion-label>Pedidos recibidos
-                  @if (totalPedidosRecibidos > 0) { ({{totalPedidosRecibidos}}) }
+                  @if (pedidosRecibidos.length > 0) { ({{pedidosRecibidos.length}}) }
                 </ion-label>
               </ion-chip>
             </ion-item>
             <div slot="content" class="cards">
-              @for (pedido of pedidosRecibidos; track $index) {
-                <ion-card>
+              @for (pedidoRecibido of pedidosRecibidos; track $index) {
+                <ion-card (click)="onClick(pedidoRecibido)">
                   <ion-grid>
                     <ion-row>
                       <ion-col class="text-col" sizeXs="12" sizeSm="3" sizeMd="3" sizeLg="3" sizeXl="3" class="text-col">
-                        <ion-text>#{{pedido.numeroPedido}}</ion-text>
+                        <ion-text>#{{pedidoRecibido.numeroPedido}}</ion-text>
                       </ion-col>
                       <ion-col class="content-col" sizeXs="12" sizeSm="9" sizeMd="9" sizeLg="9" sizeXl="9" class="content-col">
                         <ion-card-header>
-                          <ion-card-subtitle>{{pedido.fechaHora}}</ion-card-subtitle>
-                          <ion-card-title>{{pedido.datosCliente}}</ion-card-title>
+                          <ion-card-subtitle>{{pedidoRecibido.fechaHoraVista}}</ion-card-subtitle>
+                          <ion-card-title>{{pedidoRecibido.datosClienteVista}}</ion-card-title>
                         </ion-card-header>
                         <ion-card-content>
-                          <ion-text>{{pedido.resumenPedido}}</ion-text>
-                          <div><strong>${{pedido.montoTotal}}</strong></div>
+                          <ion-text>{{pedidoRecibido.resumenPedido}}</ion-text>
+                          <div><strong>${{pedidoRecibido.montoTotal}}</strong></div>
                         </ion-card-content>
                       </ion-col>
                     </ion-row>

@@ -1,0 +1,19 @@
+ion-grid {
+ padding-top: 2.00rem;
+}
+
+.tabulador {
+  padding-left: 0.50rem;
+}
+
+.tituloRow {
+  color: var(--ion-color-text-pedido);
+  border: 1px solid var(--ion-color-border-pedido);
+  border-radius: 0.50rem;
+}
+
+.tituloCol {
+  color: var(--ion-color-text-pedido);
+  background: var(--ion-color-background-pedido);
+  border-radius: 0.50rem 0.50rem 0 0;
+}
