@@ -104,7 +104,8 @@ export class EmpleadoComponent implements OnInit {
         this.empleado = response;
         if (this.empleado) {
           console.log('empleado--->', this.empleado);
-          this.nombre = this.empleado.nombre;
+          this.empleadoForma.get('nombre')?.setValue(this.empleado.nombre);
+          //this.nombre = this.empleado.nombre;
           this.domicilio = this.empleado.domicilio;
           this.telefono = this.empleado.telefono;
           this.fechaIngreso =

@@ -3,6 +3,9 @@
     <ion-title>Cheese Pizza Recepción de Pedidos Móviles
       <label>(Pedidos)</label>
     </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <app-reloj></app-reloj>
   </ion-toolbar>
 </ion-header>
@@ -24,6 +27,7 @@
               <ion-chip>
                 <ion-label>Pedidos recibidos
                   @if (pedidosRecibidos.length > 0) { ({{pedidosRecibidos.length}}) }
+                  <p>Estatus en móvil: Pedido recibido en sucursal</p>
                 </ion-label>
               </ion-chip>
             </ion-item>
@@ -62,6 +66,7 @@
               <ion-chip>
                 <ion-label>Pedidos capturados (en preparación)
                   @if (totalPedidosCapturados > 0) { ({{totalPedidosCapturados}}) }
+                  <p>Estatus en móvil: Pedido en preparación</p>
                 </ion-label>
               </ion-chip>
             </ion-item>
@@ -80,6 +85,7 @@
               <ion-chip>
                 <ion-label>Pedidos enviados (entrega en domicilio)
                   @if (totalPedidosEnviados > 0) { ({{totalPedidosEnviados}}) }
+                  <p>Estatus en móvil: Pedido en proceso de entrega</p>
                 </ion-label>
               </ion-chip>
             </ion-item>
@@ -98,6 +104,7 @@
               <ion-chip>
                 <ion-label>Pedidos listos (para pasar por ellos)
                   @if (totalPedidosListos > 0) { ({{totalPedidosListos}}) }
+                  <p>Estatus en móvil: Pedido listo para pasar por el</p>
                 </ion-label>
               </ion-chip>
             </ion-item>

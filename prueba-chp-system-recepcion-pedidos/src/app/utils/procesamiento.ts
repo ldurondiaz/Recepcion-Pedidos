@@ -14,7 +14,7 @@ export class Procesamiento {
   static datosVariosRenglones(cadena: string | null | undefined): string {
     // Si la cadena no es válida (null, undefined o vacía), regresa un mensaje predeterminado
     if (!cadena) {
-      return 'Sin datos disponibles';
+      return '';
     }
 
     // Si la cadena no contiene el separador, regresa la cadena tal cual

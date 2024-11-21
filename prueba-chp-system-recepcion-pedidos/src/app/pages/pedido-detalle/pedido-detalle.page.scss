@@ -1,19 +1,25 @@
 ion-grid {
- padding-top: 2.00rem;
+  padding-top: 2.00rem;
+  .tituloCol {
+    color: var(--ion-color-pedido-text);
+    font-weight: bold;
+    background-color: var(--ion-color-pedido-background);
+    border: 1px solid var(--ion-color-pedido-border);
+    border-radius: 0.25rem 0.25rem 0 0;
+  }
+  .tabulador {
+    padding-left: 0.75rem;
+    color: var(--ion-color-text-pedido);
+    border: 1px solid var(--ion-color-pedido-border);
+    border-radius: 0 0 0.25rem 0.25rem;
+  }
 }
 
-.tabulador {
-  padding-left: 0.50rem;
+.boton {
+  text-align: center;
 }
 
-.tituloRow {
-  color: var(--ion-color-text-pedido);
-  border: 1px solid var(--ion-color-border-pedido);
-  border-radius: 0.50rem;
-}
-
-.tituloCol {
-  color: var(--ion-color-text-pedido);
-  background: var(--ion-color-background-pedido);
-  border-radius: 0.50rem 0.50rem 0 0;
+ion-button {
+  --background: var(--ion-color-tertiary);
+  --color: var(--ion-color-tertiary-contrast);
 }

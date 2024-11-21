@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Pedido } from '../../model/pedido';
 import { PedidosService } from '../../services/pedidos.service';
@@ -10,13 +9,22 @@ import { RelojComponent } from '../../components/reloj/reloj.component';
 import { environment } from 'src/environments/environment';
 import { Strings } from 'src/app/utils/strings';
 import { Procesamiento } from 'src/app/utils/procesamiento';
+import { IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent,
+  IonGrid, IonRow, IonCol, IonItem, IonChip, IonLabel, IonText,
+  IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent,
+  IonAccordionGroup, IonAccordion } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-pedidos',
   templateUrl: './pedidos.page.html',
   styleUrls: ['./pedidos.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, RelojComponent]
+  imports: [CommonModule, RelojComponent,
+    IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent,
+    IonGrid, IonRow, IonCol, IonItem, IonChip, IonLabel, IonText,
+    IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent,
+    IonAccordionGroup, IonAccordion
+  ]
 })
 export class PedidosPage implements OnInit {
   pedidos!: Pedido[];

@@ -50,7 +50,7 @@ export class InicioPage implements OnInit {
 
   async leeConfiguracionSucursal() {
     this.showSpinner = true;
-    await new Promise((f) => setTimeout(f, 1000));
+    //await new Promise((f) => setTimeout(f, 1000));
     this.showSpinner = false;
     this.configuracionSvc.leeConfiguracionSucursal().subscribe({
       next: async (response: any) => {

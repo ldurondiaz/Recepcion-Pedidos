@@ -94,10 +94,18 @@
   --ion-color-shadow: rgba(0, 0, 0, 0.2);
   --ion-background-card: linear-gradient(90deg, #300, #600);
   --ion-background-card-hover: rgba(50, 0, 0, 1.0);
+  --ion-color-border-card: #f00;
+  --ion-color-text-card: #fff;
 /** pedido **/
---ion-color-text-pedido: #000;
-  --ion-color-border-pedido: #888;
-  --ion-color-background-pedido: #ddd;
+  /** pedido **/
+  --ion-background-color-accordion-collapsed: #eee;
+  --ion-background-color-accordion-expanding: #888;
+  --ion-color-accordion: #fff;
+  --ion-color-p: #ddd;
+
+  --ion-color-pedido-text: #dda207;
+  --ion-color-pedido-border: #ccc;
+  --ion-color-pedido-background: rgba(100, 0, 0, 1.0);
 
   --ion-color-stripe: #000000;
 
@@ -204,9 +212,9 @@
   --ion-color-shadow: rgba(150, 150, 150, 0.2);
   --ion-background-card-hover: rgba(100, 0, 0, 1.0);
   /** pedido **/
-  --ion-color-text-pedido: #000;
-  --ion-color-border-pedido: #ddd;
-  --ion-color-background-pedido: #888;
+  --ion-color-pedido-text: #dda207;
+  --ion-color-pedido-border: #ccc;
+  --ion-color-pedido-background: rgba(100, 0, 0, 1.0);
 
 }
 

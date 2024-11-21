@@ -1,23 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { addOutline, pencilOutline, trashOutline, pin, arrowForwardCircle, business } from 'ionicons/icons';
 import { EmpleadoComponent } from '../../components/empleado/empleado.component';
 import { EmpleadosService } from '../../services/empleados.service';
-//import { SharedModule } from '../../shared/shared.module'
 import { Administrador } from '../../model/administrador';
 import { Empleado } from '../..//model/empleado';
 import { Strings } from '../../utils/strings';
 import { environment } from '../../../environments/environment';
 import { RelojComponent } from '../../components/reloj/reloj.component';
-
+import { IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent,
+  IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle,
+  IonCardContent, IonImg, IonFooter, IonModal, IonIcon } from '@ionic/angular/standalone';
 @Component({
   selector: 'app-empleados',
   templateUrl: './empleados.page.html',
   styleUrls: ['./empleados.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, EmpleadoComponent, RelojComponent/*, SharedModule,*/
+  imports: [CommonModule, EmpleadoComponent, RelojComponent,
+    IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent,
+    IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle,
+    IonCardContent, IonImg, IonFooter, IonModal, IonIcon
   ]
 })
 export class EmpleadosPage implements OnInit {
