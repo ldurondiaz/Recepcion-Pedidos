@@ -103,26 +103,28 @@ export class EmpleadoComponent implements OnInit {
       next: (response: any) => {
         this.empleado = response;
         if (this.empleado) {
-          console.log('empleado--->', this.empleado);
-          this.empleadoForma.get('nombre')?.setValue(this.empleado.nombre);
-          //this.nombre = this.empleado.nombre;
+          this.nombre = this.empleado.nombre;
           this.domicilio = this.empleado.domicilio;
           this.telefono = this.empleado.telefono;
-          this.fechaIngreso =
-          (this.mostrarEmpleadoForma === true)
-          ? Strings.dateformatAAAAMMDDToAAAA_MM_DD(this.administrador.getEmpleado().fechaingreso)
-          : this.administrador.getEmpleado().fechaingreso;
+          this.fechaIngreso = (this.mostrarEmpleadoForma === true)
+          ? Strings.dateformatAAAAMMDDToAAAA_MM_DD(Strings.dateformatAAAAMMDDToDDMMAAAA(this.empleado.fechaingreso))
+          : Strings.dateformatAAAAMMDDToDDMMAAAA(this.empleado.fechaingreso);
           this.tipoIdSeleccionado = this.empleado.empleadotipoid;
-          console.log('<<<', this.empleado.empleadotipoid, '>>>');
-          for (let index = 0; index < this.empleadoTipos.length; index++) {
-            if (this.empleadoTipos[index].id === this.empleado.empleadotipoid) {
-              this.empleadoTipoTipo = this.empleadoTipos[index].tipo;
+          for (const tipo of this.empleadoTipos) {
+            if (tipo.id === this.empleado.empleadotipoid) {
+              this.empleadoTipoTipo = tipo.tipo;
               break;
             }
           }
           this.estaActivoSeleccionado = this.empleado.activo;
-          this.estaActivo = this.estaActivoSeleccionado === environment.si_bd ? true : false;
           this.nip = EncriptarDesencriptar.decrypt(this.empleado.nip);
+          this.empleadoForma.get('nombre')?.setValue(this.nombre);
+          this.empleadoForma.get('domicilio')?.setValue(this.domicilio);
+          this.empleadoForma.get('telefono')?.setValue(this.telefono);
+          this.empleadoForma.get('fechaIngreso')?.setValue(this.fechaIngreso);
+          this.empleadoForma.get('tipo')?.setValue(this.tipoIdSeleccionado);
+          this.estaActivo = this.estaActivoSeleccionado === environment.si_bd ? true : false;
+          this.empleadoForma.get('nip')?.setValue(this.nip);
         }
         else {
           console.log('Incorrecto, no se cargaron los datos del empleado');
@@ -202,7 +204,9 @@ export class EmpleadoComponent implements OnInit {
   }
 
   async eliminarEmpleado() {
-    this.empleadosSvc.eliminarEmpleado(this.idEmpleado).subscribe({
+    let empleado: Empleado = new Empleado;
+    empleado.id = this.idEmpleado
+    this.empleadosSvc.eliminarEmpleado(empleado).subscribe({
       next:(response:any)=>{
         console.log('Empleado eliminado de forma exitosa')
         console.log(response);

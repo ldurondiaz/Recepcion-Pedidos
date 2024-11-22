@@ -28,7 +28,8 @@ app.get('/empleados', db.leeListaEmpleados);
 app.get('/empleado/:id', db.leeEmpleado);
 app.post('/empleado', db.insertaEmpleado);
 app.put('/empleado', db.actualizaEmpleado);
-app.delete('/empleado/:id', db.eliminaEmpleado);
+//app.delete('/empleado/:id', db.eliminaEmpleado);
+app.put('/empleado-baja', db.eliminaEmpleado);
 //Endpoints Pedidos
 app.post("/pedido", db.insertaPedido);
 app.get('/pedidos/sucursal/:claveSucursal/:estatus', db.leeListaPedidos);

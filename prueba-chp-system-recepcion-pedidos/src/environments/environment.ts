@@ -26,6 +26,7 @@ export const environment = {
   empleados: '/empleados',
   empleadoTipos: '/empleado-tipos',
   empleado: '/empleado',
+  empleadoBaja: '/empleado-baja',
   pedido: '/pedido',
   pedidosEstatus: '/pedidos/estatus',
   pedidos: '/pedidos',

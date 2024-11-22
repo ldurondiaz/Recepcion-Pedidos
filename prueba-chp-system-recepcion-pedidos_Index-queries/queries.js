@@ -56,7 +56,7 @@ const leeConfiguracionUsuario = (request, response) => {
 }
 
 const insertaConfiguracionSucursal = (request, response) => {
-    const { clave, nombre } = request.body;
+    const {clave, nombre} = request.body;
     pool.query(
         'INSERT INTO configuracion.sucursal '
         + '(clave, nombre) '
@@ -121,7 +121,7 @@ const leeEmpleado = (request, response) => {
 }
 
 const insertaEmpleado = (request, response) => {
-    const { id, claveSucursal, nombre, domicilio, telefono, fechaingreso,
+    const {id, claveSucursal, nombre, domicilio, telefono, fechaingreso,
         empleadotipoid, activo, nip, baja} = request.body;
     pool.query(
         'INSERT INTO empleado.empleado( '
@@ -141,7 +141,7 @@ const insertaEmpleado = (request, response) => {
 }
 
 const actualizaEmpleado = (request, response) => {
-    const { id, claveSucursal, nombre, domicilio, telefono, fechaingreso,
+    const {id, claveSucursal, nombre, domicilio, telefono, fechaingreso,
         empleadotipoid, activo, nip} = request.body;
     pool.query(
         'UPDATE empleado.empleado '
@@ -161,9 +161,10 @@ const actualizaEmpleado = (request, response) => {
 }
 
 const eliminaEmpleado = (request, response) => {
-    const id = request.params.id;
+    const {id} = request.body;
     pool.query(
-        'DELETE FROM empleado.empleado '
+        'UPDATE empleado.empleado '
+        + 'SET baja = \'S\' '
         + 'WHERE id = $1;',
         [id],
         (error, results) => {

@@ -31,9 +31,8 @@ export class EmpleadosService {
     return this.http.put(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleado, empleado);
   }
 
-  eliminarEmpleado(id: string) {
-    return this.http.delete(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleado + '/' + id);
+  eliminarEmpleado(empleado: Empleado) {
+    return this.http.put(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleadoBaja, empleado);
   }
-
 
 }
