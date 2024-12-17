@@ -57,6 +57,11 @@ export const environment = {
   estatusEnviaPedido: "EP",
   estatusListoPedido: "LP",
   estatusAtendidoPedido:"AP",
+  //Constantes texto botón de la página pedido detalle
+  textoBotonCapturaPedido: "Pasar a pedidos capturados",
+  textoBotonEnviaPedido: "Pasar a pedidos enviados",
+  textoBotonListoPedido: "Pasar a pedidos listos",
+  textoBotonAtendidoPedido: "Pasar a pedidos atendidos",
   //Constantes tipo de pago
   pagoEnLinea: 'PL',
   //Constantes modalidad de entrega

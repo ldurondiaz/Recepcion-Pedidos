@@ -10,20 +10,20 @@ export class PedidosService {
 
   constructor(private http: HttpClient) { }
 
-  leerListaPedidosNube(clave: string) {
+  leerPedidosPendientesBDLocal(clave: string, estatus: string) {
+    return this.http.get<Pedido>(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.pedidos + '/sucursal/' + clave + '/' + estatus);
+  }
+
+  leerPedidosNubeServidor(clave: string) {
     return this.http.get(environment.baseUrlPedidos + ':' + environment.puertoPedidos + environment.pedidosNube + '/sucursal/' + clave);
   }
 
-  insertarPedido(pedido: Pedido) {
+  insertarPedidoBDLocal(pedido: Pedido) {
     return this.http.post(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.pedido, pedido);
   }
 
-  actualizarPedidoNube(pedido: Pedido) {
-    return this.http.put(environment.baseUrlPedidos + ':' + environment.puertoPedidos + environment.pedidosEstatus, pedido);
-  }
-
-  leerListaPedidos(clave: string, estatus: string) {
-    return this.http.get(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.pedidos + '/sucursal/' + clave + '/' + estatus);
+  actualizarPedidoNubeServidor(pedido: Pedido) {
+    return this.http.put(environment.baseUrlPedidos + ':' + environment.puertoPedidos + environment.pedidosEstatus + '/' + pedido.estatus + '/' + pedido.idPedido, pedido);
   }
 
 }

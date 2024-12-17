@@ -1,29 +1,22 @@
+import { Strings } from "../utils/strings";
+
 export class Pedido {
   idPedido!: string;
   numeroPedido!: number;
   idCliente!: string;
   datosCliente!: string;
-  datosClienteVista!: string;
   idDomicilioCliente!: string;
   datosDomicilioCliente!: string;
-  datosDomicilioClienteVista!: string;
   claveSucursal!: string;
   datosSucursal!: string;
   fechaHora!: string;
-  fechaHoraVista!: string;
   estatus!: string;
-  estatusVista!: string;
   modalidadEntrega!: string;
-  modalidadEntregaVista!: string;
   montoTotal!: number;
   detallePedido!: string;
-  detallePedidoVista!: string;
   instruccionesEspeciales!: string;
-  instruccionesEspecialesVista!: string;
   promocionesAplicadas!: string;
-  promocionesAplicadasVista!: string;
   tipoPago!: string;
-  tipoPagoVista!: string;
   cantidadProductos!: number;
   resumenPedido!: string;
   urlReciboPago!: string;
@@ -40,4 +33,24 @@ export class Pedido {
   idEmpleadoFechaEisto!: string;
   fechaAtendido!: string;
   idEmpleadoFechaAtendido!: string;
+
+  public get numeroPedidoFormato() {
+    return '#' + this.numeroPedido;
+  }
+
+  public get montoTotalFormato() {
+    const formatoMoneda: string = this.montoTotal.toLocaleString('es-MX', {
+      style: 'currency',
+      currency: 'MXN',
+    });
+    return formatoMoneda;
+  }
+
+  public get datosClienteFormato() {
+    return this.datosCliente.substring(0, this.datosCliente.indexOf('|'));
+  }
+
+  public get fechaHoraFormato() {
+    return Strings.dateformatAAAAMMDDToDDMMAAAAHHMMSS(this.fechaHora);
+  }
 }
