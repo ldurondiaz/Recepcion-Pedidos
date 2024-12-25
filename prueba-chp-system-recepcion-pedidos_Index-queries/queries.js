@@ -93,7 +93,7 @@ const leeListaEmpleados = (request, response) => {
         + 'activo, nip, baja '
         + 'FROM empleado.empleado '
         + 'WHERE baja = \'N\' '
-        + 'ORDER BY nombre',
+        + 'ORDER BY nombre;',
         (error, results) => {
             if (error) {
                 throw error;
@@ -221,30 +221,48 @@ const insertaPedido = (request, response) => {
 
 const leeListaPedidos  = (request, response) => {
     const claveSucursal = request.params.claveSucursal;
-    const estatusPedido = request.params.estatus;
-    console.log('claveSucursal:', claveSucursal);
-    console.log('estatusPedido:', estatusPedido);
     pool.query(
-        'SELECT id_pedido as "idPedido", numero_pedido as "numeroPedido", id_cliente as "idCliente", ' +
-        'datos_cliente as "datosCliente", id_domicilio_cliente as "idDomicilioCliente", ' +
-        'datos_domicilio_cliente as "datosDomicilioCliente", clave_sucursal as "claveSucursal", ' +
-        'datos_sucursal as "datosSucursal", fecha_hora as "fechaHora", estatus, ' +
-        'modalidad_entrega as "modalidadEntrega", ' +
-        'monto_total as "montoTotal", ' +
-        'detalle_pedido as "detallePedido", instrucciones_especiales as "instruccionesEspeciales", ' +
-        'promociones_aplicadas as "promocionesAplicadas", tipo_pago as "tipoPago", ' +
-        'cantidad_productos as "cantidadProductos", resumen_pedido as "resumenPedido", ' +
-        'url_recibo_pago as "urlReciboPago" ' +
-        'FROM pedido.pedido ' +
-        'WHERE clave_sucursal = $1 ' +
-        'AND estatus = $2 ' +
-        'ORDER BY fecha_hora',
-        [claveSucursal, estatusPedido],
+        'SELECT id_pedido as "idPedido", numero_pedido as "numeroPedido", id_cliente as "idCliente", '
+        + 'datos_cliente as "datosCliente", id_domicilio_cliente as "idDomicilioCliente", '
+        + 'datos_domicilio_cliente as "datosDomicilioCliente", clave_sucursal as "claveSucursal", '
+        + 'datos_sucursal as "datosSucursal", fecha_hora as "fechaHora", estatus, '
+        + 'modalidad_entrega as "modalidadEntrega", '
+        + 'monto_total as "montoTotal", '
+        + 'detalle_pedido as "detallePedido", instrucciones_especiales as "instruccionesEspeciales", '
+        + 'promociones_aplicadas as "promocionesAplicadas", tipo_pago as "tipoPago", '
+        + 'cantidad_productos as "cantidadProductos", resumen_pedido as "resumenPedido", '
+        + 'url_recibo_pago as "urlReciboPago" '
+        + 'FROM pedido.pedido '
+        + 'WHERE clave_sucursal = $1 '
+        + 'ORDER BY fecha_hora;',
+        [claveSucursal],
         (error, results) => {
             if (error) {
                 throw error;
             }
+            results.rows.forEach((element) => {
+                element.montoTotal = Number(element.montoTotal);
+            });
             response.status(200).json(results.rows);
+        }
+    );
+}
+
+const actualizaEstatusPedido = (request, response) => {
+    const { idPedido, estatus} = request.body;
+    pool.query(
+        'UPDATE pedido.pedido '
+        + 'SET estatus = $1 '
+        + 'WHERE id_pedido = $2 RETURNING *;',
+        [estatus, idPedido],
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            textoRespuesta = '{"respuesta": "Se actualizó pedido en updateEstatusPedido '
+            + results.rows[0].id_pedido
+            + '"}';
+            response.status(201).json(JSON.parse(textoRespuesta));
         }
     );
 }
@@ -260,5 +278,6 @@ module.exports = {
     actualizaEmpleado,
     eliminaEmpleado,
     insertaPedido,
-    leeListaPedidos
+    leeListaPedidos,
+    actualizaEstatusPedido
 }

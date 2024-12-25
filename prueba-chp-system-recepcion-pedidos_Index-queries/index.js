@@ -32,7 +32,8 @@ app.put('/empleado', db.actualizaEmpleado);
 app.put('/empleado-baja', db.eliminaEmpleado);
 //Endpoints Pedidos
 app.post("/pedido", db.insertaPedido);
-app.get('/pedidos/sucursal/:claveSucursal/:estatus', db.leeListaPedidos);
+app.get('/pedidos/sucursal/:claveSucursal', db.leeListaPedidos);
+app.put("/pedido", db.actualizaEstatusPedido);
 
 app.listen(port, () => {
     console.log('API Cheese Pizza Móvil corriendo en el puerto', port);

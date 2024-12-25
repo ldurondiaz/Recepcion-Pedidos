@@ -30,7 +30,11 @@ export class PedidosPage implements OnInit {
   intervalId: any;
   num: number = 0;
   pedidos: Pedido[] = [];
-  pedidosRecibidos!: Pedido[];
+  pedidosRP: Pedido[] = [];
+  pedidosCP: Pedido[] = [];
+  pedidosEP: Pedido[] = [];
+  pedidosLP: Pedido[] = [];
+
   sucursal!: Sucursal;
   administrador: Administrador;
 
@@ -63,14 +67,11 @@ export class PedidosPage implements OnInit {
   }
 
   leerPedidosPendientesBDLocal() {
-    this.pedidosSvc.leerPedidosPendientesBDLocal(this.sucursal.clave, environment.estatusRecibePedido).subscribe({
+    this.pedidosSvc.leerPedidosPendientesBDLocal(this.sucursal.clave).subscribe({
       next: (response: any) => {
         this.pedidos = response;
         console.log('this.pedidos=====>', this.pedidos);
-        for (let i = 0; i < this.pedidos.length; i++) {
-          console.log('typeof:', typeof this.pedidos[i].montoTotal); // Verifica el tipo
-          console.log('inspecciona:', this.pedidos[i].montoTotal); // Inspecciona el valor
-        }
+        this.separarPedidosPorEstatus();
       },
       error: (error: any) => {
         console.log('Ocurrió un error al cargar los datos de los pedidos:');
@@ -78,6 +79,22 @@ export class PedidosPage implements OnInit {
       }
     });
   }
+
+  separarPedidosPorEstatus() {
+    this.pedidosRP = this.pedidos.filter((pedido) => pedido.estatus === environment.estatusRecibePedido);
+    this.pedidosCP = this.pedidos.filter((pedido) => pedido.estatus === environment.estatusCapturaPedido);
+    this.pedidosEP = this.pedidos.filter((pedido) => pedido.estatus === environment.estatusEnviaPedido);
+    this.pedidosLP = this.pedidos.filter((pedido) => pedido.estatus === environment.estatusListoPedido);
+    console.log('RP length:', this.pedidosRP.length);
+    console.log('CP length:', this.pedidosCP.length);
+    console.log('EP length:', this.pedidosEP.length);
+    console.log('LP length:', this.pedidosLP.length);
+  }
+
+  verPedido(pedido_param: Pedido) {
+    this.router.navigateByUrl(environment.paginaPedidoDetalle, { state: { data: pedido_param } });
+  }
+
 
   leerPedidosNubeServidor() {
     this.pedidosSvc.leerPedidosNubeServidor(this.sucursal.clave).subscribe({
@@ -87,6 +104,7 @@ export class PedidosPage implements OnInit {
           for (let pn of pedidosNube) {
             let pnType: Pedido = pn;
             pnType.estatus = environment.estatusRecibePedido;
+            pnType.fechaRecibido = Strings.fechaHoraActualAAAAMMDDHHMMSSsss();
             this.insertaPedidoBDLocal(pnType);
             this.pedidos.push(pnType);
           }
@@ -114,7 +132,7 @@ export class PedidosPage implements OnInit {
   }
 
   actualizaPedidoBDServidor(pedido: Pedido) {
-    this.pedidosSvc.actualizarPedidoNubeServidor(pedido).subscribe({
+    this.pedidosSvc.actualizarEstatusPedidoNubeServidor(pedido).subscribe({
       next: (response: any) => {
         console.log(response);
       },
@@ -123,10 +141,6 @@ export class PedidosPage implements OnInit {
         console.log(error);
       }
     });
-  }
-
-  onClick(pedidoRecibido_param: Pedido) {
-    this.router.navigateByUrl(environment.paginaPedidoDetalle, { state: { data: pedidoRecibido_param } });
   }
 
 }

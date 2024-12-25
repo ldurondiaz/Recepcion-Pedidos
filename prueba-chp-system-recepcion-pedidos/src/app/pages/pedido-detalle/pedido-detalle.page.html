@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Cheese Pizza Recepción de Pedidos Móviles
-      <!--label>({{pedido.estatusVista}} detalle)</!--label-->
+      <label>({{pedido.estatus}} detalle)</label>
     </ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
@@ -14,7 +14,7 @@
       <ion-title size="large">pedido detalle</ion-title>
     </ion-toolbar>
   </ion-header>
-  <!--ion-grid fixed>
+  <ion-grid fixed>
     <ion-row class="tituloRow">
       <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
         <ion-text>Pedido: </ion-text>
@@ -27,70 +27,70 @@
         <ion-text>Fecha y hora:</ion-text>
       </ion-col>
       <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>{{pedido.fechaHoraVista}}</ion-text>
+        <ion-text>{{pedido.fechaHora}}</ion-text>
       </ion-col>
       <ion-col size="12"></ion-col>
       <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
         <ion-text>Datos del cliente:</ion-text>
       </ion-col>
       <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text [innerHTML]="pedido.datosClienteVista"></ion-text>
+        <ion-text>{{pedido.datosCliente}}</ion-text>
       </ion-col>
-      @if (pedido.datosDomicilioClienteVista !== '') {
+<!--      @if (pedido.datosDomicilioCliente !== '') {-->
         <ion-col size="12"></ion-col>
         <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
           <ion-text>Datos del domicilio del cliente:</ion-text>
         </ion-col>
         <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-          <ion-text [innerHTML]="pedido.datosDomicilioClienteVista"></ion-text>
+          <ion-text [innerHTML]="pedido.datosDomicilioCliente"></ion-text>
         </ion-col>
-      }
+<!--      } -->
       <ion-col size="12"></ion-col>
       <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
         <ion-text>Detalle del pedido:</ion-text>
       </ion-col>
       <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text [innerHTML]="pedido.detallePedidoVista"></ion-text>
+        <ion-text [innerHTML]="pedido.detallePedido"></ion-text>
       </ion-col>
-      @if (pedido.instruccionesEspecialesVista !== '') {
+<!--      @if (pedido.instruccionesEspeciales !== '') { -->
         <ion-col size="12"></ion-col>
         <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
           <ion-text>Instrucciones especiales:</ion-text>
         </ion-col>
         <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-          <ion-text [innerHTML]="pedido.instruccionesEspecialesVista"></ion-text>
+          <ion-text [innerHTML]="pedido.instruccionesEspeciales"></ion-text>
         </ion-col>
-      }
-      @if (pedido.promocionesAplicadasVista !== 'Pendiente de aplicar las promociones'
-      && pedido.promocionesAplicadasVista !== '') {
+<!--      }-->
+<!--      @if (pedido.promocionesAplicadas !== 'Pendiente de aplicar las promociones'
+      && pedido.promocionesAplicadas !== '') {-->
         <ion-col size="12"></ion-col>
         <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
           <ion-text>Promociones aplicadas:</ion-text>
         </ion-col>
         <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-          <ion-text [innerHTML]="pedido.promocionesAplicadasVista"></ion-text>
+          <ion-text [innerHTML]="pedido.promocionesAplicadas"></ion-text>
         </ion-col>
-      }
+<!--      } -->
       <ion-col size="12"></ion-col>
       <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
         <ion-text>Monto:</ion-text>
       </ion-col>
       <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>${{pedido.montoTotalFormato}}</ion-text>
+        <ion-text>{{pedido.montoTotal}}</ion-text>
       </ion-col>
       <ion-col size="12"></ion-col>
       <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
         <ion-text>Tipo de pago:</ion-text>
       </ion-col>
       <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>{{pedido.tipoPagoVista}}</ion-text>
+        <ion-text>{{pedido.tipoPago}}</ion-text>
       </ion-col>
       <ion-col size="12"></ion-col>
       <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
         <ion-text>Modalidad de entrega:</ion-text>
       </ion-col>
       <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>{{pedido.modalidadEntregaVista}}</ion-text>
+        <ion-text>{{pedido.modalidadEntrega}}</ion-text>
       </ion-col>
 
       <ion-col size="12"></ion-col>
@@ -102,5 +102,5 @@
         </ion-button>
       </ion-col>
     </ion-row>
-  </!--ion-grid-->
+  </ion-grid>
 </ion-content>

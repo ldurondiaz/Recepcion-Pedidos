@@ -75,7 +75,19 @@
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 
-/** employee **/
+/** pedido **/
+  --ion-color-pedido: #000;
+  --ion-color-pedido-rgb: 0, 0, 0;
+  --ion-color-pedido-contrast: #fff;
+  --ion-color-pedido-contrast-rgb: 255, 255, 255;
+  --ion-color-pedido-shade: #d7d8da;
+  --ion-color-pedido-tint: #848588;
+  --ion-background-color-accordion-collapsed: #eee;
+  --ion-background-color-accordion-expanding: #888;
+  --ion-color-accordion: #fff;
+  --ion-color-p: #ddd;
+
+  /** employee **/
   --ion-color-employee: #f4f5f8;
   --ion-color-employee-rgb: 244, 245, 248;
   --ion-color-employee-contrast: #000000;
@@ -90,22 +102,6 @@
 /** modal **/
   --ion-color-close: #880000;
   --ion-color-close-contrast: #ffffff;
-/** card **/
-  --ion-color-shadow: rgba(0, 0, 0, 0.2);
-  --ion-background-card: linear-gradient(90deg, #300, #600);
-  --ion-background-card-hover: rgba(50, 0, 0, 1.0);
-  --ion-color-border-card: #f00;
-  --ion-color-text-card: #fff;
-/** pedido **/
-  /** pedido **/
-  --ion-background-color-accordion-collapsed: #eee;
-  --ion-background-color-accordion-expanding: #888;
-  --ion-color-accordion: #fff;
-  --ion-color-p: #ddd;
-
-  --ion-color-pedido-text: #dda207;
-  --ion-color-pedido-border: #ccc;
-  --ion-color-pedido-background: rgba(100, 0, 0, 1.0);
 
   --ion-color-stripe: #000000;
 
@@ -198,7 +194,15 @@
     --ion-color-light-shade: #b5b6b8;
     --ion-color-light-tint: #d3d4d7;
 
-    /** employee **/
+/** pedido **/
+  --ion-color-pedido: #fff;
+  --ion-color-pedido-rgb: 255, 255, 255;
+  --ion-color-pedido-contrast: #000;
+  --ion-color-pedido-contrast-rgb: 0, 0, 0;
+  --ion-color-pedido-shade: #d7d8da;
+  --ion-color-pedido-tint: #848588;
+
+/** employee **/
     --ion-color-employee: #f00;
     --ion-color-employee-rgb: 244, 245, 248;
     --ion-color-employee-contrast: #ffffff;
@@ -208,13 +212,6 @@
 
   /** spinner **/
   --ion-color-background: rgba(100, 100, 100, 0.5);
-  /** card **/
-  --ion-color-shadow: rgba(150, 150, 150, 0.2);
-  --ion-background-card-hover: rgba(100, 0, 0, 1.0);
-  /** pedido **/
-  --ion-color-pedido-text: #dda207;
-  --ion-color-pedido-border: #ccc;
-  --ion-color-pedido-background: rgba(100, 0, 0, 1.0);
 
 }
 

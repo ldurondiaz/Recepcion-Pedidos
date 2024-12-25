@@ -18,34 +18,37 @@
   </ion-header>
   <ion-grid fixed>
     <ion-row>
+
       <ion-col sizeXs="12" sizeSm="12" sizeMd="6" sizeLg="6" sizeXl="6">
-        <ion-accordion-group>
-          <ion-accordion value="pr" toggleIconSlot="end">
+        <ion-accordion-group
+        [value]="pedidosRP.length > 0 ? 'pr' : ''"
+        [disabled]="pedidosRP.length === 0">
+          <ion-accordion value="pr" toggleIconSlot="end" >
             <ion-item slot="header" >
               <ion-chip>
                 <ion-label>Pedidos recibidos
-                  @if (totalPedidosRecibidos > 0) { ({{totalPedidosRecibidos}}) }
+                  @if (pedidosRP.length > 0) { ({{pedidosRP.length}}) }
                   <p>Estatus en móvil: Pedido recibido en sucursal</p>
                 </ion-label>
               </ion-chip>
             </ion-item>
-            <div slot="content" class="cards">
-              @for (pedidoRecibido of pedidos; track $index) {
-                <ion-card (click)="onClick(pedidoRecibido)">
-                  <ion-grid>
+            <div slot="content">
+              @for (pedidoRecibido of pedidosRP; track $index) {
+                <ion-card (click)="verPedido(pedidoRecibido)">
+                <!--ion-card-->
+                  <ion-grid fixed>
                     <ion-row>
-                      <ion-col class="text-col" sizeXs="12" sizeSm="3" sizeMd="3" sizeLg="3" sizeXl="3" class="text-col">
-                        este es el número pedido:{{pedidoRecibido.numeroPedidoFormato}}
+                      <ion-col sizeXs="12" sizeSm="3" sizeMd="3" sizeLg="3" sizeXl="3">
                         <ion-text>#{{pedidoRecibido.numeroPedido}}</ion-text>
                       </ion-col>
-                      <ion-col class="content-col" sizeXs="12" sizeSm="9" sizeMd="9" sizeLg="9" sizeXl="9" class="content-col">
+                      <ion-col sizeXs="12" sizeSm="9" sizeMd="9" sizeLg="9" sizeXl="9">
                         <ion-card-header>
-                          <ion-card-subtitle>{{pedidoRecibido.fechaHoraFormato}}</ion-card-subtitle>
-                          <ion-card-title>{{pedidoRecibido.datosClienteFormato}}</ion-card-title>
+                          <ion-card-title>{{pedidoRecibido.fechaHora}}</ion-card-title>
+                          <ion-card-subtitle>{{pedidoRecibido.datosCliente}}</ion-card-subtitle>
                         </ion-card-header>
                         <ion-card-content>
-                          <ion-text>{{pedidoRecibido.resumenPedido}}</ion-text>
-                          <div><strong>{{pedidoRecibido.montoTotalFormato}}</strong></div>
+                          <ion-label>{{pedidoRecibido.resumenPedido}}</ion-label>
+                          <div><strong>{{pedidoRecibido.montoTotal}}</strong></div>
                         </ion-card-content>
                       </ion-col>
                     </ion-row>
@@ -56,49 +59,94 @@
           </ion-accordion>
         </ion-accordion-group>
       </ion-col>
+
       <ion-col sizeXs="12" sizeSm="12" sizeMd="6" sizeLg="6" sizeXl="6">
         <ion-accordion-group
-        [value]="totalPedidosCapturados > 0 ? 'pc' : ''"
-        [disabled]="totalPedidosCapturados === 0">
-          <ion-accordion toggleIconSlot="end">
+        [value]="pedidosCP.length > 0 ? 'pc' : ''"
+        [disabled]="pedidosCP.length === 0">
+          <ion-accordion value="pc" toggleIconSlot="end" >
             <ion-item slot="header" >
               <ion-chip>
                 <ion-label>Pedidos capturados (en preparación)
-                  @if (totalPedidosCapturados > 0) { ({{totalPedidosCapturados}}) }
+                  @if (pedidosCP.length > 0) { ({{pedidosCP.length}}) }
                   <p>Estatus en móvil: Pedido en preparación</p>
                 </ion-label>
               </ion-chip>
             </ion-item>
-            <div slot="content" class="cards">
-              Cargar los pedidos capturados
+            <div slot="content">
+              @for (pedidoCapturado of pedidosCP; track $index) {
+                <ion-card (click)="verPedido(pedidoCapturado)">
+                  <!--ion-card-->
+                  <ion-grid fixed>
+                    <ion-row>
+                      <ion-col sizeXs="12" sizeSm="3" sizeMd="3" sizeLg="3" sizeXl="3">
+                        <ion-text>#{{pedidoCapturado.numeroPedido}}</ion-text>
+                      </ion-col>
+                      <ion-col sizeXs="12" sizeSm="9" sizeMd="9" sizeLg="9" sizeXl="9">
+                        <ion-card-header>
+                          <ion-card-title>{{pedidoCapturado.fechaHora}}</ion-card-title>
+                          <ion-card-subtitle>{{pedidoCapturado.datosCliente}}</ion-card-subtitle>
+                        </ion-card-header>
+                        <ion-card-content>
+                          <ion-label>{{pedidoCapturado.resumenPedido}}</ion-label>
+                          <div><strong>{{pedidoCapturado.montoTotal}}</strong></div>
+                        </ion-card-content>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-card>
+              }
             </div>
           </ion-accordion>
         </ion-accordion-group>
       </ion-col>
+
       <ion-col sizeXs="12" sizeSm="12" sizeMd="6" sizeLg="6" sizeXl="6">
         <ion-accordion-group
-        [value]="totalPedidosEnviados > 0 ? 'pe' : ''"
-        [disabled]="totalPedidosEnviados === 0">
-          <ion-accordion toggleIconSlot="end">
+        [value]="pedidosEP.length > 0 ? 'pe' : ''"
+        [disabled]="pedidosEP.length === 0">
+          <ion-accordion value="pe" toggleIconSlot="end" >
             <ion-item slot="header" >
               <ion-chip>
                 <ion-label>Pedidos enviados (entrega en domicilio)
-                  @if (totalPedidosEnviados > 0) { ({{totalPedidosEnviados}}) }
+                  @if (pedidosEP.length > 0) { ({{pedidosEP.length}}) }
                   <p>Estatus en móvil: Pedido en proceso de entrega</p>
                 </ion-label>
               </ion-chip>
             </ion-item>
-            <div slot="content" class="cards">
-              Cargar los pedidos enviados
+            <div slot="content">
+              @for (pedidoEnviado of pedidosEP; track $index) {
+                <ion-card (click)="verPedido(pedidoEnviado)">
+                  <!--ion-card-->
+                  <ion-grid fixed>
+                    <ion-row>
+                      <ion-col sizeXs="12" sizeSm="3" sizeMd="3" sizeLg="3" sizeXl="3">
+                        <ion-text>#{{pedidoEnviado.numeroPedido}}</ion-text>
+                      </ion-col>
+                      <ion-col sizeXs="12" sizeSm="9" sizeMd="9" sizeLg="9" sizeXl="9">
+                        <ion-card-header>
+                          <ion-card-title>{{pedidoEnviado.fechaHora}}</ion-card-title>
+                          <ion-card-subtitle>{{pedidoEnviado.datosCliente}}</ion-card-subtitle>
+                        </ion-card-header>
+                        <ion-card-content>
+                          <ion-label>{{pedidoEnviado.resumenPedido}}</ion-label>
+                          <div><strong>{{pedidoEnviado.montoTotal}}</strong></div>
+                        </ion-card-content>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-card>
+              }
             </div>
           </ion-accordion>
         </ion-accordion-group>
       </ion-col>
+
       <ion-col sizeXs="12" sizeSm="12" sizeMd="6" sizeLg="6" sizeXl="6">
         <ion-accordion-group
-        [value]="totalPedidosListos > 0 ? 'pl' : ''"
-        [disabled]="totalPedidosListos === 0">
-          <ion-accordion toggleIconSlot="end">
+        [value]="pedidosLP.length > 0 ? 'pl' : ''"
+        [disabled]="pedidosLP.length === 0">
+          <ion-accordion value="pl" toggleIconSlot="end" >
             <ion-item slot="header" >
               <ion-chip>
                 <ion-label>Pedidos listos (para pasar por ellos)
@@ -107,8 +155,29 @@
                 </ion-label>
               </ion-chip>
             </ion-item>
-            <div slot="content" class="cards">
-              Cargar los pedidos listos
+            <div slot="content">
+              @for (pedidoListo of pedidosLP; track $index) {
+                <ion-card (click)="verPedido(pedidoListo)">
+                  <!--ion-card-->
+                  <ion-grid fixed>
+                    <ion-row>
+                      <ion-col sizeXs="12" sizeSm="3" sizeMd="3" sizeLg="3" sizeXl="3">
+                        <ion-text>#{{pedidoListo.numeroPedido}}</ion-text>
+                      </ion-col>
+                      <ion-col sizeXs="12" sizeSm="9" sizeMd="9" sizeLg="9" sizeXl="9">
+                        <ion-card-header>
+                          <ion-card-title>{{pedidoListo.fechaHora}}</ion-card-title>
+                          <ion-card-subtitle>{{pedidoListo.datosCliente}}</ion-card-subtitle>
+                        </ion-card-header>
+                        <ion-card-content>
+                          <ion-label>{{pedidoListo.resumenPedido}}</ion-label>
+                          <div><strong>{{pedidoListo.montoTotal}}</strong></div>
+                        </ion-card-content>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-card>
+              }
             </div>
           </ion-accordion>
         </ion-accordion-group>

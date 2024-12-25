@@ -41,7 +41,9 @@ export class MenuPage implements OnInit {
       this.botonConfiguracion = true;
       this.botonEmpleados = false;
     } else {
+      this.botonPedidos = true;
       this.botonConfiguracion = false;
+      this.botonEmpleados = true;
     }
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Pedido } from '../../model/pedido';
+import { PedidosService } from '../../services/pedidos.service';
 import { RelojComponent } from '../../components/reloj/reloj.component';
 import { IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent,
   IonGrid, IonRow, IonCol, IonText, IonButton } from '@ionic/angular/standalone';
@@ -20,9 +21,9 @@ export class PedidoDetallePage /*implements OnInit*/ {
   pedido!: Pedido;
   textoBoton: string = '';
 
-  constructor() { }
+  constructor(private pedidosSvc: PedidosService) { }
 
-/*  ngOnInit() {
+  ngOnInit() {
     this.pedido = history.state.data;
     console.log('this.pedido->', this.pedido);
     //this.pedido.estatus = 'CP';
@@ -43,15 +44,39 @@ export class PedidoDetallePage /*implements OnInit*/ {
     } else {
       console.log('No se recibio el pedido.');
     }
-  }*/
+  }
 
   onSubmit() {
-/*    console.log('this.pedido.estatus:',this.pedido.estatus);*/
+    console.log('this.pedido.estatus:',this.pedido.estatus);
 /*    switch (this.titulo) {
       case environment.agregarEmpleado: this.insertarEmpleado(); break;
       case environment.editarEmpleado: this.editarEmpleado(); break;
       case environment.eliminarEmpleado: this.eliminarEmpleado(); break;
     }*/
+  }
+
+  actualizaPedidoBDServidor(pedido: Pedido) {
+    this.pedidosSvc.actualizarEstatusPedidoNubeServidor(pedido).subscribe({
+      next: (response: any) => {
+        console.log(response);
+      },
+      error: (error: any) => {
+        console.log('Ocurrió un error al actualizar los datos del pedido:');
+        console.log(error);
+      }
+    });
+  }
+
+  actualizaPedidoBDLocal(pedido: Pedido) {
+    this.pedidosSvc.actualizarEstatusPedidoBDLocal(pedido).subscribe({
+      next: (response: any) => {
+        console.log(response);
+      },
+      error: (error: any) => {
+        console.log('Ocurrió un error al actualizar los datos del pedido:');
+        console.log(error);
+      }
+    });
   }
 
 }
