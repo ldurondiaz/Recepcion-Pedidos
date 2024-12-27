@@ -249,12 +249,21 @@ const leeListaPedidos  = (request, response) => {
 }
 
 const actualizaEstatusPedido = (request, response) => {
-    const { idPedido, estatus} = request.body;
+    const { idPedido, estatus, fechaCapturado} = request.body;
+    console.log('idPedido:', idPedido);
+    console.log('estatus:', estatus);
+    console.log('fechaCapturado:', fechaCapturado);
+
+    let estatusUpdate = 'SET estatus = ' + '\'' + estatus + '\'';
+    let fechaUpdate = '';
+    switch (estatus) {
+        case 'CP': fechaUpdate = 'fecha_capturado = '  + '\'' + fechaCapturado + '\''; break;
+    }
     pool.query(
         'UPDATE pedido.pedido '
-        + 'SET estatus = $1 '
-        + 'WHERE id_pedido = $2 RETURNING *;',
-        [estatus, idPedido],
+        + estatusUpdate + ', ' + fechaUpdate + ' '
+        + 'WHERE id_pedido = $1 RETURNING *;',
+        [idPedido],
         (error, results) => {
             if (error) {
                 throw error;

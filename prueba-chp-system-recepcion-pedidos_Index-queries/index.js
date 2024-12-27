@@ -31,8 +31,8 @@ app.put('/empleado', db.actualizaEmpleado);
 //app.delete('/empleado/:id', db.eliminaEmpleado);
 app.put('/empleado-baja', db.eliminaEmpleado);
 //Endpoints Pedidos
-app.post("/pedido", db.insertaPedido);
 app.get('/pedidos/sucursal/:claveSucursal', db.leeListaPedidos);
+app.post("/pedido", db.insertaPedido);
 app.put("/pedido", db.actualizaEstatusPedido);
 
 app.listen(port, () => {

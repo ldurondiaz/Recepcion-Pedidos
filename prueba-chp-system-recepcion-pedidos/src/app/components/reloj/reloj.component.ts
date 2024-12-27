@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule]
 })
 export class RelojComponent implements OnInit, OnDestroy {
-  horaActual: string = '';
+  fechaHoraActual: string = '';
   private intervalo: any;
 
   ngOnInit() {
@@ -25,7 +25,8 @@ export class RelojComponent implements OnInit, OnDestroy {
     const ahora = new Date();
     const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' } as const;
     const fecha = ahora.toLocaleDateString('es-ES', opcionesFecha);
-    const hora = ahora.toLocaleTimeString('es-ES', { hour12: false });
-    this.horaActual = `${fecha.charAt(0).toUpperCase() + fecha.slice(1)} - ${hora}`;
+    //const hora = ahora.toLocaleTimeString('es-ES', { hour12: false });
+    const hora = ahora.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+    this.fechaHoraActual = `${fecha.charAt(0).toUpperCase() + fecha.slice(1)} ${hora}`;
   }
 }

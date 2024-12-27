@@ -6,6 +6,8 @@ import { RelojComponent } from '../../components/reloj/reloj.component';
 import { IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent,
   IonGrid, IonRow, IonCol, IonText, IonButton } from '@ionic/angular/standalone';
 import { environment } from 'src/environments/environment';
+import { Strings } from 'src/app/utils/strings';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pedido-detalle',
@@ -14,20 +16,23 @@ import { environment } from 'src/environments/environment';
   standalone: true,
   imports: [CommonModule, RelojComponent,
     IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent,
-    IonGrid, IonRow, IonCol, IonText, IonButton
+    IonGrid, IonRow, IonCol, IonText, IonButton//, Strings
   ]
 })
-export class PedidoDetallePage /*implements OnInit*/ {
+export class PedidoDetallePage {
   pedido!: Pedido;
   textoBoton: string = '';
 
-  constructor(private pedidosSvc: PedidosService) { }
+  constructor(
+    private pedidosSvc: PedidosService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.pedido = history.state.data;
     console.log('this.pedido->', this.pedido);
     //this.pedido.estatus = 'CP';
-    //los que son AP son los que se van a mostrar al dar clic en el botón histrial
+    //los que son AP son los que se van a mostrar al dar clic en el botón historial
     console.log('LGDD 2->', this.pedido.estatus);
     switch (this.pedido.estatus) {
       case environment.estatusRecibePedido:
@@ -48,11 +53,15 @@ export class PedidoDetallePage /*implements OnInit*/ {
 
   onSubmit() {
     console.log('this.pedido.estatus:',this.pedido.estatus);
-/*    switch (this.titulo) {
-      case environment.agregarEmpleado: this.insertarEmpleado(); break;
-      case environment.editarEmpleado: this.editarEmpleado(); break;
-      case environment.eliminarEmpleado: this.eliminarEmpleado(); break;
-    }*/
+    switch (this.pedido.estatus) {
+      case environment.estatusRecibePedido:
+      this.pedido.estatus = environment.estatusCapturaPedido;
+      this.pedido.fechaCapturado = Strings.fechaHoraActualAAAAMMDDHHMMSSsss();
+      this.actualizaPedidoBDLocal(this.pedido);
+      break;
+    }
+    console.log('estoy en pedido detalle en onsubmit this.pedido:', this.pedido);
+    this.router.navigateByUrl(environment.paginaPedidos);
   }
 
   actualizaPedidoBDServidor(pedido: Pedido) {
