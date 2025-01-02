@@ -23,3 +23,8 @@ ion-button {
   --background: var(--ion-color-tertiary);
   --color: var(--ion-color-tertiary-contrast);
 }
+
+ion-input {
+  width: 25%; /* Ajusta el ancho según tus necesidades */
+  margin: 0 auto; /* Centra el input si es necesario */
+}

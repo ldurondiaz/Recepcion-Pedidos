@@ -18,8 +18,8 @@ export class EmpleadosService {
     return this.http.get(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleados);
   }
 
-  leerEmpleado(id: string) {
-    return this.http.get(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleado + '/' + id);
+  leerEmpleado(empleado: Empleado) {
+    return this.http.get(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleado + '/' + empleado.id);
   }
 
   insertarEmpleado(empleado: Empleado) {
@@ -33,6 +33,10 @@ export class EmpleadosService {
 
   eliminarEmpleado(empleado: Empleado) {
     return this.http.put(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleadoBaja, empleado);
+  }
+
+  leerEmpleadoPorNip(empleado: Empleado) {
+    return this.http.get(environment.baseUrlLocal + ':' + environment.puertoLocal + environment.empleadoNip + '/' + empleado.nip);
   }
 
 }

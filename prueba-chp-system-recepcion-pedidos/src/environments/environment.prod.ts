@@ -5,6 +5,7 @@
 export const environment = {
   production: true,
 
+
   //Conexión Pedidos
   baseUrlPedidos: 'http://ec2-54-144-58-67.compute-1.amazonaws.com',
   puertoPedidos: 3000,
@@ -27,6 +28,7 @@ export const environment = {
   empleadoTipos: '/empleado-tipos',
   empleado: '/empleado',
   empleadoBaja: '/empleado-baja',
+  empleadoNip: '/empleado-nip',
   pedido: '/pedido',
   pedidosEstatus: '/pedidos/estatus',
   pedidos: '/pedidos',

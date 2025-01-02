@@ -27,7 +27,7 @@ export class EmpleadoComponent implements OnInit {
   administrador: Administrador;
   titulo: string = '';
   sucursal!: Sucursal;
-  idEmpleado: string = '';
+  administradorGetEmpleado!: Empleado;
   empleadoTipos!: EmpleadoTipo[];
   empleadoTipoId: string = '';
   estaActivo: boolean = true;
@@ -98,8 +98,9 @@ export class EmpleadoComponent implements OnInit {
   }
 
   getEmpleado() {
-    this.idEmpleado = this.administrador.getEmpleado().id;
-    this.empleadosSvc.leerEmpleado(this.idEmpleado).subscribe({
+    this.administradorGetEmpleado = this.administrador.getEmpleado();
+    //this.idEmpleado = this.administrador.getEmpleado().id;
+    this.empleadosSvc.leerEmpleado(this.administradorGetEmpleado).subscribe({
       next: (response: any) => {
         this.empleado = response;
         if (this.empleado) {
@@ -172,7 +173,7 @@ export class EmpleadoComponent implements OnInit {
 
   editarEmpleado() {
     let empleado: Empleado = new Empleado;
-    empleado.id = this.idEmpleado
+    empleado.id = this.administradorGetEmpleado.id;
     empleado.claveSucursal = this.sucursal.clave;
     empleado.nombre = this.empleadoForma.value.nombre;
     empleado.domicilio = this.empleadoForma.value.domicilio;
@@ -205,7 +206,7 @@ export class EmpleadoComponent implements OnInit {
 
   async eliminarEmpleado() {
     let empleado: Empleado = new Empleado;
-    empleado.id = this.idEmpleado
+    empleado.id = this.administradorGetEmpleado.id;
     this.empleadosSvc.eliminarEmpleado(empleado).subscribe({
       next:(response:any)=>{
         console.log('Empleado eliminado de forma exitosa')

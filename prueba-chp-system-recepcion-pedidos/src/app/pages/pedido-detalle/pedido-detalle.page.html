@@ -94,14 +94,35 @@
         <ion-text>{{pedido.modalidadEntrega}}</ion-text>
       </ion-col>
 
-      <ion-col size="12"></ion-col>
-      <ion-col class="boton" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+      <!--ion-col size="12"></!--ion-col>
+      <ion-col-- class="boton" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
         <ion-button
         type="button"
         expand="small" (click)="onSubmit()">
         {{textoBoton}}
         </ion-button>
+      </ion-col-->
+
+      <ion-col sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+        <ion-input
+          type="password"
+          maxlength="3"
+          label="Nip" label-placement="floating"
+          fill="outline" placeholder="Introduzca su nip"
+          (ionInput)="onChangeNip($event)">
+        </ion-input>
       </ion-col>
+      <ion-col size="12"></ion-col>
+      <ion-col class="boton" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+        <ion-button
+          type="button"
+          expand="small"
+          (click)="onSubmit()"
+          [disabled]="!isButtonEnabled">
+          {{textoBoton}}
+        </ion-button>
+      </ion-col>
+
     </ion-row>
   </ion-grid>
 </ion-content>

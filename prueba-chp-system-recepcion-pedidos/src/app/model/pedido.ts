@@ -30,7 +30,7 @@ export class Pedido {
   fechaEnviado!: string;
   idEmpleadoFechaEnviado!: string;
   fechaListo!: string;
-  idEmpleadoFechaEisto!: string;
+  idEmpleadoFechaListo!: string;
   fechaAtendido!: string;
   idEmpleadoFechaAtendido!: string;
 

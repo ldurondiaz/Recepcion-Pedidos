@@ -164,7 +164,7 @@ const eliminaEmpleado = (request, response) => {
     const {id} = request.body;
     pool.query(
         'UPDATE empleado.empleado '
-        + 'SET baja = \'S\' '
+        + 'SET activo = \'N\', baja = \'S\' '
         + 'WHERE id = $1;',
         [id],
         (error, results) => {
@@ -173,6 +173,23 @@ const eliminaEmpleado = (request, response) => {
             }
             textoRespuesta = '{"respuesta": "Se eliminó ' + results.rowCount + ' empleado: ' + id + '"}';
             response.status(201).json(JSON.parse(textoRespuesta));
+        }
+    );
+}
+
+const leeEmpleadoPorNip = (request, response) => {
+    const nip = request.params.nip;
+    pool.query(
+        'SELECT id, clave_sucursal as claveSucursal, nombre, domicilio, telefono, fecha_ingreso as fechaIngreso, '
+        + 'empleadotipo_id as empleadoTipoId, activo, nip, baja '
+        + 'FROM empleado.empleado '
+        + 'WHERE nip = $1;',
+        [nip],
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            response.status(200).json(results.rows[0]);
         }
     );
 }
@@ -249,19 +266,28 @@ const leeListaPedidos  = (request, response) => {
 }
 
 const actualizaEstatusPedido = (request, response) => {
-    const { idPedido, estatus, fechaCapturado} = request.body;
-    console.log('idPedido:', idPedido);
-    console.log('estatus:', estatus);
-    console.log('fechaCapturado:', fechaCapturado);
-
-    let estatusUpdate = 'SET estatus = ' + '\'' + estatus + '\'';
-    let fechaUpdate = '';
+    const { idPedido, estatus, modalidadEntrega, 
+        fechaCapturado, idEmpleadoFechaCapturado, fechaEnviado, idEmpleadoFechaEnviado,
+        fechaListo, idEmpleadoFechaListo, fechaAtendido, idEmpleadoFechaAtendido
+    } = request.body;
+    let setUpdate = 'SET estatus = ' + '\'' + estatus + '\'' + ', ';
     switch (estatus) {
-        case 'CP': fechaUpdate = 'fecha_capturado = '  + '\'' + fechaCapturado + '\''; break;
+        case 'CP': setUpdate += 'fecha_capturado = '  + '\'' + fechaCapturado + '\'' + ', '
+            + 'id_empleado_fecha_capturado = ' +  '\'' + idEmpleadoFechaCapturado + '\'' + ' '; 
+            break;
+        case 'EP': setUpdate += 'fecha_enviado = '  + '\'' + fechaEnviado + '\'' + ', '
+            + 'id_empleado_fecha_enviado = ' +  '\'' + idEmpleadoFechaEnviado + '\'' + ' '; 
+            break;
+        case 'LP': setUpdate += 'fecha_listo = '  + '\'' + fechaListo + '\'' + ', '
+            + 'id_empleado_fecha_listo = ' +  '\'' + idEmpleadoFechaListo + '\'' + ' '; 
+            break;
+        case 'AP': setUpdate += 'fecha_atendido = '  + '\'' + fechaAtendido + '\'' + ', '
+            + 'id_empleado_fecha_atendido = ' +  '\'' + idEmpleadoFechaAtendido + '\'' + ' '; 
+            break;
     }
     pool.query(
         'UPDATE pedido.pedido '
-        + estatusUpdate + ', ' + fechaUpdate + ' '
+        + setUpdate
         + 'WHERE id_pedido = $1 RETURNING *;',
         [idPedido],
         (error, results) => {
@@ -286,6 +312,7 @@ module.exports = {
     insertaEmpleado,
     actualizaEmpleado,
     eliminaEmpleado,
+    leeEmpleadoPorNip,
     insertaPedido,
     leeListaPedidos,
     actualizaEstatusPedido

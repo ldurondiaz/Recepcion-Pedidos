@@ -30,6 +30,8 @@ app.post('/empleado', db.insertaEmpleado);
 app.put('/empleado', db.actualizaEmpleado);
 //app.delete('/empleado/:id', db.eliminaEmpleado);
 app.put('/empleado-baja', db.eliminaEmpleado);
+app.get('/empleado-nip/:nip', db.leeEmpleadoPorNip);
+
 //Endpoints Pedidos
 app.get('/pedidos/sucursal/:claveSucursal', db.leeListaPedidos);
 app.post("/pedido", db.insertaPedido);
