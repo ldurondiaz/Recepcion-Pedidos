@@ -54,9 +54,9 @@ export class PedidoDetallePage implements OnInit {
     this.pedido = new Pedido(pedidoHistory.idPedido, pedidoHistory.numeroPedido, pedidoHistory.idCliente, pedidoHistory.datosCliente,
       pedidoHistory.idDomicilioCliente, pedidoHistory.datosDomicilioCliente, pedidoHistory.claveSucursal,
       pedidoHistory.datosSucursal, pedidoHistory.fechaHora, pedidoHistory.estatus, pedidoHistory.modalidadEntrega,
-      pedidoHistory.montoTotal, pedidoHistory.detallePedido, pedidoHistory.instruccionesEspeciales, pedidoHistory.promocionesAplicadas,
-      pedidoHistory.tipoPago, pedidoHistory.cantidadProductos, pedidoHistory.resumenPedido, pedidoHistory.urlReciboPago,
-      pedidoHistory.montoSubtotal, pedidoHistory.montoDescuento);
+      pedidoHistory.montoTotal, pedidoHistory.detallePedido, pedidoHistory.instruccionesEspeciales, /*pedidoHistory.promocionesAplicadas,*/
+      pedidoHistory.tipoPago, pedidoHistory.cantidadProductos, pedidoHistory.resumenPedido, pedidoHistory.urlReciboPago
+      /*pedidoHistory.montoSubtotal, pedidoHistory.montoDescuento*/);
     if (this.pedido) {
       this.sucursal = this.administrador.getSucursal();
       console.log('Pedido recibido==========>', this.pedido);

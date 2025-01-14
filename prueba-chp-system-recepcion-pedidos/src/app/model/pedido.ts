@@ -16,13 +16,13 @@ export class Pedido {
   montoTotal: number;
   detallePedido: string;
   instruccionesEspeciales: string;
-  promocionesAplicadas: string;
+//  promocionesAplicadas: string;
   tipoPago: string;
   cantidadProductos: number;
   resumenPedido: string;
   urlReciboPago: string;
-  montoSubtotal: number;
-  montoDescuento: number;
+//  montoSubtotal: number;
+//  montoDescuento: number;
 
   chat!: string;
   fechaRecibido!: string;
@@ -50,13 +50,13 @@ export class Pedido {
     montoTotal: number,
     detallePedido: string,
     instruccionesEspeciales: string,
-    promocionesAplicadas: string,
+//    promocionesAplicadas: string,
     tipoPago: string,
     cantidadProductos: number,
     resumenPedido: string,
     urlReciboPago: string,
-    montoSubtotal: number,
-    montoDescuento: number,
+//    montoSubtotal: number,
+//    montoDescuento: number,
   ) {
     this.idPedido = idPedido;
     this.numeroPedido = numeroPedido;
@@ -72,13 +72,13 @@ export class Pedido {
     this.montoTotal = montoTotal;
     this.detallePedido = detallePedido;
     this.instruccionesEspeciales = instruccionesEspeciales;
-    this.promocionesAplicadas = promocionesAplicadas;
+//    this.promocionesAplicadas = promocionesAplicadas;
     this.tipoPago = tipoPago;
     this.cantidadProductos = cantidadProductos;
     this.resumenPedido = resumenPedido;
     this.urlReciboPago = urlReciboPago;
-    this.montoSubtotal = montoSubtotal;
-    this.montoDescuento = montoDescuento;
+//    this.montoSubtotal = montoSubtotal;
+//    this.montoDescuento = montoDescuento;
   }
 
   public get numeroPedidoVista(): string {

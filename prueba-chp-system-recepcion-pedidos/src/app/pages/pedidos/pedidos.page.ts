@@ -92,9 +92,9 @@ export class PedidosPage implements OnInit, OnDestroy {
           let pL = new Pedido(pS.idPedido,pS.numeroPedido,pS.idCliente,pS.datosCliente,
             pS.idDomicilioCliente, pS.datosDomicilioCliente, pS.claveSucursal,
             pS.datosSucursal, pS.fechaHora, pS.estatus, pS.modalidadEntrega,
-            pS.montoTotal, pS.detallePedido, pS.instruccionesEspeciales, pS.promocionesAplicadas,
-            pS.tipoPago, pS.cantidadProductos, pS.resumenPedido, pS.urlReciboPago,
-            pS.montoSubtotal, pS.montoDescuento);
+            pS.montoTotal, pS.detallePedido, pS.instruccionesEspeciales, /*pS.promocionesAplicadas,*/
+            pS.tipoPago, pS.cantidadProductos, pS.resumenPedido, pS.urlReciboPago
+            /*pS.montoSubtotal, pS.montoDescuento*/);
           pedidosLocal.push(pL);
         }
           this.categorizarPedidos(pedidosLocal);
@@ -117,9 +117,9 @@ export class PedidosPage implements OnInit, OnDestroy {
           let pL = new Pedido(pS.idPedido,pS.numeroPedido,pS.idCliente,pS.datosCliente,
             pS.idDomicilioCliente, pS.datosDomicilioCliente, pS.claveSucursal,
             pS.datosSucursal, pS.fechaHora, pS.estatus, pS.modalidadEntrega,
-            pS.montoTotal, pS.detallePedido, pS.instruccionesEspeciales, pS.promocionesAplicadas,
-            pS.tipoPago, pS.cantidadProductos, pS.resumenPedido, pS.urlReciboPago,
-            pS.montoSubtotal, pS.montoDescuento);
+            pS.montoTotal, pS.detallePedido, pS.instruccionesEspeciales, /*pS.promocionesAplicadas,*/
+            pS.tipoPago, pS.cantidadProductos, pS.resumenPedido, pS.urlReciboPago
+            /*pS.montoSubtotal, pS.montoDescuento*/);
           pedidosLocal.push(pL);
         }
         //for (let p of pedidosAWS) {
