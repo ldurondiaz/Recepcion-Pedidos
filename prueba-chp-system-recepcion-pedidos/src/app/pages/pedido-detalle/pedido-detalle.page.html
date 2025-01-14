@@ -3,8 +3,8 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Cheese Pizza Recepción de Pedidos Móviles
-      <label>({{pedido.estatus}} detalle)</label>
+    <ion-title>Cheese Pizza Recepción de Pedidos Móviles {{ sucursal.nombreSucursal }}
+      <label>({{pedido.estatusVista}} detalle)</label>
       <app-reloj></app-reloj>
     </ion-title>
   </ion-toolbar>
@@ -15,114 +15,86 @@
       <ion-title size="large">pedido detalle</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-grid fixed>
-    <ion-row class="tituloRow">
-      <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>Pedido: </ion-text>
-      </ion-col>
-      <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>#{{pedido.numeroPedido}}</ion-text>
-      </ion-col>
-      <ion-col size="12"></ion-col>
-      <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>Fecha y hora:</ion-text>
-      </ion-col>
-      <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>{{pedido.fechaHora}}</ion-text>
-      </ion-col>
-      <ion-col size="12"></ion-col>
-      <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>Datos del cliente:</ion-text>
-      </ion-col>
-      <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>{{pedido.datosCliente}}</ion-text>
-      </ion-col>
-<!--      @if (pedido.datosDomicilioCliente !== '') {-->
-        <ion-col size="12"></ion-col>
+  <form [formGroup]="nipForma" (ngSubmit)="onSubmit()">
+    <ion-grid fixed>
+      <ion-row class="tituloRow">
+        <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-text>Pedido: </ion-text>
+        </ion-col>
+        <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-text>{{pedido.numeroPedidoVista}}</ion-text>
+        </ion-col>
+        <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-text>Fecha y hora:</ion-text>
+        </ion-col>
+        <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-text>{{pedido.fechaHoraVista}}</ion-text>
+        </ion-col>
+        <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-text>Datos del cliente:</ion-text>
+        </ion-col>
+        <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-text>{{pedido.datosClienteVista}}</ion-text>
+        </ion-col>
         <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
           <ion-text>Datos del domicilio del cliente:</ion-text>
         </ion-col>
         <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
           <ion-text [innerHTML]="pedido.datosDomicilioCliente"></ion-text>
         </ion-col>
-<!--      } -->
-      <ion-col size="12"></ion-col>
-      <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>Detalle del pedido:</ion-text>
-      </ion-col>
-      <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text [innerHTML]="pedido.detallePedido"></ion-text>
-      </ion-col>
-<!--      @if (pedido.instruccionesEspeciales !== '') { -->
-        <ion-col size="12"></ion-col>
+        <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-text>Detalle del pedido:</ion-text>
+        </ion-col>
+        <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-text [innerHTML]="pedido.detallePedido"></ion-text>
+        </ion-col>
         <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
           <ion-text>Instrucciones especiales:</ion-text>
         </ion-col>
         <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
           <ion-text [innerHTML]="pedido.instruccionesEspeciales"></ion-text>
         </ion-col>
-<!--      }-->
-<!--      @if (pedido.promocionesAplicadas !== 'Pendiente de aplicar las promociones'
-      && pedido.promocionesAplicadas !== '') {-->
-        <ion-col size="12"></ion-col>
         <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
           <ion-text>Promociones aplicadas:</ion-text>
         </ion-col>
         <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
           <ion-text [innerHTML]="pedido.promocionesAplicadas"></ion-text>
         </ion-col>
-<!--      } -->
-      <ion-col size="12"></ion-col>
-      <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>Monto:</ion-text>
-      </ion-col>
-      <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>{{pedido.montoTotal}}</ion-text>
-      </ion-col>
-      <ion-col size="12"></ion-col>
-      <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>Tipo de pago:</ion-text>
-      </ion-col>
-      <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>{{pedido.tipoPago}}</ion-text>
-      </ion-col>
-      <ion-col size="12"></ion-col>
-      <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>Modalidad de entrega:</ion-text>
-      </ion-col>
-      <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-text>{{pedido.modalidadEntrega}}</ion-text>
-      </ion-col>
-
-      <!--ion-col size="12"></!--ion-col>
-      <ion-col-- class="boton" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-button
-        type="button"
-        expand="small" (click)="onSubmit()">
-        {{textoBoton}}
-        </ion-button>
-      </ion-col-->
-
-      <ion-col sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-input
-          type="password"
-          maxlength="3"
-          label="Nip" label-placement="floating"
-          fill="outline" placeholder="Introduzca su nip"
-          (ionInput)="onChangeNip($event)">
-        </ion-input>
-      </ion-col>
-      <ion-col size="12"></ion-col>
-      <ion-col class="boton" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-        <ion-button
-          type="button"
-          expand="small"
-          (click)="onSubmit()"
-          [disabled]="!isButtonEnabled">
-          {{textoBoton}}
-        </ion-button>
-      </ion-col>
-
-    </ion-row>
-  </ion-grid>
+        <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-text>Monto:</ion-text>
+        </ion-col>
+        <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-text>{{pedido.montoTotalVista}}</ion-text>
+        </ion-col>
+        <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-text>Tipo de pago:</ion-text>
+        </ion-col>
+        <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-text>{{pedido.tipoPagoVista}}</ion-text>
+        </ion-col>
+        <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-text>Modalidad de entrega:</ion-text>
+        </ion-col>
+        <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-text>{{pedido.modalidadEntregaVista}}</ion-text>
+        </ion-col>
+        <ion-col class="nip" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-input
+            type="password" label="Nip" label-placement="floating"
+            placeholder="Introduzca su nip"
+            fill="outline" formControlName="nip"
+            maxlength="3">
+          </ion-input>
+        </ion-col>
+        <ion-col class="nip" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+          <ion-button
+            type="submit"
+            [disabled]="!nipForma.valid"
+            expand="small">
+            {{textoBoton}}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>

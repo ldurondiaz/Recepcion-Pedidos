@@ -238,6 +238,7 @@ const insertaPedido = (request, response) => {
 
 const leeListaPedidos  = (request, response) => {
     const claveSucursal = request.params.claveSucursal;
+    const estatusAP = 'AP';
     pool.query(
         'SELECT id_pedido as "idPedido", numero_pedido as "numeroPedido", id_cliente as "idCliente", '
         + 'datos_cliente as "datosCliente", id_domicilio_cliente as "idDomicilioCliente", '
@@ -251,8 +252,9 @@ const leeListaPedidos  = (request, response) => {
         + 'url_recibo_pago as "urlReciboPago" '
         + 'FROM pedido.pedido '
         + 'WHERE clave_sucursal = $1 '
+        + 'AND estatus <> $2 '
         + 'ORDER BY fecha_hora;',
-        [claveSucursal],
+        [claveSucursal, estatusAP],
         (error, results) => {
             if (error) {
                 throw error;

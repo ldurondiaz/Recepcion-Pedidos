@@ -53,11 +53,17 @@ export const environment = {
   moduloEmpleados: 'Empleados',
   //Constantes estatus pedido
   estatusNubePedido: "NP",
+  estatusNubePedidoTexto: "Pedido en la nube",
   estatusRecibePedido: "RP",
+  estatusRecibePedidoTexto: "Pedido recibido",
   estatusCapturaPedido: "CP",
+  estatusCapturaPedidoTexto: "Pedido capturado",
   estatusEnviaPedido: "EP",
+  estatusEnviaPedidoTexto: "Pedido enviado",
   estatusListoPedido: "LP",
+  estatusListoPedidoTexto: "Pedido listo para pasar por el",
   estatusAtendidoPedido:"AP",
+  estatusAtendidoPedidoTexto:"Pedido atendido",
   //Constantes texto botón de la página pedido detalle
   textoBotonCapturaPedido: "Pasar a pedidos capturados",
   textoBotonEnviaPedido: "Pasar a pedidos enviados",
@@ -65,9 +71,12 @@ export const environment = {
   textoBotonAtendidoPedido: "Pasar a pedidos atendidos",
   //Constantes tipo de pago
   pagoEnLinea: 'PL',
+  pagoEnLineaTexto: 'Pago en línea',
   //Constantes modalidad de entrega
   entregaDomicilio: 'ED',
+  entregaDomicilioTexto: 'Entrega en domicilio',
   entregaSucursal: 'ES',
+  entregaSucursalTexto: 'Entrega en sucursal',
 };
 
 /*

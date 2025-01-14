@@ -7,24 +7,25 @@ ion-grid {
     border: 1px solid var(--ion-color-pedido-border);
     border-radius: 0.25rem 0.25rem 0 0;
   }
+
   .tabulador {
     padding-left: 0.75rem;
     color: var(--ion-color-text-pedido);
     border: 1px solid var(--ion-color-pedido-border);
     border-radius: 0 0 0.25rem 0.25rem;
   }
+
+  ion-button {
+    --background: var(--ion-color-tertiary);
+    --color: var(--ion-color-tertiary-contrast);
+  }
+
+  ion-input {
+    width: 25%; /* Ajusta el ancho según tus necesidades */
+    margin: 0 auto; /* Centra el input si es necesario */
+  }
+  .nip {
+    text-align: center;
+  }
 }
 
-.boton {
-  text-align: center;
-}
-
-ion-button {
-  --background: var(--ion-color-tertiary);
-  --color: var(--ion-color-tertiary-contrast);
-}
-
-ion-input {
-  width: 25%; /* Ajusta el ancho según tus necesidades */
-  margin: 0 auto; /* Centra el input si es necesario */
-}

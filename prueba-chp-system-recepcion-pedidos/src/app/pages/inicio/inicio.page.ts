@@ -57,11 +57,11 @@ export class InicioPage implements OnInit {
         this.sucursal = response;
         console.log('Sucursal next (inicio)--->', this.sucursal);
         if (this.sucursal) {
+          this.sucursal.nombreSucursal = this.sucursal.nombre.replace('Cheese Pizza',' - Sucursal ');
           this.administrador.setSucursal(this.sucursal);
         }
           await new Promise((f) => setTimeout(f, 1000));
           this.router.navigateByUrl(environment.paginaMenu);
-        //}
       },
       error: (error: any) => {
         console.log('Ocurrió un error al leer la sucursal:');

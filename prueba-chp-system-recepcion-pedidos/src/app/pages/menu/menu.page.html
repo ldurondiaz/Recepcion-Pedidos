@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Cheese Pizza Recepción de Pedidos
+    <ion-title>Cheese Pizza Recepción de Pedidos Móviles {{ sucursal?.nombreSucursal }}
       <label>(Menú Principal)</label>
       <app-reloj></app-reloj>
     </ion-title>
@@ -20,9 +20,8 @@
         </ion-col>
         <ion-col size-sm="12" size-md="8" size-lg="9" size-xl="9" size="12">
           <strong class="titulo"> Módulos de Recepción de Pedidos </strong>
-          <br /><br />
           <!--strong class="subtitulo">{{ sucursal?.nombre || 'Cargando...' }}</!strong-->
-          <strong class="subtitulo">{{ sucursal?.nombre || '' }}</strong>
+          <!--strong class="subtitulo">{{ sucursal?.nombre || '' }}</!--strong-->
         </ion-col>
       </ion-row>
       <ion-row>

@@ -50,6 +50,18 @@ ion-grid {
   }
 }
 
+.cards-content {
+  background-color: var(--ion-color-pedido-tint);
+  padding: 0.10rem 0 0.10rem 0;
+  max-height: 30.00rem;
+  overflow-y: auto;
+}
+
+ion-card {
+  cursor: pointer;
+  background-color: var(--ion-color-pedido-shade);
+}
+
 ion-card-title {
   padding-bottom: 1.00rem;
   text-align: right;

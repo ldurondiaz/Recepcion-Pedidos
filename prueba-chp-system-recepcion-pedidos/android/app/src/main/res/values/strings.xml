@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">prueba-chp-system-recepcion-pedidos</string>
+    <string name="title_activity_main">prueba-chp-system-recepcion-pedidos</string>
+    <string name="package_name">mx.appixsoftware.recepcionpedidos</string>
+    <string name="custom_url_scheme">mx.appixsoftware.recepcionpedidos</string>
+</resources>

@@ -1,54 +1,3 @@
-/*
-
-  leerPedidosNubeServidor(pedidos: Pedido[] | any) {
-    this.pedidosSvc.leerPedidosNubeServidor(this.sucursal.clave).subscribe({
-      next: (response: any) => {
-        const pedidosAWS = response;
-        console.log('pedidos de AWS->', pedidosAWS);
-        for (let p of pedidosAWS) {
-          let pedido: Pedido = p;
-          pedido.estatus = environment.estatusRecibePedido;
-          pedido.fechaRecibido = Strings.fechaHoraActualAAAAMMDDHHMMSSsss();
-          this.insertaPedidoBDLocal(pedido);
-          pedidos.push(pedido);
-        }
-        this.categorizarPedidos(pedidos);
-      },
-      error: (error: any) => {
-        console.log('Ocurrió un error al leer los pedidos que están en el servidor AWS.');
-        console.log(error);
-      }
-    });
-  }
-
-  insertaPedidoBDLocal(pedido: Pedido) {
-    this.pedidosSvc.insertarPedidoBDLocal(pedido).subscribe({
-      next: (response: any) => {
-        console.log('pedido insertado en la BD local.');
-        this.actualizaPedidoBDServidor(pedido);
-        console.log(response);
-      },
-      error: (error: any) => {
-        console.log('Ocurrió un error al insertar el pedido en la BD local.');
-        console.log(error);
-      }
-    });
-  }
-
-  actualizaPedidoBDServidor(pedido: Pedido) {
-    this.pedidosSvc.actualizarEstatusPedidoNubeServidor(pedido).subscribe({
-      next: (response: any) => {
-        console.log('pedido actualizado en el servidor AWS.');
-        this.leerPedidosPendientesBDLocal();
-      },
-      error: (error: any) => {
-        console.log('Ocurrió un error al actualizar el pedido en el servidor AWS.');
-        console.log(error);
-      }
-    });
-  }
-}*/
-
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Pedido } from '../../model/pedido';
@@ -62,6 +11,7 @@ import { IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent,
   IonAccordionGroup, IonAccordion } from '@ionic/angular/standalone';
 import { RelojComponent } from '../../components/reloj/reloj.component';
 import { ChangeDetectorRef } from '@angular/core';
+import { Strings } from 'src/app/utils/strings';
 
 @Component({
   selector: 'app-pedidos',
@@ -94,15 +44,15 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class PedidosPage implements OnInit, OnDestroy {
   intervalId: any;
+  pedidos: Pedido[] = [];
   pedidosRP: Pedido[] = [];
   pedidosCP: Pedido[] = [];
   pedidosEP: Pedido[] = [];
   pedidosLP: Pedido[] = [];
-
-  sucursal!: Sucursal;
   administrador: Administrador;
-
+  sucursal!: Sucursal;
   pedidoGroups: any[] = [];
+  nombreSucursal: string = '';
 
   constructor(
     private pedidosSvc: PedidosService,
@@ -117,8 +67,7 @@ export class PedidosPage implements OnInit, OnDestroy {
     this.sucursal = this.administrador.getSucursal();
     this.leerPedidosPendientesBDLocal();
     this.intervalId = setInterval(() => {
-      // this.leerPedidosNubeServidor();
-      console.log('luis');
+      this.leerPedidosNubeServidor();
     }, 5000);
   }
 
@@ -138,11 +87,81 @@ export class PedidosPage implements OnInit, OnDestroy {
       next: (response: any) => {
         console.log('pedidos pendientes BD local =====>', response);
         if (response.length > 0) {
-          this.categorizarPedidos(response);
+          let pedidosLocal: Pedido[] = [];
+        for (let pS of response) {
+          let pL = new Pedido(pS.idPedido,pS.numeroPedido,pS.idCliente,pS.datosCliente,
+            pS.idDomicilioCliente, pS.datosDomicilioCliente, pS.claveSucursal,
+            pS.datosSucursal, pS.fechaHora, pS.estatus, pS.modalidadEntrega,
+            pS.montoTotal, pS.detallePedido, pS.instruccionesEspeciales, pS.promocionesAplicadas,
+            pS.tipoPago, pS.cantidadProductos, pS.resumenPedido, pS.urlReciboPago,
+            pS.montoSubtotal, pS.montoDescuento);
+          pedidosLocal.push(pL);
+        }
+          this.categorizarPedidos(pedidosLocal);
         }
       },
       error: (error: any) => {
         console.log('Ocurrió un error al cargar los datos de los pedidos pendientes BD local.');
+        console.log(error);
+      }
+    });
+  }
+
+  leerPedidosNubeServidor() {
+    this.pedidosSvc.leerPedidosNubeServidor(this.sucursal.clave).subscribe({
+      next: (response: any) => {
+        const pedidosAWS = response;
+        console.log('pedidos de AWS->', pedidosAWS);
+        let pedidosLocal: Pedido[] = [];
+        for (let pS of pedidosAWS) {
+          let pL = new Pedido(pS.idPedido,pS.numeroPedido,pS.idCliente,pS.datosCliente,
+            pS.idDomicilioCliente, pS.datosDomicilioCliente, pS.claveSucursal,
+            pS.datosSucursal, pS.fechaHora, pS.estatus, pS.modalidadEntrega,
+            pS.montoTotal, pS.detallePedido, pS.instruccionesEspeciales, pS.promocionesAplicadas,
+            pS.tipoPago, pS.cantidadProductos, pS.resumenPedido, pS.urlReciboPago,
+            pS.montoSubtotal, pS.montoDescuento);
+          pedidosLocal.push(pL);
+        }
+        //for (let p of pedidosAWS) {
+        for (let p of pedidosLocal) {
+          let pedido: Pedido = p;
+          pedido.estatus = environment.estatusRecibePedido;
+          pedido.fechaRecibido = Strings.fechaHoraActualAAAAMMDDHHMMSSsss();
+          this.insertaPedidoBDLocal(pedido);
+        }
+      },
+      error: (error: any) => {
+        console.log('Ocurrió un error al leer los pedidos que están en el servidor AWS.');
+        console.log(error);
+      }
+    });
+  }
+
+  insertaPedidoBDLocal(pedido: Pedido) {
+    this.pedidosSvc.insertarPedidoBDLocal(pedido).subscribe({
+      next: (response: any) => {
+        console.log('pedido insertado en la BD local.');
+        this.actualizaPedidoBDServidor(pedido);
+        console.log(response);
+      },
+      error: (error: any) => {
+        console.log('Ocurrió un error al insertar el pedido en la BD local.');
+        console.log(error);
+      }
+    });
+  }
+
+  actualizaPedidoBDServidor(pedido: Pedido) {
+    this.pedidosSvc.actualizarEstatusPedidoNubeServidor(pedido).subscribe({
+      next: (response: any) => {
+        console.log('pedido actualizado en el servidor AWS.');
+        this.pedidosRP.push(pedido);
+        this.pedidosRP.sort((a, b) => a.numeroPedido - b.numeroPedido);
+        this.cdr.detectChanges();
+        console.log(response);
+      },
+      error: (error: any) => {
+        console.log('Ocurrió un error al actualizar el pedido en el servidor AWS.');
         console.log(error);
       }
     });
@@ -185,5 +204,6 @@ export class PedidosPage implements OnInit, OnDestroy {
   verPedido(pedido: Pedido) {
     this.router.navigateByUrl(environment.paginaPedidoDetalle, { state: { data: pedido } });
   }
+
 }
 
