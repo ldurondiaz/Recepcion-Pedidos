@@ -12,6 +12,11 @@
 </ion-header>
 
 <ion-content>
+  @if(showSpinner){
+    <div class="spinner-container">
+      <ion-spinner name="lines"></ion-spinner>
+    </div>
+  }
   <ion-grid fixed>
     <ion-row>
       @for (group of pedidoGroups; track $index) {
@@ -42,12 +47,14 @@
                     <ion-col sizeXs="12" sizeSm="10" sizeMd="10" sizeLg="10" sizeXl="10">
                       <ion-card-header>
                         <ion-card-title>{{ pedido.fechaHoraVista }}</ion-card-title>
-                        <ion-card-subtitle>{{ pedido.datosClienteVista }}</ion-card-subtitle>
+                        Cliente:
+                        <ion-card-subtitle [innerHTML]="pedido.datosClienteVista"></ion-card-subtitle>
                       </ion-card-header>
                       <ion-card-content>
+                        Resumen:<br/>
                         <ion-label>{{ pedido.resumenPedido }}</ion-label>
-                        <br/>
-                        <ion-label>{{ pedido.modalidadEntregaVista }}</ion-label>
+                        <br/><br/>
+                        <ion-label class="negrita">{{ pedido.modalidadEntregaVista }}</ion-label>
                         <div><strong>{{ pedido.montoTotalVista }}</strong></div>
                       </ion-card-content>
                     </ion-col>

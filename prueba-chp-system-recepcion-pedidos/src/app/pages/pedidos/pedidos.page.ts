@@ -5,7 +5,7 @@ import { PedidosService } from '../../services/pedidos.service';
 import { Sucursal } from '../../model/sucursal';
 import { Administrador } from '../../model/administrador';
 import { environment } from 'src/environments/environment';
-import { IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent,
+import { IonSpinner, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent,
   IonGrid, IonRow, IonCol, IonItem, IonChip, IonLabel, IonText,
   IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent,
   IonAccordionGroup, IonAccordion } from '@ionic/angular/standalone';
@@ -19,6 +19,7 @@ import { Strings } from 'src/app/utils/strings';
   styleUrls: ['./pedidos.page.scss'],
   standalone: true,
   imports: [
+    IonSpinner,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -44,7 +45,7 @@ import { Strings } from 'src/app/utils/strings';
 })
 export class PedidosPage implements OnInit, OnDestroy {
   intervalId: any;
-  pedidos: Pedido[] = [];
+  //pedidos: Pedido[] = [];
   pedidosRP: Pedido[] = [];
   pedidosCP: Pedido[] = [];
   pedidosEP: Pedido[] = [];
@@ -53,6 +54,8 @@ export class PedidosPage implements OnInit, OnDestroy {
   sucursal!: Sucursal;
   pedidoGroups: any[] = [];
   nombreSucursal: string = '';
+
+  showSpinner!: boolean;
 
   constructor(
     private pedidosSvc: PedidosService,
@@ -68,6 +71,7 @@ export class PedidosPage implements OnInit, OnDestroy {
     this.leerPedidosPendientesBDLocal();
     this.intervalId = setInterval(() => {
       this.leerPedidosNubeServidor();
+      this.leerPedidosPendientesBDLocal();
     }, 5000);
   }
 
@@ -83,22 +87,24 @@ export class PedidosPage implements OnInit, OnDestroy {
   }
 
   leerPedidosPendientesBDLocal() {
+    this.showSpinner = false;
     this.pedidosSvc.leerPedidosPendientesBDLocal(this.sucursal.clave).subscribe({
       next: (response: any) => {
         console.log('pedidos pendientes BD local =====>', response);
         if (response.length > 0) {
           let pedidosLocal: Pedido[] = [];
-        for (let pS of response) {
-          let pL = new Pedido(pS.idPedido,pS.numeroPedido,pS.idCliente,pS.datosCliente,
+          for (let pS of response) {
+            let pL = new Pedido(pS.idPedido,pS.numeroPedido,pS.idCliente,pS.datosCliente,
             pS.idDomicilioCliente, pS.datosDomicilioCliente, pS.claveSucursal,
             pS.datosSucursal, pS.fechaHora, pS.estatus, pS.modalidadEntrega,
             pS.montoTotal, pS.detallePedido, pS.instruccionesEspeciales, /*pS.promocionesAplicadas,*/
             pS.tipoPago, pS.cantidadProductos, pS.resumenPedido, pS.urlReciboPago
             /*pS.montoSubtotal, pS.montoDescuento*/);
-          pedidosLocal.push(pL);
-        }
+            pedidosLocal.push(pL);
+          }
           this.categorizarPedidos(pedidosLocal);
         }
+        this.showSpinner = false;
       },
       error: (error: any) => {
         console.log('Ocurrió un error al cargar los datos de los pedidos pendientes BD local.');

@@ -34,26 +34,28 @@
           <ion-text>Datos del cliente:</ion-text>
         </ion-col>
         <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-          <ion-text>{{pedido.datosClienteVista}}</ion-text>
+          <ion-text [innerHTML]="pedido.datosClienteVista"></ion-text>
         </ion-col>
         <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
           <ion-text>Datos del domicilio del cliente:</ion-text>
         </ion-col>
         <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-          <ion-text [innerHTML]="pedido.datosDomicilioCliente"></ion-text>
+          <ion-text [innerHTML]="pedido.datosDomicilioClienteVista"></ion-text>
         </ion-col>
         <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
           <ion-text>Detalle del pedido:</ion-text>
         </ion-col>
         <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-          <ion-text [innerHTML]="pedido.detallePedido"></ion-text>
+          <ion-text [innerHTML]="pedido.detallePedidoVista"></ion-text>
         </ion-col>
-        <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-          <ion-text>Instrucciones especiales:</ion-text>
-        </ion-col>
-        <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
-          <ion-text [innerHTML]="pedido.instruccionesEspeciales"></ion-text>
-        </ion-col>
+        @if(pedido.instruccionesEspeciales !== null) {
+          <ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+            <ion-text>Instrucciones especiales:</ion-text>
+          </ion-col>
+          <ion-col class="tabulador" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
+            <ion-text [innerHTML]="pedido.instruccionesEspeciales"></ion-text>
+          </ion-col>
+        }
         <!--ion-col class="tituloCol" sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="12" sizeXl="12">
           <ion-text>Promociones aplicadas:</ion-text>
         </!ion-col-->

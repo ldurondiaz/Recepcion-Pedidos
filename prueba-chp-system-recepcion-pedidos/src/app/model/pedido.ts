@@ -99,7 +99,33 @@ export class Pedido {
   }
 
   public get datosClienteVista(): string {
-    return this.datosCliente.substring(0, this.datosCliente.indexOf('|'));
+    return this.datosCliente
+      .split('|') // Divide la cadena en partes usando el delimitador
+      .map((item, index) => {
+        if (index === 0) {
+          return `Nombre: ${item}`;
+        } else if (index === 1) {
+          return `Teléfono: ${item}`;
+        }
+        return item; // Para los índices restantes, deja el valor sin cambios
+      })
+      .join('<br>'); // Une las partes con un salto de línea
+  }
+
+  public get datosDomicilioClienteVista(): string {
+    if (this.datosDomicilioCliente !== null) {
+    return this.datosDomicilioCliente
+      .split('|') // Divide la cadena en partes usando el delimitador
+      .join('<br>'); // Une las partes en una sola cadena sin el delimitador
+    } else {
+      return '';
+    }
+  }
+
+  public get detallePedidoVista(): string {
+    return this.detallePedido
+      .split('|') // Divide la cadena en partes usando el delimitador
+      .join('<br>'); // Une las partes en una sola cadena sin el delimitador
   }
 
   public get modalidadEntregaVista(): string {
