@@ -11,6 +11,7 @@ export class Pedido {
   claveSucursal: string;
   datosSucursal: string;
   fechaHora: string;
+  tiempoEspera: string;
   estatus: string;
   modalidadEntrega: string;
   montoTotal: number;
@@ -35,6 +36,9 @@ export class Pedido {
   fechaAtendido!: string;
   idEmpleadoFechaAtendido!: string;
 
+  mostrarDetallesCliente: boolean = false;
+  mostrarDetallesPedido: boolean = false;
+
   constructor(
     idPedido: string,
     numeroPedido: number,
@@ -45,6 +49,7 @@ export class Pedido {
     claveSucursal: string,
     datosSucursal: string,
     fechaHora: string,
+    tiempoEspera: string,
     estatus: string,
     modalidadEntrega: string,
     montoTotal: number,
@@ -67,6 +72,7 @@ export class Pedido {
     this.claveSucursal = claveSucursal;
     this.datosSucursal = datosSucursal;
     this.fechaHora = fechaHora;
+    this.tiempoEspera = tiempoEspera;
     this.estatus = estatus;
     this.modalidadEntrega = modalidadEntrega;
     this.montoTotal = montoTotal;
@@ -86,7 +92,7 @@ export class Pedido {
   }
 
   public get fechaHoraVista(): string {
-    return Strings.dateformatAAAAMMDDToDDMMAAAAHHMMSS(this.fechaHora);
+    return Strings.dateformatAAAAMMDDToDDMMAAAAHHMM(this.fechaHora);
   }
 
   public get montoTotalVista(): string {
@@ -114,7 +120,7 @@ export class Pedido {
 
   public get datosDomicilioClienteVista(): string {
     if (this.datosDomicilioCliente !== null) {
-    return this.datosDomicilioCliente
+    return ('Domicilio: |' + this.datosDomicilioCliente)
       .split('|') // Divide la cadena en partes usando el delimitador
       .join('<br>'); // Une las partes en una sola cadena sin el delimitador
     } else {

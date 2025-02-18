@@ -4,7 +4,7 @@ import { Pedido } from '../../model/pedido';
 import { PedidosService } from '../../services/pedidos.service';
 import { RelojComponent } from '../../components/reloj/reloj.component';
 import { IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent,
-  IonGrid, IonRow, IonCol, IonText, IonButton, IonInput } from '@ionic/angular/standalone';
+  IonGrid, IonRow, IonCol, IonText, IonButton, IonInput, IonIcon } from '@ionic/angular/standalone';
 import { environment } from 'src/environments/environment';
 import { Strings } from 'src/app/utils/strings';
 import { Router } from '@angular/router';
@@ -16,6 +16,8 @@ import { Mensajes } from '../../utils/mensajes';
 import { AlertController } from '@ionic/angular/standalone';
 import { Administrador } from '../../model/administrador';
 import { Sucursal } from '../../model/sucursal';
+import { addIcons } from 'ionicons';
+import { timerOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-pedido-detalle',
@@ -24,7 +26,7 @@ import { Sucursal } from '../../model/sucursal';
   standalone: true,
   imports: [CommonModule, RelojComponent, CommonModule, ReactiveFormsModule,
     IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent,
-    IonGrid, IonRow, IonCol, IonText, IonButton, IonInput
+    IonGrid, IonRow, IonCol, IonText, IonButton, IonInput, IonIcon
   ]
 })
 export class PedidoDetallePage implements OnInit {
@@ -53,7 +55,7 @@ export class PedidoDetallePage implements OnInit {
     let pedidoHistory = history.state.data;
     this.pedido = new Pedido(pedidoHistory.idPedido, pedidoHistory.numeroPedido, pedidoHistory.idCliente, pedidoHistory.datosCliente,
       pedidoHistory.idDomicilioCliente, pedidoHistory.datosDomicilioCliente, pedidoHistory.claveSucursal,
-      pedidoHistory.datosSucursal, pedidoHistory.fechaHora, pedidoHistory.estatus, pedidoHistory.modalidadEntrega,
+      pedidoHistory.datosSucursal, pedidoHistory.fechaHora, pedidoHistory.tiempoEspera, pedidoHistory.estatus, pedidoHistory.modalidadEntrega,
       pedidoHistory.montoTotal, pedidoHistory.detallePedido, pedidoHistory.instruccionesEspeciales, /*pedidoHistory.promocionesAplicadas,*/
       pedidoHistory.tipoPago, pedidoHistory.cantidadProductos, pedidoHistory.resumenPedido, pedidoHistory.urlReciboPago
       /*pedidoHistory.montoSubtotal, pedidoHistory.montoDescuento*/);
@@ -91,39 +93,42 @@ export class PedidoDetallePage implements OnInit {
       this.empleadosSvc.leerEmpleadoPorNip(empleado).subscribe({
         next: async (response: any) => {
           this.empleado = response;
-          console.log('this.empleado nip->', this.empleado.nip);
+          console.log('this.empleado->', this.empleado);
+          //console.log('this.empleado nip->', this.empleado.nip);
           if (this.empleado !== null) {
-          if (this.pedido.estatus === environment.estatusRecibePedido) {
-            this.pedido.estatus = environment.estatusCapturaPedido;
-            this.pedido.fechaCapturado = Strings.fechaHoraActualAAAAMMDDHHMMSSsss();
-            this.pedido.idEmpleadoFechaCapturado = this.empleado.id;
-          } else
-          if (this.pedido.estatus === environment.estatusCapturaPedido
-            && this.pedido.modalidadEntrega === environment.entregaDomicilio) {
-              this.pedido.estatus = environment.estatusEnviaPedido;
-              this.pedido.fechaEnviado = Strings.fechaHoraActualAAAAMMDDHHMMSSsss();
-              this.pedido.idEmpleadoFechaEnviado = this.empleado.id;
-          } else
-          if (this.pedido.estatus === environment.estatusCapturaPedido
-            && this.pedido.modalidadEntrega === environment.entregaSucursal) {
-              this.pedido.estatus = environment.estatusListoPedido;
-              this.pedido.fechaListo = Strings.fechaHoraActualAAAAMMDDHHMMSSsss();
-              this.pedido.idEmpleadoFechaListo = this.empleado.id;
-          } else
-          if (this.pedido.estatus === environment.estatusEnviaPedido
-            || this.pedido.estatus === environment.estatusListoPedido
-          ) {
-            this.pedido.estatus = environment.estatusAtendidoPedido;
-            this.pedido.fechaAtendido = Strings.fechaHoraActualAAAAMMDDHHMMSSsss();
-            this.pedido.idEmpleadoFechaAtendido = this.empleado.id;
+            if (this.pedido.estatus === environment.estatusRecibePedido) {
+              this.pedido.estatus = environment.estatusCapturaPedido;
+              this.pedido.fechaCapturado = Strings.fechaHoraActualAAAAMMDDHHMMSSsss();
+              this.pedido.idEmpleadoFechaCapturado = this.empleado.id;
+            } else
+            if (this.pedido.estatus === environment.estatusCapturaPedido
+              && this.pedido.modalidadEntrega === environment.entregaDomicilio) {
+                this.pedido.estatus = environment.estatusEnviaPedido;
+                this.pedido.fechaEnviado = Strings.fechaHoraActualAAAAMMDDHHMMSSsss();
+                this.pedido.idEmpleadoFechaEnviado = this.empleado.id;
+            } else
+            if (this.pedido.estatus === environment.estatusCapturaPedido
+              && this.pedido.modalidadEntrega === environment.entregaSucursal) {
+                this.pedido.estatus = environment.estatusListoPedido;
+                this.pedido.fechaListo = Strings.fechaHoraActualAAAAMMDDHHMMSSsss();
+                this.pedido.idEmpleadoFechaListo = this.empleado.id;
+            } else
+            if (this.pedido.estatus === environment.estatusEnviaPedido
+              || this.pedido.estatus === environment.estatusListoPedido
+            ) {
+              this.pedido.estatus = environment.estatusAtendidoPedido;
+              this.pedido.fechaAtendido = Strings.fechaHoraActualAAAAMMDDHHMMSSsss();
+              this.pedido.idEmpleadoFechaAtendido = this.empleado.id;
+            }
+            this.actualizaPedidoBDLocal(this.pedido);
+            this.actualizaPedidoBDServidor(this.pedido);
+            await new Promise((f) => setTimeout(f, 500));
+            this.router.navigateByUrl(environment.paginaPedidos);
+            this.router.navigateByUrl(environment.paginaPedidos, { state: { data: this.pedido } });
+          } else {
+            console.log('no existe el empleado');
+            this.mensajeErrorNip();
           }
-          this.actualizaPedidoBDLocal(this.pedido);
-          this.actualizaPedidoBDServidor(this.pedido);
-          await new Promise((f) => setTimeout(f, 500));
-          this.router.navigateByUrl(environment.paginaPedidos);
-        } else {
-          console.log('no existe el empleado');
-        }
         },
         error: (error: any) => {
           console.log('Ocurrió un error al cargar los datos del empleado:');
@@ -136,7 +141,7 @@ export class PedidoDetallePage implements OnInit {
   }
 
   actualizaPedidoBDLocal(pedido: Pedido) {
-    this.pedidosSvc.actualizarEstatusPedidoBDLocal(pedido).subscribe({
+    this.pedidosSvc.actualizarEstatusPedidoBDLocalPedido(pedido).subscribe({
       next: (response: any) => {
         console.log(response);
       },
@@ -159,9 +164,9 @@ export class PedidoDetallePage implements OnInit {
     });
   }
 
-  async mensajeErrorNip() {
-      Mensajes.datosError(this.alertController, 'Datos incorrectos',
-        'El nip es incorrecto', this.nipForma);
-    }
+  mensajeErrorNip() {
+    Mensajes.datosError(this.alertController, 'Datos incorrectos',
+      'El nip es incorrecto', this.nipForma);
+  }
 
 }

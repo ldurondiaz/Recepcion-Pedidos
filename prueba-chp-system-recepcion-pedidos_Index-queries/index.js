@@ -28,7 +28,6 @@ app.get('/empleados', db.leeListaEmpleados);
 app.get('/empleado/:id', db.leeEmpleado);
 app.post('/empleado', db.insertaEmpleado);
 app.put('/empleado', db.actualizaEmpleado);
-//app.delete('/empleado/:id', db.eliminaEmpleado);
 app.put('/empleado-baja', db.eliminaEmpleado);
 app.get('/empleado-nip/:nip', db.leeEmpleadoPorNip);
 
@@ -36,6 +35,9 @@ app.get('/empleado-nip/:nip', db.leeEmpleadoPorNip);
 app.get('/pedidos/sucursal/:claveSucursal', db.leeListaPedidos);
 app.post("/pedido", db.insertaPedido);
 app.put("/pedido", db.actualizaEstatusPedido);
+app.post("/pedido/historial", db.insertaPedidoHistorial);
+app.get('/pedidos/historial/:claveSucursal', db.leeListaPedidosHistorial);
+app.delete('/pedido/:idPedido', db.eliminaPedido);
 
 app.listen(port, () => {
     console.log('API Cheese Pizza Móvil corriendo en el puerto', port);

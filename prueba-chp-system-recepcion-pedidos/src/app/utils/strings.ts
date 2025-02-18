@@ -31,14 +31,25 @@ export class Strings {
     return año + '-' + mes + '-' + dia;
   }
 
-  static dateformatAAAAMMDDToDDMMAAAAHHMMSS(cadena: string) {
+  static dateformatAAAAMMDDToDDMMAAAAHHMM(cadena: string) {
     const año = cadena.substring(0, 4);
     const mes = cadena.substring(4, 6);
     const dia = cadena.substring(6, 8);
-    const hrs = cadena.substring(8, 10);
-    const min = cadena.substring(10, 12);
-    const seg = cadena.substring(12, 14);
-    return dia + '/' + mes + '/' + año + ' ' + hrs + ':' + min + ':' + seg;
+    const horas = cadena.substring(8, 10);
+    const minutos = cadena.substring(10, 12);
+    //const segundos = cadena.substring(12, 14);
+    return dia + '/' + mes + '/' + año + ' ' + horas + ':' + minutos /*+ ':' + segundos*/;
+  }
+
+  static dateformatAAAAMMDDHHMMSSsssToAAAA_MM_DDTHH_MM_SS(cadena: string) {
+    const año = cadena.substring(0, 4);
+    const mes = cadena.substring(4, 6);
+    const dia = cadena.substring(6, 8);
+    const horas = cadena.substring(8, 10);
+    const minutos = cadena.substring(10, 12);
+    const segundos = '00'; //cadena.substring(12, 14);
+//    const milisegundos = cadena.substring(14, 17);
+    return año + '-' + mes + '-' + dia + 'T' + horas + ':' + minutos + ':' + segundos;
   }
 
 }

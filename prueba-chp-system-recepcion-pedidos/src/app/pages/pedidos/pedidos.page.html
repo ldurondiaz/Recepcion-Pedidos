@@ -9,6 +9,9 @@
       <app-reloj></app-reloj>
     </ion-title>
   </ion-toolbar>
+  <ion-toolbar style="margin: 0; padding: 0; --background: #ccc; color: #000">
+    <ion-button slot="end" type="button" expand="small" (click)="historial()">historial</ion-button>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -20,52 +23,94 @@
   <ion-grid fixed>
     <ion-row>
       @for (group of pedidoGroups; track $index) {
-      <ion-col [sizeXs]="12" [sizeSm]="12" [sizeMd]="6" [sizeLg]="6" [sizeXl]="6">
-        <ion-accordion-group
-        [value]="group.pedidos.length > 0 ? group.value : ''"
-        [disabled]="group.pedidos.length === 0">
-          <ion-accordion [value]="group.value" toggleIconSlot="end">
-            <ion-item slot="header">
-              <ion-chip>
-                <ion-label>
-                  {{ group.title }}
-                  @if (group.pedidos.length > 0) {
-                    <span>({{ group.pedidos.length }})</span>
-                    <p>{{ group.subtitle }}</p>
-                  }
-                </ion-label>
-              </ion-chip>
-            </ion-item>
-            <div class="cards-content" slot="content">
-              @for (pedido of group.pedidos; track $index) {
-              <ion-card (click)="verPedido(pedido)">
+        <ion-col [sizeXs]="12" [sizeSm]="12" [sizeMd]="6" [sizeLg]="6" [sizeXl]="6">
+          <ion-accordion-group
+          [value]="group.pedidos.length > 0 ? group.value : ''"
+          [disabled]="group.pedidos.length === 0">
+            <ion-accordion [value]="group.value" toggleIconSlot="end">
+              <ion-item slot="header">
+                <ion-chip>
+                  <ion-label>
+                    {{group.title}}
+                    @if (group.pedidos.length > 0) {
+                      <span>({{group.pedidos.length}})</span>
+                    }
+                    <p>{{group.subtitle}}</p>
+                  </ion-label>
+                </ion-chip>
+              </ion-item>
+              <div class="contenido-cards" slot="content">
                 <ion-grid fixed>
                   <ion-row>
-                    <ion-col sizeXs="12" sizeSm="2" sizeMd="2" sizeLg="2" sizeXl="2">
-                      <ion-text>{{ pedido.numeroPedidoVista }}</ion-text>
-                    </ion-col>
-                    <ion-col sizeXs="12" sizeSm="10" sizeMd="10" sizeLg="10" sizeXl="10">
-                      <ion-card-header>
-                        <ion-card-title>{{ pedido.fechaHoraVista }}</ion-card-title>
-                        Cliente:
-                        <ion-card-subtitle [innerHTML]="pedido.datosClienteVista"></ion-card-subtitle>
-                      </ion-card-header>
-                      <ion-card-content>
-                        Resumen:<br/>
-                        <ion-label>{{ pedido.resumenPedido }}</ion-label>
-                        <br/><br/>
-                        <ion-label class="negrita">{{ pedido.modalidadEntregaVista }}</ion-label>
-                        <div><strong>{{ pedido.montoTotalVista }}</strong></div>
-                      </ion-card-content>
-                    </ion-col>
+                    @for (pedido of group.pedidos; track $index) {
+                      <ion-col sizeXs="12" sizeSm="12" sizeMd="12" sizeLg="6" sizeXl="6">
+                        <!--ion-card class="pedido-card" (click)="verPedido(pedido)"-->
+                        <ion-card class="pedido-card">
+                          <ion-card-header>
+                            <ion-card-title>{{ pedido.numeroPedidoVista }}</ion-card-title>
+                            <ion-card-subtitle>
+                              {{pedido.fechaHoraVista}}
+                              <br/><br/>
+                              <ion-icon name="timer-outline"></ion-icon>
+                              {{pedido.tiempoEspera}}
+                            </ion-card-subtitle>
+                          </ion-card-header>
+                          <ion-card-content>
+                            <!--div class="cliente-info">
+                              <h3>Datos del Cliente</h3>
+                              <p [innerHTML]="pedido.datosClienteVista"></p>
+                              <p [innerHTML]="pedido.datosDomicilioClienteVista"></p>
+                            </!div-->
+                            <div class="cliente-info">
+                              <h3 (click)="toggleDetalles('cliente', pedido, $event)">
+                                <ion-icon style="color:#000;" [name]="pedido.mostrarDetallesCliente ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
+                                Datos del Cliente
+                              </h3>
+                              <p [innerHTML]="pedido.datosClienteVista"></p>
+                              @if(pedido.mostrarDetallesCliente){
+                                <p [innerHTML]="pedido.datosDomicilioClienteVista"></p>
+                              }
+                            </div>
+                            <div class="resumen-pedido">
+                              <h3 (click)="toggleDetalles('pedido', pedido, $event)">
+                                <ion-icon style="color:#000;" [name]="pedido.mostrarDetallesPedido ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
+                                @if(pedido.mostrarDetallesPedido){ Detalle del Pedido} @else { Resumen del Pedido}
+                              </h3>
+                              @if(pedido.mostrarDetallesPedido){
+                                <p [innerHTML]="pedido.detallePedidoVista"></p>
+                                @if(pedido.instruccionesEspeciales !== null) {
+                                  <p style="color: #888; font-style: italic;">Instrucciones Especiales:</p>
+                                  <p [innerHTML]="pedido.instruccionesEspeciales"></p>
+                                }
+                              } @else {
+                                <p>{{ pedido.resumenPedido }}</p>
+                              }
+                            </div>
+                            <div class="modalidad-entrega">
+                              <p>{{ pedido.modalidadEntregaVista }}</p>
+                            </div>
+                            <div class="monto-total">
+                              <h2>{{ pedido.montoTotalVista }}</h2>
+                            </div>
+                          </ion-card-content>
+                          <div style="text-align: right;">
+                            <ion-button style="font-size:0.6rem; font-weight: bold; --color: #900; --background: transparent !important;" expand="small" (click)="cambiarEstatus(pedido);">
+                              @if(pedido.estatus === 'RP'){Pasar a pedidos capturados}
+                              @if(pedido.estatus === 'CP' && pedido.modalidadEntrega === 'ED') {Pasar a pedidos enviados}
+                              @if(pedido.estatus === 'CP' && pedido.modalidadEntrega === 'ES') {Pasar a pedidos listos}
+                              @if(pedido.estatus === 'EP' || pedido.estatus === 'LP') {Pasar a pedidos atendidos}
+                              <ion-icon name="arrow-redo"></ion-icon>
+                            </ion-button>
+                          </div>
+                        </ion-card>
+                      </ion-col>
+                    }
                   </ion-row>
                 </ion-grid>
-              </ion-card>
-              }
-            </div>
-          </ion-accordion>
-        </ion-accordion-group>
-      </ion-col>
+              </div>
+            </ion-accordion>
+          </ion-accordion-group>
+        </ion-col>
       }
     </ion-row>
   </ion-grid>

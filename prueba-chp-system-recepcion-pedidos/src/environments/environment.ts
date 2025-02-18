@@ -40,6 +40,7 @@ export const environment = {
   paginaConfiguracion: '/configuracion',
   paginaEmpleados: '/empleados',
   paginaLogin: '/login',
+  paginaHistorial: 'historial',
   //Constantes movimientos empleados
   agregarEmpleado: 'Agregar Empleado',
   editarEmpleado: 'Editar Empleado',

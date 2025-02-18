@@ -195,36 +195,30 @@ const leeEmpleadoPorNip = (request, response) => {
 }
 
 const insertaPedido = (request, response) => {
-    console.log('en el endpoint getPedidosBySucursal falta considerar los campos:');
-    console.log('monto_subtotal -> montoSubtotal y monto_descuento -> montoDescuento');
     const {idPedido, numeroPedido, idCliente, datosCliente, idDomicilioCliente,
         datosDomicilioCliente, claveSucursal, datosSucursal, fechaHora, estatus,
-        modalidadEntrega, montoTotal, detallePedido, instruccionesEspeciales, promocionesAplicadas,
-        tipoPago, cantidadProductos, resumenPedido, urlReciboPago, montoSubtotal,
-        montoDescuento, fechaRecibido
+        modalidadEntrega, montoTotal, detallePedido, instruccionesEspeciales, tipoPago, 
+        cantidadProductos, resumenPedido, urlReciboPago, fechaRecibido
     } = request.body;
     pool.query(
         'INSERT INTO pedido.pedido '
         + '('
         + 'id_pedido, numero_pedido, id_cliente, datos_cliente, id_domicilio_cliente, '
         + 'datos_domicilio_cliente, clave_sucursal, datos_sucursal, fecha_hora, estatus, '
-        + 'modalidad_entrega, monto_total, detalle_pedido, instrucciones_especiales, promociones_aplicadas, '
-        + 'tipo_pago, cantidad_productos, resumen_pedido, url_recibo_pago, monto_subtotal, '
-        + 'monto_descuento, fecha_recibido'
+        + 'modalidad_entrega, monto_total, detalle_pedido, instrucciones_especiales, tipo_pago, '
+        + 'cantidad_productos, resumen_pedido, url_recibo_pago, fecha_recibido'
         + ') '
         + 'VALUES '
         + '('
         + '$1, $2, $3, $4, $5, '
         + '$6, $7, $8, $9, $10, '
         + '$11, $12, $13, $14, $15, '
-        + '$16, $17, $18, $19, $20, '
-        + '$21, $22'
+        + '$16, $17, $18, $19'
         + ') RETURNING *;',
         [idPedido, numeroPedido, idCliente, datosCliente, idDomicilioCliente,
             datosDomicilioCliente, claveSucursal, datosSucursal, fechaHora, estatus,
-            modalidadEntrega, montoTotal, detallePedido, instruccionesEspeciales, promocionesAplicadas,
-            tipoPago, cantidadProductos, resumenPedido, urlReciboPago, montoSubtotal,
-            montoDescuento, fechaRecibido
+            modalidadEntrega, montoTotal, detallePedido, instruccionesEspeciales, tipoPago, 
+            cantidadProductos, resumenPedido, urlReciboPago, fechaRecibido
         ],
         (error, results) => {
             if (error) {
@@ -247,7 +241,7 @@ const leeListaPedidos  = (request, response) => {
         + 'modalidad_entrega as "modalidadEntrega", '
         + 'monto_total as "montoTotal", '
         + 'detalle_pedido as "detallePedido", instrucciones_especiales as "instruccionesEspeciales", '
-        + 'promociones_aplicadas as "promocionesAplicadas", tipo_pago as "tipoPago", '
+        + 'tipo_pago as "tipoPago", '
         + 'cantidad_productos as "cantidadProductos", resumen_pedido as "resumenPedido", '
         + 'url_recibo_pago as "urlReciboPago" '
         + 'FROM pedido.pedido '
@@ -268,7 +262,7 @@ const leeListaPedidos  = (request, response) => {
 }
 
 const actualizaEstatusPedido = (request, response) => {
-    const { idPedido, estatus, modalidadEntrega, 
+    const { idPedido, estatus, 
         fechaCapturado, idEmpleadoFechaCapturado, fechaEnviado, idEmpleadoFechaEnviado,
         fechaListo, idEmpleadoFechaListo, fechaAtendido, idEmpleadoFechaAtendido
     } = request.body;
@@ -304,6 +298,98 @@ const actualizaEstatusPedido = (request, response) => {
     );
 }
 
+const insertaPedidoHistorial = (request, response) => {
+    const {idPedido, numeroPedido, idCliente, datosCliente, idDomicilioCliente,
+        datosDomicilioCliente, claveSucursal, datosSucursal, fechaHora, estatus,
+        modalidadEntrega, montoTotal, detallePedido, instruccionesEspeciales, tipoPago, 
+        cantidadProductos, resumenPedido, urlReciboPago, chat, fechaRecibido,
+        fechaCapturado, idEmpleadoFechaCapturado, fechaEnviado, idEmpleadoFechaEnviado, fechaListo,
+        idEmpleadoFechaListo, fechaAtendido, idEmpleadoFechaAtendido
+    } = request.body;
+    pool.query(
+        'INSERT INTO pedido.historial '
+        + '('
+        + 'id_pedido, numero_pedido, id_cliente, datos_cliente, id_domicilio_cliente, '
+        + 'datos_domicilio_cliente, clave_sucursal, datos_sucursal, fecha_hora, estatus, '
+        + 'modalidad_entrega, monto_total, detalle_pedido, instrucciones_especiales, tipo_pago, '
+        + 'cantidad_productos, resumen_pedido, url_recibo_pago, chat, fecha_recibido, '
+        + 'fecha_capturado, id_empleado_fecha_capturado, fecha_enviado, id_empleado_fecha_enviado, fecha_listo, '
+        + 'id_empleado_fecha_listo, fecha_atendido, id_empleado_fecha_atendido'
+        + ') '
+        + 'VALUES '
+        + '('
+        + '$1, $2, $3, $4, $5, '
+        + '$6, $7, $8, $9, $10, '
+        + '$11, $12, $13, $14, $15, '
+        + '$16, $17, $18, $19, $20, '
+        + '$21, $22, $23, $24, $25, '
+        + '$26, $27, $28'
+        + ') RETURNING *;',
+        [idPedido, numeroPedido, idCliente, datosCliente, idDomicilioCliente,
+            datosDomicilioCliente, claveSucursal, datosSucursal, fechaHora, estatus,
+            modalidadEntrega, montoTotal, detallePedido, instruccionesEspeciales, tipoPago, 
+            cantidadProductos, resumenPedido, urlReciboPago, chat, fechaRecibido,
+            fechaCapturado, idEmpleadoFechaCapturado, fechaEnviado, idEmpleadoFechaEnviado, fechaListo,
+            idEmpleadoFechaListo, fechaAtendido, idEmpleadoFechaAtendido
+        ],
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            textoRespuesta = '{"respuesta": "Se insertó un pedido nuevo en el historial: ' + results.rows[0].id_pedido + '"}';
+            response.status(201).json(JSON.parse(textoRespuesta));
+        }
+    );
+}
+
+const leeListaPedidosHistorial  = (request, response) => {
+    const claveSucursal = request.params.claveSucursal;
+    pool.query(
+        'SELECT id_pedido as "idPedido", numero_pedido as "numeroPedido", id_cliente as "idCliente", '
+        + 'datos_cliente as "datosCliente", id_domicilio_cliente as "idDomicilioCliente", '
+        + 'datos_domicilio_cliente as "datosDomicilioCliente", clave_sucursal as "claveSucursal", '
+        + 'datos_sucursal as "datosSucursal", fecha_hora as "fechaHora", estatus, '
+        + 'modalidad_entrega as "modalidadEntrega", '
+        + 'monto_total as "montoTotal", '
+        + 'detalle_pedido as "detallePedido", instrucciones_especiales as "instruccionesEspeciales", '
+        + 'tipo_pago as "tipoPago", '
+        + 'cantidad_productos as "cantidadProductos", resumen_pedido as "resumenPedido", '
+        + 'url_recibo_pago as "urlReciboPago" '
+        + 'FROM pedido.pedido '
+        + 'WHERE clave_sucursal = $1 '
+        + 'ORDER BY fecha_hora;',
+        [claveSucursal, estatusAP],
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            results.rows.forEach((element) => {
+                element.montoTotal = Number(element.montoTotal);
+            });
+            response.status(200).json(results.rows);
+        }
+    );
+}
+
+const eliminaPedido = (request, response) => {
+    const idPedido = request.params.idPedido;
+    console.log('borrará el id_pedido:', idPedido)
+    pool.query(
+        'DELETE '
+        + 'FROM pedido.pedido '
+        + 'WHERE id_pedido = $1;',
+        [idPedido],
+        (error, results) => {
+            if (error) {
+                throw error
+            }
+            textoRespuesta = '{"respuesta": "Se eliminó ' + results.rowCount + ' pedido: ' + idPedido + '"}';
+            response.status(201).json(JSON.parse(textoRespuesta));
+        }
+    )
+}
+
+
 module.exports = {
     leeConfiguracionSucursal,
     leeConfiguracionUsuario,
@@ -317,5 +403,8 @@ module.exports = {
     leeEmpleadoPorNip,
     insertaPedido,
     leeListaPedidos,
-    actualizaEstatusPedido
+    actualizaEstatusPedido,
+    insertaPedidoHistorial,
+    leeListaPedidosHistorial,
+    eliminaPedido
 }

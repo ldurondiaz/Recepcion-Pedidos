@@ -1,3 +1,7 @@
+:root {
+  font-size: 16px; /* Base para rem */
+}
+
 ion-accordion.accordion-expanding,
 ion-accordion.accordion-expanded {
 //  width: calc(100% - 32px);
@@ -8,24 +12,28 @@ ion-accordion.accordion-expanded {
 
 ion-accordion.accordion-collapsing ion-item[slot='header'],
 ion-accordion.accordion-collapsed ion-item[slot='header'] {
-  --background: var(--ion-background-color-accordion-collapsed);
-  --color: var(--ion-color-accordion);
+  --background: #fff;
+  --color: #000;
   ion-label {
-    color: var(--ion-color-accordion);
+    color: #000;
     font-weight: bold;
+    font-size: 1.25rem;
+    p { color: #000;}
   }
 }
 
 ion-accordion.accordion-expanding ion-item[slot='header'],
 ion-accordion.accordion-expanded ion-item[slot='header'] {
-  --background: var(--ion-background-color-accordion-expanding);
-  --color: var(--ion-color-accordion);
+  --background: #000;
+  --color: #fff;
   ion-label {
-    color: var(--ion-color-accordion);
+    color: #fff;
     font-weight: bold;
+    font-size: 1.25rem;
+    p { color: #fff;}
   }
 }
-
+/*
 ion-chip {
   width: 100%;
   display: flex;
@@ -36,7 +44,7 @@ ion-chip {
   align-items: center;
   font-weight:bold;
   p {
-    font-size: 0.70rem;
+    font-size: 0.85rem;
     color: var(--ion-color-p);
   }
 }
@@ -107,4 +115,85 @@ ion-card-content {
     height: 5.00rem;
     color: var(--ion-color-primary);
   }
+}*/
+
+
+
+
+
+.contenido-cards {
+  background-color: #666;
+  //padding: 0.10rem 0 0.10rem 0;
+  max-height: 30.00rem;
+  overflow-y: auto;
 }
+
+
+.pedido-card {
+  border-radius: 3px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #aaa, #fff);
+  //cursor: pointer;
+}
+
+ion-card-header {
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+ion-card-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #000;
+}
+
+ion-card-subtitle {
+  text-align: right;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #000;
+}
+
+.cliente-info,
+.resumen-pedido,
+.modalidad-entrega {
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 3px;
+  background-color: #f1f1f1;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cliente-info h3,
+.resumen-pedido h3,
+.modalidad-entrega h3 {
+  font-size: 1.00rem;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.cliente-info p,
+.resumen-pedido p,
+.modalidad-entrega p {
+  margin: 5px 0;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #000;
+}
+
+.monto-total {
+  text-align: right;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #000;
+}
+
+.monto-total h2 {
+  font-size: 1.00rem;
+  font-weight: bold;
+  margin: 0;
+}
+
